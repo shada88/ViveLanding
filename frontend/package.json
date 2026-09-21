@@ -1,0 +1,33 @@
+{
+  "name": "vive-landing-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fundación Vive con Esperanza — Landing Page Institucional",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.9.0",
+    "date-fns": "^3.6.0",
+    "framer-motion": "^11.3.19",
+    "lucide-react": "^0.417.0",
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.52.0",
+    "sonner": "^1.5.0",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.5",
+    "typescript": "^5.5.4"
+  }
+}

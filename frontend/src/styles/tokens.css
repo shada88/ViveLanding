@@ -1,0 +1,130 @@
+/**
+ * Fundación Vive con Esperanza — Design Tokens
+ * Fuente única de verdad del sistema visual.
+ *
+ * Modo oscuro por defecto (data-theme="dark").
+ * Sin ondas decorativas. Geometría limpia, luz focalizada y calidez humana.
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Superficies / Neutros */
+  --color-surface: #f8fafc;
+  --color-surface-dim: #edf2f7;
+  --color-surface-bright: #ffffff;
+  --color-surface-lowest: #ffffff;
+  --color-surface-low: #f1f5f9;
+  --color-surface-container: #e2e8f0;
+  --color-surface-high: #cbd5e1;
+  --color-surface-highest: #94a3b8;
+  --color-on-surface: #091322;
+  --color-on-surface-variant: #334155;
+  --color-on-surface-muted: #64748b;
+  --color-outline: #94a3b8;
+  --color-outline-variant: #e2e8f0;
+  --color-background: #f8fafc;
+  --color-on-background: #091322;
+
+  /* Marca Primaria */
+  --color-primary: #0284c7;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #38bdf8;
+  --color-on-primary-container: #032030;
+  --color-primary-soft: #e0f2fe;
+
+  /* Paleta Expandida Amigable */
+  --color-hope: #10b981;
+  --color-on-hope: #ffffff;
+  --color-hope-container: #d1fae5;
+  --color-on-hope-container: #064e3b;
+  --color-hope-soft: #ecfdf5;
+
+  --color-accent-warm: #f59e0b;
+  --color-on-accent-warm: #ffffff;
+  --color-accent-warm-container: #fef3c7;
+  --color-on-accent-warm-container: #78350f;
+  --color-accent-warm-soft: #fffbeb;
+
+  /* Vidrio */
+  --glass-bg: rgba(255, 255, 255, 0.85);
+  --glass-border: rgba(255, 255, 255, 0.50);
+  --glass-blur: saturate(180%) blur(16px);
+
+  /* Resplandores Sutiles */
+  --glow-blue: rgba(2, 132, 199, 0.12);
+  --glow-hope: rgba(16, 185, 129, 0.10);
+  --glow-warm: rgba(245, 158, 11, 0.08);
+
+  /* Sombras y Elevación */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.08);
+  --shadow-glow: 0 0 24px var(--glow-blue);
+
+  /* Radios */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Tipografía */
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  /* Superficies Oscuras — Azul Profundo Tirando a Negro */
+  --color-surface: #050b14;
+  --color-surface-dim: #03070d;
+  --color-surface-bright: #132034;
+  --color-surface-lowest: #02050a;
+  --color-surface-low: #09111e;
+  --color-surface-container: #0d1726;
+  --color-surface-high: #142236;
+  --color-surface-highest: #1d2f4a;
+  --color-on-surface: #f0f6fc;
+  --color-on-surface-variant: #94a3b8;
+  --color-on-surface-muted: #64748b;
+  --color-outline: #2a3f5f;
+  --color-outline-variant: #16253b;
+  --color-background: #040810;
+  --color-on-background: #f0f6fc;
+
+  /* Marca Primaria (Azul Cielo Luminoso de Alto Contraste) */
+  --color-primary: #38bdf8;
+  --color-on-primary: #021827;
+  --color-primary-container: #0284c7;
+  --color-on-primary-container: #e0f2fe;
+  --color-primary-soft: #0b2742;
+
+  /* Paleta Expandida Amigable */
+  --color-hope: #34d399;
+  --color-on-hope: #022c22;
+  --color-hope-container: #064e3b;
+  --color-on-hope-container: #a7f3d0;
+  --color-hope-soft: #062922;
+
+  --color-accent-warm: #fbbf24;
+  --color-on-accent-warm: #451a03;
+  --color-accent-warm-container: #78350f;
+  --color-on-accent-warm-container: #fde68a;
+  --color-accent-warm-soft: #2e1c07;
+
+  /* Vidrio Oscuro */
+  --glass-bg: rgba(13, 23, 38, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.08);
+
+  /* Resplandores Sutiles */
+  --glow-blue: rgba(56, 189, 248, 0.16);
+  --glow-hope: rgba(52, 211, 153, 0.14);
+  --glow-warm: rgba(251, 191, 36, 0.12);
+
+  /* Sombras y Elevación Oscuras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.65);
+  --shadow-glow: 0 0 30px var(--glow-blue);
+}
