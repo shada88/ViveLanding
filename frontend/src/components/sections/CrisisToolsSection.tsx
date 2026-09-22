@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Clock, Users, FileText } from 'lucide-react';
+import { Clock, Users, FileText, Download } from 'lucide-react';
 import {
   CANONICAL_CRISIS_TOOLS,
   CRISIS_ROUTES,
@@ -114,9 +114,50 @@ export function CrisisToolsSection() {
                     </dd>
                   </div>
                 </dl>
+
+                {tool.downloadUrl && (
+                  <div className={styles.toolAction}>
+                    <a
+                      href={tool.downloadUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      download
+                      className={styles.downloadButton}
+                      aria-label={`Descargar ficha en PDF: ${tool.title}`}
+                    >
+                      <Download size={14} aria-hidden="true" />
+                      <span>Descargar ficha (PDF)</span>
+                    </a>
+                  </div>
+                )}
               </Reveal>
             ))}
           </div>
+
+          {activeRoute?.downloadUrl && (
+            <Reveal className={styles.routeDownloadBlock}>
+              <div className={styles.routeDownloadContent}>
+                <span className={styles.routeDownloadBadge}>Guía metodológica descargable</span>
+                <h4 className={`h3 ${styles.routeDownloadTitle}`}>
+                  Proceso de preparación para educación sostenible
+                </h4>
+                <p className={styles.routeDownloadDescription}>
+                  Guía completa de trabajo que articula territorio, oficios, innovación y red de
+                  aliados para implementar los procesos en tu comunidad escolar.
+                </p>
+              </div>
+              <a
+                href={activeRoute.downloadUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className={`btn btn--gold ${styles.routeDownloadBtn}`}
+              >
+                <Download size={16} aria-hidden="true" />
+                <span>{activeRoute.downloadLabel || 'Descargar proceso (PDF)'}</span>
+              </a>
+            </Reveal>
+          )}
         </div>
 
         <Reveal className={styles.footnote}>

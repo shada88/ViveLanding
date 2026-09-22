@@ -145,6 +145,87 @@
   flex-shrink: 0;
 }
 
+.toolAction {
+  margin-top: 1.25rem;
+}
+
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tap-min);
+  padding: 0.5rem 1rem;
+  font: var(--font-label-md);
+  color: var(--color-gold);
+  background: var(--color-surface-low);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.downloadButton:hover {
+  background: var(--color-surface-container);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 16px var(--glow-gold);
+  transform: translateY(-1px);
+}
+
+/* ══ Bloque descargable consolidado para Ruta B ══════════════════════════ */
+
+.routeDownloadBlock {
+  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  background: var(--color-surface-low);
+  border: 1px solid var(--color-gold-border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  align-items: flex-start;
+  box-shadow: inset 3px 0 0 var(--color-gold);
+}
+
+.routeDownloadContent {
+  max-width: 60ch;
+}
+
+.routeDownloadBadge {
+  display: inline-block;
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+}
+
+.routeDownloadTitle {
+  color: var(--color-on-surface);
+  margin-bottom: 0.5rem;
+}
+
+.routeDownloadDescription {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+.routeDownloadBtn {
+  flex-shrink: 0;
+}
+
+@media (min-width: 768px) {
+  .routeDownloadBlock {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
 .footnote {
   margin-top: clamp(2rem, 1rem + 2vw, 3rem);
   font: var(--font-body-md);

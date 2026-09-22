@@ -18,6 +18,8 @@ export interface CrisisRoute {
   code: string;
   label: string;
   blurb: string;
+  downloadUrl?: string;
+  downloadLabel?: string;
 }
 
 export const CRISIS_ROUTES: CrisisRoute[] = [
@@ -34,6 +36,8 @@ export const CRISIS_ROUTES: CrisisRoute[] = [
     label: 'Para construir',
     blurb:
       'Procesos sostenidos que convierten un problema del territorio en un proyecto escolar con resultado verificable.',
+    downloadUrl: '/docs/herramientas/proceso-preparacion-educacion-sostenible.pdf',
+    downloadLabel: 'Descargar proceso de preparación (PDF)',
   },
 ];
 
@@ -59,6 +63,7 @@ export const CANONICAL_CRISIS_TOOLS: CrisisTool[] = [
     targetAudience: 'Directores y Docentes',
     description: 'Revisión rápida de aulas, agua, luz, baños, accesos y amenazas del entorno tras un sismo, inundación o emergencia.',
     format: 'Ficha imprimible de 2 páginas con semáforo (Sí / Cuidado / No)',
+    downloadUrl: '/docs/herramientas/evaluacion-estructuras-riesgo.pdf',
   },
   {
     id: 'post-trauma-support',
@@ -69,6 +74,7 @@ export const CANONICAL_CRISIS_TOOLS: CrisisTool[] = [
     targetAudience: 'Docentes y Orientadores',
     description: 'Guía práctica sobre qué decir, qué hacer en el aula y cuándo derivar a salud mental en los primeros días tras una crisis.',
     format: 'Rutinas pedagógicas de 10 minutos',
+    downloadUrl: '/docs/herramientas/apoyo-socioemocional-post-trauma.pdf',
   },
   {
     id: 'violence-and-suicide-protocol',
@@ -79,6 +85,7 @@ export const CANONICAL_CRISIS_TOOLS: CrisisTool[] = [
     targetAudience: 'Directivos, Docentes y Personal de Apoyo',
     description: 'Cómo detectar señales de alerta, a quién notificar en la red institucional y cómo registrar con estricto respeto y confidencialidad.',
     format: 'Cadena de aviso y registro en lenguaje escolar',
+    downloadUrl: '/docs/herramientas/protocolo-violencia-suicidio-adolescente.pdf',
   },
   {
     id: 'emergency-curricula',
@@ -89,6 +96,7 @@ export const CANONICAL_CRISIS_TOOLS: CrisisTool[] = [
     targetAudience: 'Docentes de todos los ciclos',
     description: 'Actividades modulares para continuar los procesos pedagógicos esenciales cuando no hay conectividad estable ni predio habilitado.',
     format: 'Cuadernillos descargables por ciclos y edades',
+    downloadUrl: '/docs/herramientas/curriculos-emergencia-desastres.pdf',
   },
   {
     id: 'allies-network',
