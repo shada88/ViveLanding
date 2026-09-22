@@ -8,7 +8,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "check:tokens": "node scripts/check-tokens.cjs",
+    "check:contrast": "node scripts/check-contrast.cjs",
+    "check": "npm run check:tokens && npm run check:contrast && npx tsc --noEmit"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
