@@ -13,6 +13,8 @@ out/
 dist/
 build/
 *.tsbuildinfo
+# Lo regenera Next en cada arranque; versionarlo solo produce conflictos.
+next-env.d.ts
 
 # Variables de entorno
 .env
@@ -37,7 +39,14 @@ Thumbs.db
 logs/
 *.log
 
-# Archivos de datos locales temporales
-data/*.xlsx
-data/*.csv
-!data/.gitkeep
+# Datos capturados por el formulario. NUNCA al repositorio: contienen nombres,
+# correos y teléfonos de personas reales, y lo que entra a la historia de git
+# se queda ahí aunque después se borre el archivo.
+#
+# El prefijo `**/` NO es decorativo. Un patrón con barra —`data/*.csv`— queda
+# anclado a la carpeta del .gitignore, así que cubría `data/` en la raíz pero
+# dejaba pasar `backend/data/leads.csv`, que es justo donde el repositorio los
+# escribe.
+**/data/*.csv
+**/data/*.xlsx
+!**/data/.gitkeep
