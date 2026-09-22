@@ -1,0 +1,522 @@
+/**
+ * Primitivas compartidas de la experiencia Vive con Esperanza.
+ *
+ * Acá vive SOLO lo que se repite en tres o más secciones: la caja, el ritmo
+ * vertical, la escala tipográfica aplicada, los botones y la luz ambiente.
+ * Todo lo demás pertenece al módulo CSS de su sección.
+ *
+ * Criterio rector: menos interfaz, más experiencia. No hay una clase `.card`
+ * genérica a propósito — una tarjeta genérica repetida veinte veces es lo que
+ * convierte una landing en un panel de control.
+ */
+
+/* ══ Caja y ritmo ═══════════════════════════════════════════════════════ */
+
+.shell {
+  width: 100%;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding-inline: var(--shell-pad);
+}
+
+.shell--narrow {
+  max-width: var(--shell-narrow);
+}
+
+.shell--wide {
+  max-width: 1360px;
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+  /* Sin `overflow: hidden` por defecto: las luces de una sección tienen que
+     poder disolverse en la siguiente. Los bordes duros entre secciones son el
+     anti-patrón número uno de este sistema. */
+}
+
+.section--tight {
+  padding-block: calc(var(--section-y) * 0.6);
+}
+
+/*
+ * Bandas de contraste. Abren y cierran en el fondo de la página, porque un
+ * degradado que termina en un tono distinto al de la sección siguiente deja
+ * una línea recta visible.
+ *
+ * Pero abrir y cerrar en el fondo NO alcanza. Dos degradados LINEALES que se
+ * encuentran —uno bajando a negro, el otro subiendo desde negro— forman un
+ * quiebre de pendiente en el punto de unión, y el ojo lee ese quiebre como un
+ * borde aunque el color sea perfectamente continuo. Es una banda de Mach: la
+ * costura no está en los píxeles, está en la derivada.
+ *
+ * Por eso las rampas llevan paradas intermedias que aproximan una curva suave
+ * en vez de una recta. La pendiente entra y sale de cero de forma gradual y el
+ * quiebre desaparece.
+ */
+.section--ink {
+  background:
+    linear-gradient(
+      180deg,
+      var(--color-background) 0%,
+      color-mix(in srgb, var(--color-ink) 18%, var(--color-background)) 7%,
+      color-mix(in srgb, var(--color-ink) 50%, var(--color-background)) 14%,
+      color-mix(in srgb, var(--color-ink) 82%, var(--color-background)) 21%,
+      var(--color-ink) 28%,
+      var(--color-ink) 72%,
+      color-mix(in srgb, var(--color-ink) 82%, var(--color-background)) 79%,
+      color-mix(in srgb, var(--color-ink) 50%, var(--color-background)) 86%,
+      color-mix(in srgb, var(--color-ink) 18%, var(--color-background)) 93%,
+      var(--color-background) 100%
+    );
+  color: var(--color-on-ink);
+}
+
+.section--sunken {
+  background:
+    linear-gradient(
+      180deg,
+      var(--color-background) 0%,
+      color-mix(in srgb, var(--color-surface-low) 30%, var(--color-background)) 9%,
+      color-mix(in srgb, var(--color-surface-low) 72%, var(--color-background)) 17%,
+      var(--color-surface-low) 26%,
+      var(--color-surface-low) 74%,
+      color-mix(in srgb, var(--color-surface-low) 72%, var(--color-background)) 83%,
+      color-mix(in srgb, var(--color-surface-low) 30%, var(--color-background)) 91%,
+      var(--color-background) 100%
+    );
+}
+
+/*
+ * Respaldo donde no hay `color-mix()`. La rampa vuelve a ser lineal —se ve el
+ * quiebre— pero los tonos siguen siendo correctos. Sin esto, la declaración
+ * entera es inválida y la banda pierde el fondo por completo.
+ */
+@supports not (color: color-mix(in srgb, red 50%, transparent)) {
+  .section--ink {
+    background: linear-gradient(
+      180deg,
+      var(--color-background) 0%,
+      var(--color-ink) 20%,
+      var(--color-ink) 80%,
+      var(--color-background) 100%
+    );
+  }
+
+  .section--sunken {
+    background: linear-gradient(
+      180deg,
+      var(--color-background) 0%,
+      var(--color-surface-low) 22%,
+      var(--color-surface-low) 78%,
+      var(--color-background) 100%
+    );
+  }
+}
+
+/* Filete de pelo: separa sin cortar. Nunca un `border-top` sólido. */
+.hairline {
+  height: 1px;
+  border: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-outline-variant) 22%,
+    var(--color-outline-variant) 78%,
+    transparent 100%
+  );
+}
+
+/* ══ Tipografía aplicada ════════════════════════════════════════════════ */
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-primary);
+  margin-bottom: 1.15rem;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.55;
+  flex-shrink: 0;
+}
+
+.eyebrow--gold {
+  color: var(--color-gold);
+}
+
+.eyebrow--ink {
+  color: var(--color-on-ink-variant);
+}
+
+.display {
+  font: var(--font-display);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+.h2 {
+  font: var(--font-h2);
+  letter-spacing: var(--tracking-tight);
+  text-wrap: balance;
+}
+
+.h3 {
+  font: var(--font-h3);
+  letter-spacing: -0.012em;
+}
+
+.lede {
+  font: var(--font-body-xl);
+  color: var(--color-on-surface-variant);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+.lede--ink {
+  color: var(--color-on-ink-variant);
+}
+
+.prose {
+  font: var(--font-body-lg);
+  color: var(--color-on-surface-variant);
+  max-width: 68ch;
+  text-wrap: pretty;
+}
+
+/*
+ * Texto con degradado de acento. MÁXIMO UNA LÍNEA POR PANTALLA.
+ * Dos lo convierten en decoración de bloque y pierde todo su peso.
+ * Usa `--gradient-accent`, cuyas paradas están verificadas para texto —
+ * los tokens `--net-*` dan 2:1 y vuelven ilegible la última palabra.
+ */
+.accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  /* Si `background-clip: text` no está soportado, el color transparente dejaría
+     el texto invisible. Este fallback lo devuelve a un tono legible. */
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .accent {
+    background: none;
+    color: var(--color-primary);
+    -webkit-text-fill-color: currentColor;
+  }
+}
+
+.gold-text {
+  color: var(--color-gold);
+}
+
+/* ══ Marcas y etiquetas ═════════════════════════════════════════════════ */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  border-radius: var(--radius-full);
+  font: var(--font-caption);
+  letter-spacing: 0.02em;
+  color: var(--color-on-surface-variant);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface-low);
+}
+
+.tag--gold {
+  color: var(--color-gold);
+  border-color: var(--color-gold-border);
+  background: var(--color-gold-soft);
+}
+
+.tag--ink {
+  color: var(--color-on-ink-variant);
+  border-color: var(--on-ink-border);
+  background: var(--on-ink-ghost);
+}
+
+/* Número grande de dato. El dorado significa valor: se reserva para esto. */
+.figure-value {
+  display: block;
+  font: 800 clamp(2rem, 1.4rem + 2.2vw, 3rem) / 1 var(--font-family);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-gold);
+}
+
+.figure-label {
+  display: block;
+  margin-top: 0.6rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 34ch;
+}
+
+/* ══ Botones ════════════════════════════════════════════════════════════ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: var(--tap-min);
+  padding: 0.85rem 1.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  font: var(--font-label-lg);
+  text-align: center;
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    color var(--transition),
+    box-shadow var(--transition),
+    transform var(--transition);
+}
+
+/* CTA público: 56 px de alto táctil mínimo. */
+.btn--lg {
+  min-height: var(--tap-cta);
+  padding: 1rem 2rem;
+  font: var(--font-body-md);
+  font-weight: 600;
+}
+
+.btn--block {
+  width: 100%;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn:disabled,
+.btn[aria-disabled='true'] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn--primary {
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  box-shadow: var(--shadow-primary);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary);
+  box-shadow: var(--shadow-primary-hover);
+}
+
+.btn--gold {
+  background: var(--color-gold);
+  color: var(--color-on-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.btn--gold:hover {
+  background: var(--color-gold-bright);
+  box-shadow: var(--shadow-gold-hover);
+}
+
+.btn--quiet {
+  background: var(--color-surface-low);
+  color: var(--color-on-surface);
+  border-color: var(--color-outline-variant);
+}
+
+.btn--quiet:hover {
+  background: var(--color-surface-container);
+  border-color: var(--color-outline);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--color-on-surface);
+  border-color: var(--color-outline);
+}
+
+.btn--outline:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* Variantes sobre banda oscura: el fondo es oscuro en los DOS temas, así que
+   un velo blanco funciona en ambos y no hace falta redefinirlas. */
+.btn--on-ink {
+  background: var(--on-ink-ghost);
+  color: var(--color-on-ink);
+  border-color: var(--on-ink-border);
+}
+
+.btn--on-ink:hover {
+  background: var(--on-ink-ghost-hover);
+}
+
+/* Enlace de texto con flecha: el CTA terciario del sistema. */
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--tap-min);
+  font: var(--font-label-lg);
+  color: var(--color-primary);
+  transition: gap var(--transition), color var(--transition);
+}
+
+.link-arrow:hover {
+  gap: 0.8rem;
+  color: var(--color-gold);
+}
+
+.link-arrow--gold {
+  color: var(--color-gold);
+}
+
+.link-arrow--gold:hover {
+  color: var(--color-gold-bright);
+}
+
+/* ══ Luz ambiente ═══════════════════════════════════════════════════════ *
+ * Vive a NIVEL DE PÁGINA o de sección completa, nunca confinada dentro de un
+ * hijo: confinada se corta donde termina ese hijo, y esa es la causa más común
+ * de la costura horizontal bajo el header.
+ */
+.ambient {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(120px);
+  opacity: 0.55;
+}
+
+.ambient--blue {
+  background: var(--glow-blue);
+}
+
+.ambient--gold {
+  background: var(--glow-gold);
+}
+
+.ambient--deep {
+  background: var(--glow-deep);
+}
+
+@media (max-width: 720px) {
+  /* Un `blur(120px)` a pantalla completa es de los efectos más caros que hay.
+     En móvil se reduce el radio en vez de multiplicar capas. */
+  .ambient {
+    filter: blur(70px);
+    opacity: 0.45;
+  }
+}
+
+/* ══ Rejillas editoriales ═══════════════════════════════════════════════ *
+ * Deliberadamente pocas y asimétricas. Una rejilla de tarjetas iguales
+ * repetida en cada sección es exactamente el "aspecto de dashboard" que este
+ * rediseño elimina.
+ */
+.split {
+  display: grid;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .split {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .split--lead {
+    grid-template-columns: 1.05fr 0.95fr;
+  }
+
+  .split--aside {
+    grid-template-columns: 1.25fr 0.75fr;
+    align-items: start;
+  }
+}
+
+.stack-sm > * + * {
+  margin-top: 0.75rem;
+}
+
+.stack > * + * {
+  margin-top: 1.5rem;
+}
+
+.stack-lg > * + * {
+  margin-top: 2.5rem;
+}
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  align-items: center;
+}
+
+/* ══ Marco del logo institucional ═══════════════════════════════════════ *
+ * El SVG de Vive con Esperanza trae sus trazos en negro puro (`fill:#000`).
+ * Sobre la superficie oscura del producto sería invisible. No se reescribe el
+ * archivo —es el original de marca— se lo recolorea en la capa de
+ * presentación, que es donde este problema pertenece.
+ */
+.brand-mark {
+  display: block;
+  width: auto;
+  height: auto;
+}
+
+.brand-mark--light {
+  /* `brightness(0)` aplasta el trazo a negro sólido, `invert(1)` lo lleva a
+     blanco puro. La secuencia funciona igual sea cual sea el color de origen. */
+  filter: brightness(0) invert(1);
+}
+
+/*
+ * Teñido al dorado del sistema: negro → blanco → sepia + giro de tono. Es la
+ * única forma de recolorear un SVG con `fill` horneado sin editar el archivo.
+ *
+ * El paso de brillo final es un TOKEN y no un número fijo porque el dorado del
+ * sistema cambia de luminosidad con el tema: `#e6be73` sobre negro, `#8a6520`
+ * sobre blanco. Con un valor fijo el logo quedaba en dorado claro también en
+ * tema claro — es decir, prácticamente invisible sobre la superficie blanca.
+ * El filtro tiene que seguir al token, no adelantarse a un solo tema.
+ */
+.brand-mark--gold {
+  filter: brightness(0) invert(1) sepia(1) saturate(2.4) hue-rotate(347deg)
+    brightness(var(--brand-gold-lift));
+}
+
+:root:not([data-theme='dark']) .brand-mark--light {
+  /* En tema claro el trazo negro original ya es legible: no se toca. */
+  filter: none;
+}
+
+/*
+ * Blanco SIEMPRE, sin importar el tema. Es para los logotipos que viven sobre
+ * la banda `ink`, que es oscura en los dos temas: ahí `--light` no sirve,
+ * porque en tema claro se desactiva y el logo vuelve a su color original
+ * contra un fondo oscuro.
+ *
+ * `brightness(0)` aplasta a negro sólido e `invert(1)` lo lleva a blanco puro.
+ * La secuencia funciona sea cual sea el color de origen, y es la única forma de
+ * recolorear el logotipo de Kaleo: su SVG no tiene `fill` que tocar, es un PNG
+ * incrustado en base64.
+ */
+.brand-mark--on-ink {
+  filter: brightness(0) invert(1);
+}

@@ -1,23 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import './tokens.css';
+@import './landing.css';
 
-*, *::before, *::after {
+/* ── Reset mínimo ──────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-family: var(--font-sans);
-  background-color: var(--color-background);
-  color: var(--color-on-background);
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-family);
+  scroll-behavior: smooth;
+  /* El header es sticky: los anclas de navegación no deben quedar debajo. */
+  scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+html,
+body {
+  max-width: 100vw;
+  /* La composición usa piezas que sangran fuera de la caja (luces, video,
+     mapa). Sin esto cualquiera de ellas genera scroll horizontal en móvil. */
+  overflow-x: hidden;
 }
 
 body {
+  font: var(--font-body-md);
+  color: var(--color-on-background);
+  background: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 a {
@@ -25,6 +41,129 @@ a {
   text-decoration: none;
 }
 
-button, input, select, textarea {
-  font-family: inherit;
+button {
+  font-family: var(--font-family);
+  color: inherit;
+  cursor: pointer;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--font-family);
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+img,
+svg,
+video,
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-on-gold);
+}
+
+/* ── Utilidades de accesibilidad ───────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-sm);
+  top: -100px;
+  z-index: 300;
+  padding: 12px 20px;
+  border-radius: var(--radius);
+  background: var(--color-primary-container);
+  color: var(--color-on-primary-container);
+  font: var(--font-label-lg);
+  transition: top var(--transition);
+}
+
+.skip-link:focus {
+  top: var(--space-sm);
+}
+
+/* ── Sistema de aparición al scroll ──────────────────────────────────────
+ *
+ * UN solo sistema de movimiento para toda la página: opacidad + un
+ * desplazamiento corto, con la misma curva y la misma duración en todos lados.
+ * El escalonado se controla con `--reveal-index`, no inventando una animación
+ * distinta por sección.
+ *
+ * Mejora progresiva estricta: el estado por defecto es VISIBLE. El estado
+ * oculto solo existe cuando `html` tiene la clase `js`, que pone un script
+ * inline en `<head>`. Si el JavaScript no llega, la página se ve entera —
+ * para una fundación, "no cargó el JS" no puede significar "no hay página".
+ */
+html.js [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, var(--reveal-shift), 0);
+  transition:
+    opacity var(--reveal-duration) var(--ease-out-soft),
+    transform var(--reveal-duration) var(--ease-out-soft);
+  transition-delay: calc(var(--reveal-index, 0) * var(--reveal-stagger));
+  will-change: opacity, transform;
+}
+
+html.js [data-reveal='is-visible'] {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* ── Movimiento reducido ───────────────────────────────────────────────── *
+ * Las partículas, el cordón y las ondas son IDENTIDAD, no información: se
+ * congelan en su posición, no desaparecen. Lo que sí desaparece es el
+ * desplazamiento.
+ */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    /*
+     * Sin esto, una animación con `animation-fill-mode: both` y retardo
+     * mantiene su estado inicial —opacity: 0— durante todo el retardo. El
+     * resultado: medio segundo de pantalla en blanco justo para quien pidió
+     * MENOS movimiento. El valor negativo arranca la animación ya terminada.
+     */
+    animation-delay: -1ms !important;
+    transition-duration: 0.001ms !important;
+    transition-delay: 0ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html.js [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
