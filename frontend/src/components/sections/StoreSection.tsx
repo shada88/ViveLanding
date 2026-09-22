@@ -33,10 +33,10 @@ export function StoreSection() {
       <div className="shell">
         <SectionIntro
           step="11"
-          eyebrow="Tienda"
+          eyebrow="Tienda con propósito"
           titleId="tienda-titulo"
-          title="Cada pieza financia algo que se puede nombrar"
-          lede="No vendemos merchandising. Vendemos objetos que salieron del trabajo en territorio y que devuelven al territorio un resultado concreto: una impresión, un kit, un pasaje."
+          title="Cada pieza financia nuestros proyectos"
+          lede="No vendemos objetos decorativos sin sentido: cada compra sostiene directamente el trabajo en las escuelas, financiando la impresión de materiales pedagógicos, kits escolares y el acompañamiento en territorio."
         />
 
         <div className={styles.items}>
