@@ -41,6 +41,7 @@ const COLUMNS = [
       { label: 'Preinscribir escuela', href: '#participar' },
       { label: 'Donar', href: '#participar' },
       { label: 'Tienda por WhatsApp', href: STORE_WHATSAPP_URL, external: true },
+      { label: 'Socios', href: 'https://vivesperanza.org/partnership/', external: true },
       { label: 'Sala de prensa', href: 'https://vivesperanza.org/press/', external: true },
     ],
   },

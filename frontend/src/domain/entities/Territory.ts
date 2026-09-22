@@ -1,33 +1,149 @@
 /**
- * Representación conceptual del continente americano.
+ * El continente americano como RED, no como mapa.
  *
- * NO es un mapa técnico ni pretende serlo: es una silueta de baja resolución
- * cuyo trabajo es sostener la idea de "conexión entre territorios". Por eso los
- * trazos son poligonales y no curvas interpoladas — un contorno facetado se lee
- * como decisión de diseño; un contorno curvo mal trazado se lee como un mapa
- * equivocado.
+ * La silueta viene de `public/americas-source.svg`, un contorno vectorizado con
+ * Baja California, Yucatán, las Antillas, Galápagos y las Malvinas dibujadas.
+ * Reemplazó a un polígono de baja resolución trazado a mano. Lo que NO cambió es
+ * el significado: las líneas entre nodos siguen siendo lo único que la pieza
+ * afirma —que un protocolo probado en un territorio viaja al siguiente— y la
+ * silueta apenas les da escala continental.
  *
- * Sistema de coordenadas del lienzo: viewBox "0 0 100 145".
- * Se derivó de coordenadas geográficas reales con:
- *   x = (lon + 170) / 140 * 100     y = (75 - lat) / 131 * 140
- * Cualquier punto nuevo tiene que pasar por esa misma conversión; agregar uno
- * "a ojo" desalinea el nodo respecto de la silueta.
+ * ── Sistema de coordenadas ─────────────────────────────────────────────────
+ *
+ * El archivo de origen declara un viewBox "0 0 305 350", pero el dibujo ocupa
+ * apenas x∈[57,247] · y∈[27,322]: casi cuatro décimas del ancho son margen
+ * vacío. Servido así, el mapa se encogía hasta la mitad del hueco disponible.
+ * TERRITORY_VIEWBOX recorta ese aire —la caja del contorno más cuatro unidades
+ * de respiro— y deja el continente llenando su columna. Es solo una ventana: el
+ * sistema de coordenadas sigue siendo el del archivo, y por eso los nodos de
+ * abajo no cambian si algún día se ajusta el encuadre.
+ *
+ * Los trazos vienen en décimas de unidad y con el eje Y invertido, de modo que
+ * se dibujan dentro de un <g> con AMERICAS_TRANSFORM. No conviene "arreglar"
+ * eso horneando los números dentro de los paths: se pierde la trazabilidad
+ * contra el archivo original.
+ *
+ * ── Cómo se ubica un nodo (IMPORTANTE) ─────────────────────────────────────
+ *
+ * La versión anterior derivaba cada nodo de una fórmula equirectangular
+ * (`x = (lon + 170) / 140 * 100`). **Esa fórmula ya no aplica y no debe
+ * reintroducirse.** Este contorno es un trazado decorativo, no una proyección
+ * cartográfica: la latitud le resulta casi lineal, pero la longitud no, y las
+ * Antillas están dibujadas unas 15 unidades al oeste de donde caerían por
+ * cálculo. Un nodo calculado con la fórmula aterriza en el mar.
+ *
+ * El procedimiento correcto es EMPÍRICO:
+ *   1. Rasterizar el SVG (sirve Chrome headless: `--headless --screenshot`).
+ *   2. Leer las franjas de tierra de la fila `y` buscada.
+ *   3. Elegir una `x` dentro de la franja del país correcto — no de cualquiera:
+ *      a la altura de Costa Rica el istmo y la costa de Colombia comparten fila,
+ *      así que "cae sobre negro" NO alcanza como verificación.
+ *   4. Confirmar mirando el render con los nodos superpuestos.
+ *
+ * Las trece posiciones de abajo pasaron por ese control.
  */
 
-export const TERRITORY_VIEWBOX = '0 0 100 145';
+export const TERRITORY_VIEWBOX = '53 23 198 304';
 
-/** Norteamérica, Centroamérica y el istmo hasta Panamá. */
-export const NORTH_AMERICA_PATH =
-  'M 1.4 9.6 L 10 4.3 L 32 5.3 L 53.6 16 L 78.6 21.4 L 83.6 28.9 L 75.7 33.1 ' +
-  'L 68.6 37.4 L 66 46 L 64.3 53.4 L 60 50 L 57 49.2 L 58.6 57.7 L 61.4 62 ' +
-  'L 60.7 66.3 L 61.4 69.5 L 65 70.5 L 63.5 68 L 58 63 L 53 59 L 46.4 58.8 ' +
-  'L 39.3 46 L 34.3 40.6 L 32.9 28.9 L 27 21.4 L 21.4 16 L 5.7 18.2 Z';
+/**
+ * Lleva los trazos del archivo de origen —décimas de unidad, eje Y hacia
+ * arriba— al sistema del viewBox.
+ */
+export const AMERICAS_TRANSFORM = 'translate(0,350) scale(0.1,-0.1)';
 
-/** Sudamérica. */
-export const SOUTH_AMERICA_PATH =
-  'M 67.9 67.3 L 77.1 68.4 L 82.1 73.7 L 85.7 80.2 L 96.4 86.6 L 93.6 96.2 ' +
-  'L 90.7 104.7 L 82.9 117.6 L 80 120.8 L 75 131.5 L 73.6 139 L 67.9 133.6 ' +
-  'L 69.3 119.7 L 71.4 101.5 L 66.4 93 L 63.6 82.3 L 66.4 75.9 Z';
+/**
+ * Contorno del continente, en el orden del archivo de origen. Las dos masas
+ * continentales van señaladas con un comentario; los demás trazos son el
+ * Ártico, Groenlandia y las islas. Todos se rellenan igual: acá no hay
+ * jerarquía entre continente e isla.
+ */
+export const AMERICAS_LAND: readonly string[] = [
+  'M2198 3221 c-31 -3 -62 -11 -69 -18 -6 -6 -27 -9 -47 -7 -48 6 -61 -4 -55 -41 5 -30 5 -30 '
+  + '71 -32 36 -1 71 2 78 8 19 16 173 61 252 74 77 13 43 25 -65 24 -60 -1 -134 -5 -165 -8z',
+  // Masa continental norte: Norteamérica, Centroamérica y el istmo hasta Panamá.
+  'M1880 3160 c0 -5 -9 -10 -21 -10 -15 0 -20 -5 -17 -22 2 -19 9 -23 37 -23 19 0 36 -6 38 '
+  + '-12 3 -7 0 -13 -5 -13 -5 0 -19 -9 -32 -20 -23 -20 -40 -26 -40 -14 0 4 8 13 18 20 15 12 '
+  + '14 13 -10 14 -16 0 -28 -5 -28 -11 0 -6 -9 -8 -20 -4 -11 4 -20 2 -20 -4 0 -6 12 -14 26 '
+  + '-17 14 -4 23 -12 20 -19 -2 -7 0 -17 5 -22 7 -7 1 -16 -17 -28 l-27 -17 7 27 c6 23 4 26 -9 '
+  + '21 -9 -3 -19 -6 -21 -6 -2 0 -4 -7 -4 -15 0 -11 -12 -15 -44 -15 -25 0 -48 5 -51 10 -3 6 3 '
+  + '10 15 10 31 0 66 20 51 29 -15 10 -3 41 15 41 8 0 14 5 14 10 0 15 -36 12 -49 -3 -13 -16 '
+  + '-66 -10 -82 9 -26 31 -169 3 -169 -34 0 -13 12 -12 58 5 16 7 15 -18 -2 -42 -12 -16 -17 '
+  + '-17 -42 -6 -31 12 -203 10 -236 -4 -10 -4 -26 -4 -35 0 -20 9 -20 9 -123 24 -49 7 -93 8 '
+  + '-125 2 -46 -8 -117 -4 -242 15 -33 5 -50 1 -82 -17 -23 -12 -41 -26 -41 -30 0 -4 13 -12 30 '
+  + '-18 43 -14 37 -31 -11 -31 -37 0 -40 -2 -28 -16 9 -11 22 -14 41 -10 21 4 28 2 28 -9 0 -8 '
+  + '-6 -15 -13 -15 -7 0 -22 -6 -32 -14 -17 -12 -18 -15 -3 -30 9 -9 21 -16 26 -16 6 0 12 -6 '
+  + '15 -14 4 -9 14 -12 26 -9 24 6 26 0 11 -28 -13 -23 -2 -24 28 -3 12 8 22 24 22 34 0 33 56 '
+  + '47 110 28 74 -26 91 -28 109 -19 15 8 20 7 25 -5 3 -8 2 -13 -3 -10 -9 6 -8 -51 2 -60 3 -3 '
+  + '3 -12 0 -20 -4 -10 3 -14 23 -14 l29 0 -23 -18 c-16 -12 -21 -23 -16 -36 4 -11 2 -21 -6 '
+  + '-26 -9 -6 -9 -13 -1 -28 17 -32 14 -47 -21 -98 -18 -25 -36 -51 -39 -58 -3 -6 -11 -21 -18 '
+  + '-33 -15 -30 -16 -91 -2 -123 13 -32 36 -60 47 -60 13 0 13 -110 0 -110 -6 0 1 -11 16 -25 '
+  + '15 -13 25 -30 23 -38 -3 -7 3 -22 15 -32 25 -23 25 -23 -5 70 -25 75 -27 113 -5 100 5 -3 '
+  + '10 -16 10 -27 0 -12 21 -55 46 -95 35 -57 44 -80 40 -99 -6 -21 0 -32 29 -60 20 -19 48 -37 '
+  + '63 -40 15 -4 33 -11 40 -17 7 -5 27 -7 46 -4 28 4 38 1 62 -24 21 -22 30 -26 41 -17 16 13 '
+  + '63 -7 63 -26 0 -16 41 -39 51 -29 5 5 10 24 13 43 5 44 -20 61 -71 50 -30 -7 -34 -5 -39 17 '
+  + '-4 13 -4 27 0 30 3 4 6 -4 6 -16 0 -12 4 -19 10 -16 6 3 10 15 10 26 0 10 3 19 8 19 4 0 15 '
+  + '14 24 30 l17 30 -39 0 c-35 0 -39 -3 -42 -27 -2 -23 -9 -29 -42 -35 -75 -16 -105 48 -74 '
+  + '156 14 51 22 62 61 81 22 11 44 14 74 9 29 -4 43 -3 43 5 0 7 20 10 56 9 61 -3 76 -15 67 '
+  + '-59 -5 -26 11 -48 25 -34 4 4 7 34 7 67 1 49 5 64 19 72 10 6 32 21 50 34 17 12 39 25 49 '
+  + '28 10 4 17 17 17 31 0 15 7 27 18 30 10 2 26 17 37 34 11 16 27 29 35 29 20 1 45 21 53 43 '
+  + '3 9 19 22 34 28 15 6 41 18 56 26 34 18 49 9 21 -12 -17 -13 -17 -14 -2 -15 9 0 20 5 23 10 '
+  + '3 6 19 10 35 10 19 0 33 7 40 20 10 18 8 19 -20 14 -34 -7 -51 16 -30 41 13 16 9 18 -30 15 '
+  + '-21 -2 -22 0 -11 14 10 11 30 16 71 16 39 0 62 5 70 15 7 8 19 15 26 15 22 0 16 -27 -11 '
+  + '-48 -33 -26 -32 -38 6 -46 62 -12 79 -8 79 19 0 14 -3 25 -7 25 -27 1 -33 17 -18 46 21 41 '
+  + '19 50 -15 74 -25 18 -30 28 -30 61 0 43 -14 50 -53 24 -27 -17 -57 -5 -40 17 20 23 -19 58 '
+  + '-64 58 -33 0 -42 -5 -54 -27 -8 -16 -20 -33 -27 -38 -7 -6 -11 -21 -10 -35 2 -18 -6 -30 '
+  + '-34 -49 -21 -13 -38 -32 -38 -42 0 -10 -9 -23 -20 -29 -16 -8 -21 -6 -31 11 -8 15 -8 24 0 '
+  + '32 18 18 13 27 -13 27 -32 0 -111 61 -111 86 0 14 24 31 97 67 53 27 102 46 108 42 8 -5 5 '
+  + '-12 -7 -22 -17 -13 -16 -14 12 -8 17 3 38 6 48 6 13 0 16 6 11 25 -4 14 -2 24 5 24 6 0 29 '
+  + '16 50 35 22 20 42 31 45 26 4 -6 13 -8 21 -4 18 6 20 -8 3 -25 -17 -17 3 -15 29 3 16 11 24 '
+  + '12 29 3 10 -16 -31 -46 -74 -53 -52 -9 -64 -14 -58 -23 3 -5 19 -7 36 -4 22 3 38 -2 53 -16 '
+  + '28 -25 81 -36 73 -15 -4 11 -1 13 14 8 25 -8 38 19 20 40 -17 21 -7 29 17 14 15 -9 25 -8 '
+  + '48 3 l29 16 -35 17 c-19 10 -28 20 -21 22 24 9 12 32 -22 43 -19 6 -40 18 -46 26 -18 20 '
+  + '-167 20 -198 -2 -25 -17 -29 -44 -7 -44 25 0 17 -18 -15 -35 -27 -14 -30 -14 -30 0 0 8 -4 '
+  + '15 -10 15 -18 0 -11 60 8 66 9 3 30 12 45 20 18 8 58 14 103 14 43 0 74 4 74 10 0 6 -18 10 '
+  + '-39 10 -57 0 -92 15 -84 36 5 15 2 16 -25 11 -17 -4 -34 -2 -37 3 -8 13 -55 13 -55 0z '
+  + 'm-848 -592 c-9 -9 -13 -7 -17 5 -17 53 -17 53 7 30 17 -18 19 -26 10 -35z m637 -18 c7 -23 '
+  + '16 -30 35 -30 31 0 33 -13 5 -41 -11 -11 -18 -24 -14 -27 4 -4 12 0 18 9 7 9 27 18 45 21 '
+  + '33 5 45 -9 15 -18 -10 -3 -37 -14 -60 -24 -45 -20 -89 -17 -62 4 15 12 22 66 9 66 -17 0 '
+  + '-55 -39 -55 -56 0 -10 -8 -20 -17 -22 -10 -2 -18 1 -18 6 0 21 47 77 70 83 23 6 22 7 -12 '
+  + '14 -21 4 -45 5 -53 1 -9 -3 -15 0 -15 7 0 14 43 34 77 36 15 1 24 -8 32 -29z m-194 -730 '
+  + 'c-3 -5 -12 -10 -18 -10 -7 0 -6 4 3 10 19 12 23 12 15 0z',
+  'M1755 3150 c-11 -5 -14 -9 -7 -9 6 -1 12 -8 12 -16 0 -21 -33 -19 -47 4 -10 16 -18 18 -46 '
+  + '11 -57 -12 -63 -21 -26 -37 24 -10 49 -12 89 -6 30 4 61 7 68 6 18 -1 15 14 -5 21 -19 8 -8 '
+  + '22 22 29 13 3 10 5 -10 5 -16 0 -39 -3 -50 -8z',
+  'M940 2674 c0 -8 5 -12 10 -9 6 3 10 10 10 16 0 5 -4 9 -10 9 -5 0 -10 -7 -10 -16z ',
+  'M1516 2001 c-16 -6 -17 -8 -4 -13 9 -4 20 -2 26 4 11 11 92 -26 92 -42 0 -6 14 -10 30 -10 '
+  + '17 0 30 5 30 10 0 6 -6 10 -12 10 -7 0 -26 11 -42 25 -30 25 -79 32 -120 16z',
+  'M1720 1929 c0 -5 -7 -9 -16 -9 -9 0 -14 -6 -11 -12 2 -8 19 -12 47 -11 64 3 69 16 11 33 '
+  + '-19 5 -31 5 -31 -1z',
+  'M1826 1901 c-4 -5 -2 -12 3 -15 5 -4 12 -2 15 3 4 5 2 12 -3 15 -5 4 -12 2 -15 -3z ',
+  'M1375 1800 c3 -5 13 -10 21 -10 8 0 12 5 9 10 -3 6 -13 10 -21 10 -8 0 -12 -4 -9 -10z ',
+  // Sudamérica.
+  'M1742 1748 c-7 -7 -12 -18 -12 -25 0 -20 -20 -16 -21 5 0 14 -2 14 -9 -3 -7 -17 -9 -17 -9 '
+  + '-2 -1 20 -41 24 -41 4 0 -8 -9 -22 -19 -31 -19 -17 -21 -17 -42 3 -15 14 -26 18 -33 11 -16 '
+  + '-16 -40 -12 -59 10 -17 21 -57 28 -57 10 0 -5 6 -10 13 -10 6 -1 28 -14 47 -30 38 -33 50 '
+  + '-37 50 -16 0 8 5 18 11 21 19 12 38 -29 38 -80 0 -42 -4 -55 -28 -78 -30 -29 -48 -76 -34 '
+  + '-86 12 -9 10 -35 -4 -44 -20 -12 -15 -31 12 -55 14 -12 25 -26 25 -31 0 -6 14 -33 30 -61 '
+  + '17 -28 30 -57 30 -64 0 -7 8 -20 18 -29 27 -25 112 -68 122 -62 5 3 12 0 16 -6 4 -7 3 -9 '
+  + '-4 -5 -17 10 -21 -7 -12 -48 5 -22 5 -49 0 -61 -5 -12 -5 -26 0 -31 9 -10 22 -163 21 -242 '
+  + '-1 -29 4 -72 10 -95 7 -23 11 -51 10 -61 -2 -17 -1 -17 11 -5 8 8 17 21 21 29 3 8 6 -2 6 '
+  + '-23 1 -21 -7 -49 -16 -63 -15 -24 -15 -27 0 -35 9 -5 14 -16 10 -25 -7 -18 89 -122 135 '
+  + '-146 25 -12 40 -14 58 -8 l25 10 -34 30 c-23 20 -41 28 -53 24 -14 -4 -16 -4 -5 4 7 5 11 '
+  + '14 8 19 -3 5 2 24 11 43 15 32 15 34 -6 48 -22 15 -30 42 -12 42 6 0 10 9 10 20 0 11 6 20 '
+  + '13 20 6 0 4 5 -5 11 -10 5 -18 16 -18 23 0 8 8 13 18 12 9 0 17 6 17 14 1 23 16 42 30 36 '
+  + '17 -6 55 21 55 39 0 8 -10 23 -22 35 -27 25 -21 32 21 20 29 -8 34 -7 38 10 3 11 9 20 14 '
+  + '20 5 0 9 12 9 26 0 16 11 34 29 50 25 21 28 29 24 63 -5 36 -3 40 41 70 26 17 55 31 64 31 '
+  + '29 0 49 57 54 150 1 33 12 61 39 103 31 47 37 63 32 92 -4 24 -11 35 -23 35 -9 0 -27 11 '
+  + '-39 24 -14 15 -39 26 -67 31 -24 3 -50 12 -57 19 -7 7 -37 19 -67 26 -67 17 -66 16 -51 34 '
+  + '8 10 9 16 1 21 -5 3 -10 17 -10 31 0 14 -4 22 -10 19 -5 -3 -10 0 -10 8 0 20 -25 28 -39 14 '
+  + '-8 -8 -11 -7 -11 4 0 11 -8 14 -27 12 -23 -3 -31 2 -45 26 -9 17 -24 31 -33 31 -8 0 -15 7 '
+  + '-15 15 0 22 -39 39 -94 41 -27 2 -53 7 -59 13 -14 14 -20 14 -35 -1z m268 -193 c7 -9 8 -15 '
+  + '2 -15 -5 0 -12 7 -16 15 -3 8 -4 15 -2 15 2 0 9 -7 16 -15z m-360 -62 c0 -5 -5 -15 -10 -23 '
+  + '-7 -12 -9 -10 -7 8 1 19 17 33 17 15z m120 -243 c0 -5 -2 -10 -4 -10 -3 0 -8 5 -11 10 -3 6 '
+  + '-1 10 4 10 6 0 11 -4 11 -10z m190 -184 c0 -2 -7 -7 -16 -10 -8 -3 -12 -2 -9 4 6 10 25 14 '
+  + '25 6z m170 -288 c0 -6 -6 -5 -15 2 -8 7 -15 14 -15 16 0 2 7 1 15 -2 8 -4 15 -11 15 -16z',
+  'M1320 1490 c0 -5 5 -10 11 -10 5 0 7 5 4 10 -3 6 -8 10 -11 10 -2 0 -4 -4 -4 -10z ',
+  'M2130 350 c0 -5 7 -7 15 -4 8 4 15 8 15 10 0 2 -7 4 -15 4 -8 0 -15 -4 -15 -10z ',];
 
 export interface TerritoryNode {
   id: string;
@@ -39,19 +155,19 @@ export interface TerritoryNode {
 }
 
 export const TERRITORY_NODES: TerritoryNode[] = [
-  { id: 'ca', label: 'Canadá', x: 45.7, y: 20.3 },
-  { id: 'us', label: 'Estados Unidos', x: 51.4, y: 38.5, anchor: true },
-  { id: 'mx', label: 'México', x: 48.6, y: 55.6, anchor: true },
-  { id: 'gt', label: 'Guatemala', x: 56.8, y: 63.6 },
-  { id: 'do', label: 'El Caribe', x: 71.4, y: 59.9 },
-  { id: 'cr', label: 'Costa Rica', x: 61.4, y: 69.6, anchor: true },
-  { id: 'co', label: 'Colombia', x: 68.6, y: 75.2, anchor: true },
-  { id: 'ec', label: 'Ecuador', x: 65.4, y: 82 },
-  { id: 'pe', label: 'Perú', x: 67.9, y: 89.9 },
-  { id: 'bo', label: 'Bolivia', x: 75.7, y: 97.8 },
-  { id: 'br', label: 'Brasil', x: 85, y: 95.1, anchor: true },
-  { id: 'cl', label: 'Chile', x: 70.7, y: 115.9 },
-  { id: 'ar', label: 'Argentina', x: 75.7, y: 117.1, anchor: true },
+  { id: 'ca', label: 'Canadá', x: 153.2, y: 77.8 },
+  { id: 'us', label: 'Estados Unidos', x: 155.6, y: 113.8, anchor: true },
+  { id: 'mx', label: 'México', x: 117, y: 152, anchor: true },
+  { id: 'gt', label: 'Guatemala', x: 140, y: 168 },
+  { id: 'do', label: 'El Caribe', x: 174, y: 158 },
+  { id: 'cr', label: 'Costa Rica', x: 153, y: 180, anchor: true },
+  { id: 'co', label: 'Colombia', x: 175, y: 194, anchor: true },
+  { id: 'ec', label: 'Ecuador', x: 158, y: 203 },
+  { id: 'pe', label: 'Perú', x: 170, y: 220 },
+  { id: 'bo', label: 'Bolivia', x: 195, y: 235 },
+  { id: 'br', label: 'Brasil', x: 215, y: 222, anchor: true },
+  { id: 'cl', label: 'Chile', x: 183, y: 270 },
+  { id: 'ar', label: 'Argentina', x: 200, y: 272, anchor: true },
 ];
 
 /**

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Camera, Clapperboard, ShieldAlert } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
+import { BrandLogo } from '@/components/layout/BrandLogo';
 import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
 import { SectionIntro } from './SectionIntro';
 import styles from './TerritorySection.module.css';
@@ -51,7 +52,16 @@ export function TerritorySection() {
             />
 
             <Reveal className={styles.rally}>
-              <p className={styles.rallyKicker}>Rally Continental 2028</p>
+              {/* El logotipo ocupa el lugar del antiguo kicker de texto: ya dice
+                  «Rally Continental 2028», y repetirlo debajo en mayúsculas era
+                  decir dos veces lo mismo. El nombre no se pierde para quien no
+                  ve la imagen — viaja en el `alt` del archivo de marca. */}
+              <BrandLogo
+                brand="rally"
+                tone="as-is"
+                height={160}
+                className={styles.rallyLogo}
+              />
               <h3 className={`h3 ${styles.rallyTitle}`}>
                 Innovación para los territorios, escuela por escuela
               </h3>

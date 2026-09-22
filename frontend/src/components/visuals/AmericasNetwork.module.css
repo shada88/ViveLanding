@@ -1,10 +1,12 @@
 .wrap {
   position: relative;
   width: 100%;
-  /* El lienzo es más alto que ancho (100 × 145): la proporción se declara acá
-     para que el contenedor reserve el espacio exacto y no haya salto de layout
-     cuando el SVG termina de pintarse. */
-  aspect-ratio: 100 / 145;
+  /* Igual al encuadre de TERRITORY_VIEWBOX (198 × 304), no al viewBox del
+     archivo de origen: si los dos números se separan, el SVG se centra dentro
+     de una caja más grande y el mapa deja de llenar su columna. Declarada acá,
+     el contenedor reserva el espacio exacto y no hay salto de layout cuando el
+     SVG termina de pintarse. */
+  aspect-ratio: 198 / 304;
   max-width: 540px;
   margin-inline: auto;
 }
@@ -18,7 +20,12 @@
 .land path {
   fill: url(#vceLandFill);
   stroke: var(--color-primary);
-  stroke-width: 0.35;
+  /* El contorno vive dentro de un <g> escalado ×0.1, así que un grosor en
+     unidades locales se dibujaría diez veces más fino de lo declarado.
+     `non-scaling-stroke` lo saca de esa cuenta: la costa queda como un filete
+     constante, y además no se afina cuando el mapa se achica en móvil. */
+  vector-effect: non-scaling-stroke;
+  stroke-width: 1.4;
   stroke-linejoin: round;
   opacity: 0.85;
 }
@@ -36,7 +43,9 @@
 @keyframes travel {
   to {
     /* Desplaza exactamente un ciclo del guion (3 + 5): el bucle cierra sin
-       salto y la línea se lee como flujo continuo entre territorios. */
+       salto y la línea se lee como flujo continuo entre territorios.
+       El guion NO se reescaló al cambiar el viewBox: con `non-scaling-stroke`
+       el patrón se mide en píxeles de pantalla, no en unidades del lienzo. */
     stroke-dashoffset: -8;
   }
 }
@@ -53,7 +62,7 @@
 .halo {
   fill: none;
   stroke: var(--color-gold);
-  stroke-width: 0.35;
+  stroke-width: 0.7;
   transform-box: fill-box;
   transform-origin: center;
   animation: breathe 4.6s var(--ease-in-out-soft) infinite;

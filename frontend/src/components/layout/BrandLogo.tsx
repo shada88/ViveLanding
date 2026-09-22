@@ -4,7 +4,7 @@ import Image from 'next/image';
 type BrandTone = 'light' | 'gold' | 'on-ink' | 'as-is';
 
 interface BrandLogoProps {
-  brand: 'vivesperanza' | 'kaleo';
+  brand: 'vivesperanza' | 'kaleo' | 'rally';
   /** Alto renderizado en píxeles; el ancho lo deriva la proporción del archivo. */
   height?: number;
   tone?: BrandTone;
@@ -31,21 +31,35 @@ interface BrandLogoProps {
  *    por eso también funciona con una imagen rasterizada. No debe usarse más
  *    de una vez por página y va siempre diferido, jamás con `priority`.
  *
- * `unoptimized` es obligatorio: el optimizador de imágenes de Next se niega a
- * procesar SVG salvo que se active `dangerouslyAllowSVG`, y habilitar la
- * ejecución de SVG arbitrarios para servir dos archivos propios es un cambio
- * de superficie de ataque que no compensa.
+ * 3. `rally-continental-2028.png` es el ÚNICO mapa de bits real del conjunto:
+ *    1805 × 871 y 1,76 MB en el archivo original. Es a todo color y con degradés
+ *    —no se recolorea nunca: va siempre con `tone="as-is"`—, y por ser PNG sí
+ *    pasa por el optimizador de Next, que lo sirve en AVIF/WebP al tamaño
+ *    pedido. Marcarlo `unoptimized` mandaría los 1,76 MB al navegador.
+ *
+ * De ahí que `unoptimized` NO sea global sino por archivo: se activa solo en los
+ * SVG. El optimizador de Next se niega a procesarlos salvo que se habilite
+ * `dangerouslyAllowSVG`, y abrir la ejecución de SVG arbitrarios para servir dos
+ * archivos propios es un cambio de superficie de ataque que no compensa.
  */
 const SOURCES = {
   vivesperanza: {
     src: '/vivesperanza_logo.svg',
     alt: 'Fundación Vive con Esperanza',
     ratio: 1488.896 / 235.52,
+    vector: true,
   },
   kaleo: {
     src: '/kaleo_logo.svg',
     alt: 'Kaleo',
     ratio: 795 / 240,
+    vector: true,
+  },
+  rally: {
+    src: '/rally-continental-2028.png',
+    alt: 'Rally Continental 2028',
+    ratio: 1805 / 871,
+    vector: false,
   },
 } as const;
 
@@ -73,7 +87,7 @@ export function BrandLogo({
       width={Math.round(height * source.ratio)}
       height={height}
       priority={priority}
-      unoptimized
+      unoptimized={source.vector}
       className={`brand-mark ${toneClass} ${className}`.trim()}
       style={{ height: `${height}px`, width: 'auto' }}
     />

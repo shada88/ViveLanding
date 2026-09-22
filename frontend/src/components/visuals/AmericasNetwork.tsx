@@ -1,7 +1,7 @@
 import React from 'react';
 import {
-  NORTH_AMERICA_PATH,
-  SOUTH_AMERICA_PATH,
+  AMERICAS_LAND,
+  AMERICAS_TRANSFORM,
   TERRITORY_LINKS,
   TERRITORY_NODES,
   TERRITORY_VIEWBOX,
@@ -13,10 +13,9 @@ const NODE_BY_ID = new Map(TERRITORY_NODES.map((node) => [node.id, node]));
 /**
  * El continente americano como RED, no como mapa.
  *
- * Elección deliberada: silueta poligonal de baja resolución en vez de un
- * contorno cartográfico. Un mapa técnico invita a buscarle la frontera exacta
- * y a discutirla; una silueta declara que lo que importa son los VÍNCULOS
- * entre territorios, que es el único contenido real de esta pieza.
+ * La silueta es un contorno vectorizado real; los VÍNCULOS entre territorios
+ * siguen siendo el único contenido que la pieza afirma. El contorno da escala
+ * —se reconoce el continente de un vistazo— y las líneas dan el argumento.
  *
  * Es un componente de servidor: no hay estado, no hay evento, no hay motivo
  * para mandar JavaScript al navegador por esto.
@@ -43,9 +42,10 @@ export function AmericasNetwork({ className = '' }: { className?: string }) {
           </linearGradient>
         </defs>
 
-        <g className={styles.land}>
-          <path d={NORTH_AMERICA_PATH} />
-          <path d={SOUTH_AMERICA_PATH} />
+        <g className={styles.land} transform={AMERICAS_TRANSFORM}>
+          {AMERICAS_LAND.map((d) => (
+            <path key={d.slice(0, 24)} d={d} />
+          ))}
         </g>
 
         <g className={styles.links}>
@@ -71,13 +71,13 @@ export function AmericasNetwork({ className = '' }: { className?: string }) {
           {TERRITORY_NODES.map((node, i) => (
             <g key={node.id} style={{ ['--delay' as string]: `${i * 0.28}s` }}>
               {node.anchor && (
-                <circle className={styles.halo} cx={node.x} cy={node.y} r={2.6} />
+                <circle className={styles.halo} cx={node.x} cy={node.y} r={5.1} />
               )}
               <circle
                 className={node.anchor ? styles.nodeAnchor : styles.node}
                 cx={node.x}
                 cy={node.y}
-                r={node.anchor ? 1.5 : 0.95}
+                r={node.anchor ? 3 : 1.9}
               />
             </g>
           ))}
