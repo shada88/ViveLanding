@@ -5,7 +5,10 @@ export interface RegisterLeadInput {
   fullName: string;
   email: string;
   phone?: string;
-  interestType: 'VOLUNTARIO' | 'DONANTE' | 'ALIADO' | 'INFORMACION';
+  organization?: string;
+  profession?: string;
+  country?: string;
+  interestType: 'ESCUELA' | 'VOLUNTARIO' | 'DONANTE' | 'ALIADO' | 'INFORMACION';
   message?: string;
 }
 
@@ -18,6 +21,9 @@ export class RegisterLeadUseCase {
       fullName: input.fullName,
       email: input.email,
       phone: input.phone,
+      organization: input.organization,
+      profession: input.profession,
+      country: input.country,
       interestType: input.interestType,
       message: input.message,
       createdAt: new Date(),
