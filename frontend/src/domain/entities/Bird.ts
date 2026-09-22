@@ -23,6 +23,8 @@ export interface Bird {
   lesson: string;
   /** Ruta pública de la ilustración. */
   image: string;
+  /** Ruta pública del muñeco de felpa correspondiente. */
+  plushImage: string;
 }
 
 export const FOREST_VOICES: Bird[] = [
@@ -35,6 +37,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Perdió su bosque y a sus padres, Pepe y Maye. En vez de callarse, aprendió a hablar con los seres humanos. Desde entonces enseña que contar lo que pasó es el primer acto de reparación.',
     image: '/img Pajaros/Esperanza.jpeg',
+    plushImage: '/img Pajaros/felpa/Dove_plush_toy_smiling_20260922163219.png',
   },
   {
     id: 'ojopelao',
@@ -45,6 +48,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Se queda quieto en el aire para observar mejor. Enseña que la curiosidad no es distracción: es la forma más honesta de entender un territorio.',
     image: '/img Pajaros/Ojopelao.jpeg',
+    plushImage: '/img Pajaros/felpa/Hummingbird_plushie_toy_20260922163346.png',
   },
   {
     id: 'silvio',
@@ -55,6 +59,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Ve en la oscuridad porque aprendió a no temerle. Enseña que la calma no es lentitud: es lo que permite decidir bien cuando hay una emergencia.',
     image: '/img Pajaros/Silvio.jpeg',
+    plushImage: '/img Pajaros/felpa/buho.png',
   },
   {
     id: 'saggy',
@@ -65,6 +70,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Fue el primero en salir a buscar a Esperanza y el último en dejar de buscar. Enseña que acompañar también es una forma de actuar.',
     image: '/img Pajaros/saggy.jpeg',
+    plushImage: '/img Pajaros/felpa/Plush_blue_songbird_toy_20260922163204.png',
   },
   {
     id: 'lilo',
@@ -75,6 +81,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Hace reír incluso en el viaje más largo. Enseña que cuidar el ánimo del grupo es un trabajo tan real como cargar el agua.',
     image: '/img Pajaros/lilo.jpeg',
+    plushImage: '/img Pajaros/felpa/Green_parakeet_plushie_toy_20260922163322.png',
   },
   {
     id: 'carla',
@@ -85,6 +92,7 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Repite lo que escucha hasta que alguien la entiende. Enseña que un aviso temprano, dicho con claridad, salva más que un rescate tardío.',
     image: '/img Pajaros/carla.jpeg',
+    plushImage: '/img Pajaros/felpa/Plush_lovebird_toy_isolated_20260922163417.png',
   },
   {
     id: 'omar',
@@ -95,5 +103,6 @@ export const FOREST_VOICES: Bird[] = [
     lesson:
       'Canta al amanecer aunque el bosque siga herido. Enseña que la belleza no es un lujo posterior a la reconstrucción: es parte de ella.',
     image: '/img Pajaros/Omar.jpeg',
+    plushImage: '/img Pajaros/felpa/Yellow_canary_plushie_toy_20260922163152.png',
   },
 ];

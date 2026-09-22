@@ -39,6 +39,16 @@
 }
 
 /*
+ * Escenario visual que contiene el retrato orgánico y el muñeco de felpa en la esquina exterior.
+ */
+.stageVisual {
+  position: relative;
+  max-width: 420px;
+  width: 100%;
+  margin-inline: auto;
+}
+
+/*
  * Retrato con máscara orgánica. Las ilustraciones son fotografías cuadradas
  * con fondo propio: un recorte rectangular las delataría como archivos
  * pegados en la página. La forma irregular las integra al bosque.
@@ -46,14 +56,75 @@
 .portrait {
   position: relative;
   aspect-ratio: 1 / 1;
-  max-width: 420px;
   width: 100%;
-  margin-inline: auto;
   border-radius: var(--radius-organic);
   overflow: hidden;
   box-shadow: var(--shadow-float);
   animation: morph 26s var(--ease-in-out-soft) infinite alternate;
   background: var(--color-ink-raised);
+}
+
+/* ── Muñeco de felpa (exterior del círculo, esquina inferior izquierda) ── */
+
+.plushWrapper {
+  position: absolute;
+  bottom: -16px;
+  left: -16px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  pointer-events: none;
+}
+
+.plushContainer {
+  position: relative;
+  width: clamp(96px, 20vw, 126px);
+  height: clamp(96px, 20vw, 126px);
+  border-radius: var(--radius-lg);
+  background: var(--color-ink-raised);
+  border: 1px solid var(--color-gold-border);
+  box-shadow: var(--shadow-2), 0 0 20px var(--glow-gold);
+  padding: 0.35rem;
+}
+
+.plushImage {
+  object-fit: contain;
+  padding: 0.25rem;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--transition-soft),
+    visibility var(--transition-soft),
+    transform var(--transition-soft);
+  transform: scale(0.92);
+}
+
+.plushActive {
+  opacity: 1;
+  visibility: visible;
+  transform: scale(1);
+}
+
+.plushTag {
+  font: var(--font-caption);
+  font-size: 0.68rem;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-gold);
+  background: var(--color-ink-raised);
+  border: 1px solid var(--color-gold-border);
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-1);
+}
+
+@media (max-width: 600px) {
+  .plushWrapper {
+    bottom: -10px;
+    left: 0;
+  }
 }
 
 @keyframes morph {
@@ -237,6 +308,10 @@
 
   .thumb:hover,
   .thumbActive {
+    transform: none;
+  }
+
+  .plushImage {
     transform: none;
   }
 }

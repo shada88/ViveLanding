@@ -95,25 +95,50 @@ export function ForestVoicesSection() {
             aria-labelledby={`voz-tab-${active.id}`}
             tabIndex={0}
           >
-            <div className={styles.portrait}>
-              {FOREST_VOICES.map((bird, i) => (
-                // Las siete imágenes se montan y se superponen con opacidad en
-                // lugar de intercambiarse: así el cambio es un fundido y no un
-                // hueco en blanco mientras el navegador decodifica la nueva.
-                <Image
-                  key={bird.id}
-                  src={bird.image}
-                  alt={`${bird.name}, ${bird.species}`}
-                  fill
-                  sizes="(max-width: 899px) 90vw, 420px"
-                  priority={i === 0}
-                  loading={i === 0 ? undefined : 'lazy'}
-                  className={`${styles.portraitImage} ${
-                    i === activeIndex ? styles.portraitActive : ''
-                  }`}
-                />
-              ))}
-              <span className={styles.portraitRim} aria-hidden="true" />
+            <div className={styles.stageVisual}>
+              <div className={styles.portrait}>
+                {FOREST_VOICES.map((bird, i) => (
+                  // Las siete imágenes se montan y se superponen con opacidad en
+                  // lugar de intercambiarse: así el cambio es un fundido y no un
+                  // hueco en blanco mientras el navegador decodifica la nueva.
+                  <Image
+                    key={bird.id}
+                    src={bird.image}
+                    alt={`${bird.name}, ${bird.species}`}
+                    fill
+                    sizes="(max-width: 899px) 90vw, 420px"
+                    priority={i === 0}
+                    loading={i === 0 ? undefined : 'lazy'}
+                    className={`${styles.portraitImage} ${
+                      i === activeIndex ? styles.portraitActive : ''
+                    }`}
+                  />
+                ))}
+                <span className={styles.portraitRim} aria-hidden="true" />
+              </div>
+
+              {/* Muñeco de felpa que acompaña al ave seleccionada, ubicado al lado exterior del círculo */}
+              <aside
+                className={styles.plushWrapper}
+                aria-label={`Muñeco de felpa de ${active.name}`}
+              >
+                <div className={styles.plushContainer}>
+                  {FOREST_VOICES.map((bird, i) => (
+                    <Image
+                      key={`plush-${bird.id}`}
+                      src={bird.plushImage}
+                      alt={`Muñeco de felpa de ${bird.name}`}
+                      fill
+                      sizes="130px"
+                      loading={i === 0 ? undefined : 'lazy'}
+                      className={`${styles.plushImage} ${
+                        i === activeIndex ? styles.plushActive : ''
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className={styles.plushTag}>Edición de felpa</span>
+              </aside>
             </div>
 
             <div className={styles.details}>
