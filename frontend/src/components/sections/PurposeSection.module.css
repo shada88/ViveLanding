@@ -1,0 +1,91 @@
+.body {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  align-items: start;
+}
+
+/*
+ * La declaración fundacional. No es una tarjeta: no tiene fondo propio ni
+ * sombra. Se distingue por un filete dorado a la izquierda y por el aire que
+ * la rodea — lo mínimo necesario para que se lea como una cita y no como un
+ * módulo de interfaz.
+ */
+.statement {
+  position: relative;
+  padding-left: clamp(1.25rem, 0.5rem + 2vw, 2.25rem);
+  border-left: 2px solid var(--color-gold);
+}
+
+.mark {
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.quote {
+  font: var(--font-h3);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--color-on-surface);
+  text-wrap: pretty;
+}
+
+.cite {
+  display: block;
+  margin-top: 1.25rem;
+  font: var(--font-caption);
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-surface-muted);
+}
+
+.verbs {
+  display: grid;
+  gap: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+}
+
+.verbItem {
+  position: relative;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.verbIndex {
+  position: absolute;
+  top: 1.5rem;
+  right: 0;
+  font: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  color: var(--color-on-surface-muted);
+  opacity: 0.6;
+}
+
+.verbTitle {
+  margin-bottom: 0.6rem;
+  color: var(--color-on-surface);
+}
+
+.verbBody {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  max-width: 46ch;
+}
+
+@media (min-width: 900px) {
+  .body {
+    grid-template-columns: 0.9fr 1.1fr;
+  }
+
+  /* La cita queda fija mientras los tres verbos pasan al lado: el principio se
+     sostiene en pantalla exactamente mientras se explica cómo se aplica. */
+  .statement {
+    position: sticky;
+    top: 8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statement {
+    position: static;
+  }
+}

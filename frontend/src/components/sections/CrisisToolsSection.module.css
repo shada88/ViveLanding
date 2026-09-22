@@ -1,0 +1,173 @@
+/* ══ Los dos caminos ════════════════════════════════════════════════════ */
+
+.routes {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.route {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  /* 56 px es el mínimo táctil de un CTA público. Estos son la puerta de
+     entrada a todo el material: no bajan de ahí. */
+  min-height: var(--tap-cta);
+  padding: 1.25rem 1.5rem;
+  text-align: left;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.route:hover {
+  border-color: var(--color-outline);
+  background: var(--color-surface-low);
+}
+
+/*
+ * El camino activo se marca con el DORADO y con una superficie, nunca con un
+ * tamaño distinto. Los dos caminos son pares: agrandar el seleccionado
+ * sugeriría que uno importa más, y eso lo decide la escuela, no la página.
+ */
+.routeActive {
+  border-color: var(--color-gold-border);
+  background: var(--color-surface-low);
+  box-shadow: inset 3px 0 0 var(--color-gold);
+}
+
+.routeLabel {
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+}
+
+.routeActive .routeLabel {
+  color: var(--color-gold);
+}
+
+.routeBlurb {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 52ch;
+}
+
+/* ══ Índice de herramientas ═════════════════════════════════════════════ */
+
+.panel {
+  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
+}
+
+/*
+ * El código del camino — «Ruta A» / «Ruta B» — una sola vez, como encabezado
+ * del panel. Antes venía repetido sobre cada herramienta: con cuatro entradas
+ * por camino, el mismo rótulo se leía cuatro veces seguidas.
+ */
+.panelTitle {
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.list {
+  display: grid;
+  gap: 0;
+  /*
+   * El filete de cierre va en la LISTA, no en la última entrada. En dos
+   * columnas `:last-child` es solo la de abajo a la derecha: cerraba esa
+   * columna y dejaba la izquierda abierta, con una línea colgando a un costado.
+   * Acá el borde cruza las dos columnas siempre, sin depender de cuántas haya.
+   */
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+/*
+ * Entradas de índice, no tarjetas: sin fondo, sin sombra y separadas por un
+ * filete.
+ *
+ * SIN estado de hover, a propósito. No son enlaces ni botones: no llevan a
+ * ningún lado. Un realce al pasar el cursor promete una interacción que no
+ * existe, y el que había además corría el texto hacia la derecha — o sea que
+ * movía la línea que la persona estaba leyendo. Dos motivos independientes
+ * para que no esté.
+ */
+.tool {
+  padding-block: clamp(1.75rem, 1rem + 2vw, 2.5rem);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.toolTitle {
+  color: var(--color-on-surface);
+  margin-bottom: 0.35rem;
+  text-wrap: balance;
+}
+
+.toolSubtitle {
+  font: var(--font-body-md);
+  font-weight: 600;
+  color: var(--color-gold);
+  margin-bottom: 0.85rem;
+}
+
+.toolBody {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  max-width: 62ch;
+  margin-bottom: 1.25rem;
+  text-wrap: pretty;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.5rem;
+}
+
+.metaItem {
+  min-width: 0;
+}
+
+.metaValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+}
+
+.metaValue svg {
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.footnote {
+  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
+  font: var(--font-body-md);
+  color: var(--color-on-surface-muted);
+  max-width: 62ch;
+}
+
+.footnote a {
+  display: inline-flex;
+  min-height: auto;
+}
+
+@media (min-width: 720px) {
+  .routes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 1000px) {
+  /* Dos columnas de índice a partir de acá. Cuatro entradas por camino: dos
+     columnas de dos filas leen mejor que una columna de cuatro. */
+  .list {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(2rem, 1rem + 3vw, 4rem);
+  }
+}

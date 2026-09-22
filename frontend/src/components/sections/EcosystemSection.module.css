@@ -1,0 +1,305 @@
+/* ══ Escritorio: composición radial ════════════════════════════════════ */
+
+.graph {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+  margin-inline: auto;
+  aspect-ratio: 1 / 1;
+}
+
+.links {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /*
+   * `preserveAspectRatio="none"` alinea el sistema de coordenadas del SVG con
+   * los porcentajes del HTML: por eso los trazos caen exactamente sobre los
+   * nodos a cualquier ancho. `vector-effect` en los paths evita que el trazo
+   * se deforme cuando el lienzo se estira.
+   */
+}
+
+.linkBase {
+  fill: none;
+  stroke: var(--net-line);
+  stroke-width: 1;
+}
+
+.linkPulse {
+  fill: none;
+  stroke: var(--net-2);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 14 240;
+  stroke-dashoffset: 254;
+  opacity: 0.85;
+  animation: flow 5.5s linear infinite;
+  animation-delay: calc(var(--i, 0) * -0.68s);
+}
+
+.linkActive {
+  stroke: var(--color-gold);
+  stroke-width: 2;
+  opacity: 1;
+}
+
+@keyframes flow {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Centro ────────────────────────────────────────────────────────────── */
+
+.hub {
+  position: absolute;
+  translate: -50% -50%;
+  width: min(42%, 300px);
+  z-index: 2;
+  text-align: center;
+}
+
+.hubRing {
+  position: absolute;
+  inset: -14%;
+  border-radius: 50%;
+  border: 1px solid var(--color-gold-border);
+  animation: halo 6s var(--ease-in-out-soft) infinite;
+}
+
+@keyframes halo {
+  0%,
+  100% {
+    opacity: 0.5;
+    scale: 0.95;
+  }
+  50% {
+    opacity: 0.12;
+    scale: 1.08;
+  }
+}
+
+.hubBody {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  aspect-ratio: 1 / 1;
+  padding: clamp(1rem, 0.5rem + 2vw, 2.25rem);
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      var(--color-surface-high) 0%,
+      var(--color-surface-low) 62%,
+      transparent 100%
+    );
+  border: 1px solid var(--color-outline-variant);
+}
+
+.hubLabel {
+  font: var(--font-label-lg);
+  color: var(--color-gold);
+  margin-bottom: 0.6rem;
+  text-wrap: balance;
+}
+
+.hubDetail {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+/* ── Nodos ─────────────────────────────────────────────────────────────── */
+
+.nodes {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+.nodeSlot {
+  position: absolute;
+  translate: -50% -50%;
+  width: min(22%, 190px);
+}
+
+.node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.55rem;
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 0.85rem 0.6rem;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface-low);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.node:hover,
+.nodeActive {
+  border-color: var(--color-gold-border);
+  background: var(--color-surface-container);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-3);
+}
+
+.nodeIcon {
+  display: grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-primary-border);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.nodeActive .nodeIcon {
+  color: var(--color-gold);
+  border-color: var(--color-gold-border);
+}
+
+.nodeLabel {
+  font: var(--font-label-md);
+  color: var(--color-on-surface);
+  text-align: center;
+}
+
+/* En el radial el detalle vive en el centro, no en el nodo: repetirlo acá
+   llenaría la composición de texto diminuto. En móvil se revierte. */
+.nodeDetail {
+  display: none;
+}
+
+/* ══ Móvil y tablet: columna con espina vertical ═══════════════════════ *
+ * Todo radial colapsa por debajo de 900 px. Mismo significado, sin texto
+ * ilegible ni desborde horizontal — y sin depender de hover para leer nada.
+ */
+@media (max-width: 899px) {
+  .graph {
+    aspect-ratio: auto;
+    max-width: 34rem;
+  }
+
+  .links,
+  .hubRing {
+    display: none;
+  }
+
+  .hub {
+    position: static;
+    translate: none;
+    width: 100%;
+    margin-bottom: 2.5rem;
+    text-align: left;
+  }
+
+  .hubBody {
+    aspect-ratio: auto;
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    background: var(--color-surface-low);
+  }
+
+  .nodes {
+    position: relative;
+    inset: auto;
+    display: grid;
+    gap: 1.75rem;
+    padding-left: 2.25rem;
+  }
+
+  /* La espina: una sola línea vertical que atraviesa la lista entera y
+     reemplaza a los ocho trazos radiales. */
+  .nodes::before {
+    content: '';
+    position: absolute;
+    left: 0.6rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      transparent,
+      var(--color-gold-border) 12%,
+      var(--color-gold-border) 88%,
+      transparent
+    );
+  }
+
+  .nodeSlot {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    translate: none;
+    width: 100%;
+  }
+
+  /* Nudo sobre la espina, a la altura del ícono del nodo. */
+  .nodeSlot::before {
+    content: '';
+    position: absolute;
+    left: -1.9rem;
+    top: 1.15rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    box-shadow: 0 0 0 4px var(--color-background);
+  }
+
+  .node {
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.5rem 0;
+    border: 0;
+    background: none;
+    text-align: left;
+  }
+
+  .node:hover,
+  .nodeActive {
+    transform: none;
+    box-shadow: none;
+    background: none;
+  }
+
+  .nodeLabel {
+    font: var(--font-h3);
+    text-align: left;
+  }
+
+  .nodeDetail {
+    display: block;
+    padding-left: 3.1rem;
+    font: var(--font-body-sm);
+    color: var(--color-on-surface-variant);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Los enlaces quedan dibujados y quietos: el pulso era el movimiento, no la
+     información. El trazo base sigue contando quién está conectado con quién. */
+  .linkPulse {
+    animation: none;
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    opacity: 0.35;
+  }
+
+  .hubRing {
+    animation: none;
+    opacity: 0.35;
+  }
+}

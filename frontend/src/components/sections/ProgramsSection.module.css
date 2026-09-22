@@ -1,0 +1,143 @@
+/* ══ El libro, con el cordón al costado ════════════════════════════════ */
+
+.featured {
+  position: relative;
+  margin-bottom: clamp(3.5rem, 2rem + 4vw, 6rem);
+}
+
+.program {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 0.85rem;
+}
+
+.programTitle {
+  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+  color: var(--color-on-surface);
+  margin-bottom: 0.4rem;
+  text-wrap: balance;
+}
+
+.tagline {
+  font: var(--font-body-lg);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1.25rem;
+}
+
+.description {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  max-width: 54ch;
+  margin-bottom: 1.75rem;
+  text-wrap: pretty;
+}
+
+.highlights {
+  display: grid;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+/* Viñeta dorada dibujada con un pseudo-elemento en vez de un ícono importado:
+   tres puntos no justifican traer un componente de la librería de íconos. */
+.highlight {
+  position: relative;
+  padding-left: 1.5rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 52ch;
+}
+
+.highlight::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-gold);
+}
+
+.programMedia {
+  min-width: 0;
+  max-width: 340px;
+  margin-inline: auto;
+}
+
+/* ══ Programas con sección propia ═══════════════════════════════════════ */
+
+.linked {
+  display: grid;
+  gap: 0;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.linkedItem {
+  display: grid;
+  gap: 1rem;
+  padding-block: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  border-bottom: 1px solid var(--color-outline-variant);
+  align-items: center;
+}
+
+.linkedTitle {
+  color: var(--color-on-surface);
+  margin-bottom: 0.25rem;
+}
+
+.linkedTagline {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 52ch;
+}
+
+.linkedActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.75rem;
+}
+
+@media (min-width: 900px) {
+  .program {
+    /* El cordón ocupa la columna derecha; el texto y el video se reparten las
+       dos primeras. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr) clamp(70px, 9vw, 130px);
+  }
+
+  .programBody {
+    grid-column: 1;
+  }
+
+  .programMedia {
+    grid-column: 2;
+  }
+
+  .linkedItem {
+    grid-template-columns: 1fr auto;
+    gap: 2rem;
+  }
+}
+
+@media (max-width: 899px) {
+  /* En móvil el cordón vuelve al margen izquierdo y el contenido le deja ese
+     espacio, leyéndose en una sola columna. */
+  .featured {
+    padding-left: 3rem;
+  }
+
+}

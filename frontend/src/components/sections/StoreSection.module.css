@@ -1,0 +1,125 @@
+.items {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+/*
+ * Sin fondo ni borde de tarjeta: cada pieza es una columna editorial separada
+ * por aire y por un filete superior. Tres tarjetas iguales con sombra serían
+ * exactamente el catálogo de comercio que esta sección evita.
+ */
+.item {
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-outline-variant);
+  min-width: 0;
+}
+
+.itemIcon {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  margin-bottom: 1.25rem;
+  border-radius: 50%;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-border);
+  background: var(--color-gold-soft);
+}
+
+.itemName {
+  color: var(--color-on-surface);
+  margin-bottom: 0.3rem;
+  text-wrap: balance;
+}
+
+.itemKind {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-surface-muted);
+  margin-bottom: 1.25rem;
+}
+
+.itemStory {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  margin-bottom: 1.5rem;
+  text-wrap: pretty;
+}
+
+/* El destino de lo recaudado es la información que justifica la sección
+   entera: se marca con el dorado y con un filete, no con más texto. */
+.itemFunds {
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-gold);
+  font: var(--font-body-sm);
+  color: var(--color-on-surface);
+}
+
+.fundsLabel {
+  display: block;
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 0.3rem;
+}
+
+.storeCta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.storeNote {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 42ch;
+}
+
+/* ══ Prensa ═════════════════════════════════════════════════════════════ */
+
+.press {
+  display: grid;
+  gap: 1.75rem;
+  padding-top: clamp(2rem, 1rem + 2vw, 3rem);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.pressItem {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+
+.pressIcon {
+  color: var(--color-primary);
+  margin-top: 0.25rem;
+}
+
+.pressTitle {
+  font: var(--font-label-lg);
+  color: var(--color-on-surface);
+  margin-bottom: 0.25rem;
+}
+
+.pressBody {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 46ch;
+}
+
+@media (min-width: 860px) {
+  .items {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .press {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+}

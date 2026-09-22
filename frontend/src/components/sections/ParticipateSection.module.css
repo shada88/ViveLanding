@@ -1,0 +1,287 @@
+/* ══ Catálogo de roles ══════════════════════════════════════════════════ */
+
+.catalog {
+  border: 0;
+  padding: 0;
+  margin: 0 0 clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.doors {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.doorWrap {
+  position: relative;
+  min-width: 0;
+}
+
+/*
+ * La opción es un `<input type="radio">` real, oculto visualmente pero NO
+ * retirado del árbol: sigue recibiendo foco, sigue anunciándose como "opción
+ * 2 de 4" y sigue recorriéndose con las flechas. El anillo de foco se dibuja
+ * sobre la etiqueta, que es lo que se ve.
+ */
+.radio:focus-visible + .door {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 3px;
+}
+
+.door {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  /* 56 px es el mínimo táctil de un CTA público; estas tarjetas lo superan
+     ampliamente, pero el mínimo queda declarado por si el copy se acorta. */
+  min-height: var(--tap-cta);
+  padding: 1.5rem;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    box-shadow var(--transition);
+}
+
+.door:hover {
+  border-color: var(--color-outline);
+  background: var(--color-surface-low);
+}
+
+/*
+ * El rol elegido se marca con dorado y con superficie, nunca con un tamaño
+ * distinto. Los cuatro roles son pares: la fundación necesita a los cuatro, y
+ * agrandar uno sería elegir por la persona en la sección cuyo único propósito
+ * es que elija.
+ */
+.doorActive {
+  border-color: var(--color-gold-border);
+  background: var(--color-surface-low);
+  box-shadow: inset 3px 0 0 var(--color-gold);
+}
+
+.doorIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  color: var(--color-primary);
+  background: var(--color-primary-soft);
+  border: 1px solid var(--color-primary-border);
+  transition: color var(--transition), border-color var(--transition);
+}
+
+.doorActive .doorIcon {
+  color: var(--color-gold);
+  border-color: var(--color-gold-border);
+  background: var(--color-gold-soft);
+}
+
+.doorTitle {
+  display: block;
+  color: var(--color-on-surface);
+  margin-bottom: 0.6rem;
+  text-wrap: balance;
+}
+
+.doorBody {
+  display: block;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  /* Empuja el rótulo de elección al pie: los cuatro quedan alineados aunque
+     los textos tengan largos distintos. */
+  flex: 1;
+  margin-bottom: 1.25rem;
+  text-wrap: pretty;
+}
+
+.doorPick {
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-surface-muted);
+}
+
+.doorActive .doorPick {
+  color: var(--color-gold);
+}
+
+/* ══ Zona del formulario ════════════════════════════════════════════════ */
+
+.formArea {
+  /* Altura mínima para que el bloque no salte de golpe al aparecer el
+     formulario: el espacio ya está reservado desde antes de elegir. */
+  min-height: 8rem;
+}
+
+.hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 2.5rem 1rem;
+  font: var(--font-body-md);
+  color: var(--color-on-surface-muted);
+  border: 1px dashed var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+}
+
+.formBlock {
+  max-width: 52rem;
+  margin-inline: auto;
+  padding: clamp(1.75rem, 1rem + 3vw, 3rem);
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-lift);
+}
+
+.formHead {
+  margin-bottom: 2rem;
+}
+
+.formTitle {
+  color: var(--color-on-surface);
+  margin-bottom: 0.5rem;
+  text-wrap: balance;
+}
+
+.formLede {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-muted);
+  max-width: 54ch;
+}
+
+.form {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.field {
+  min-width: 0;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.45rem;
+  font: var(--font-label-md);
+  color: var(--color-on-surface);
+}
+
+.label span {
+  color: var(--color-gold);
+}
+
+.input {
+  width: 100%;
+  /* 48 px de alto táctil: un campo de formulario también es un objetivo. */
+  min-height: var(--tap-min);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface-low);
+  color: var(--color-on-surface);
+  font: var(--font-body-md);
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input::placeholder {
+  color: var(--color-on-surface-muted);
+}
+
+.input:focus-visible {
+  outline: none;
+  border-color: var(--focus-color);
+  box-shadow: var(--ring-focus);
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 6rem;
+  line-height: 1.6;
+}
+
+.formNote {
+  margin-top: 0.85rem;
+  text-align: center;
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+}
+
+/* Vía alternativa, separada del formulario por un filete: es otra forma de
+   resolver lo mismo, no un segundo paso del envío. */
+.secondary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.secondaryNote {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  max-width: 46ch;
+}
+
+/* ══ Confirmación ═══════════════════════════════════════════════════════ */
+
+.success {
+  max-width: 44rem;
+  margin-inline: auto;
+  text-align: center;
+  padding: clamp(1.75rem, 1rem + 3vw, 3rem) 1.25rem;
+  border-radius: var(--radius-2xl);
+  border: 1px solid var(--color-gold-border);
+  background: var(--color-gold-soft);
+}
+
+.successIcon {
+  color: var(--color-gold);
+  margin: 0 auto 1rem;
+}
+
+.successTitle {
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+  margin-bottom: 0.5rem;
+}
+
+.successBody {
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  max-width: 48ch;
+  margin: 0 auto 1.75rem;
+  text-wrap: pretty;
+}
+
+@media (min-width: 620px) {
+  .doors {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 720px) {
+  .form {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1040px) {
+  .doors {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}

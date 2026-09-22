@@ -1,0 +1,179 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.head {
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.5rem;
+}
+
+.logoRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.by {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-muted);
+}
+
+.title {
+  color: var(--color-on-ink);
+  margin-bottom: 1.25rem;
+}
+
+.lede {
+  margin-bottom: 0;
+}
+
+/* ══ Etimología ═════════════════════════════════════════════════════════ */
+
+/*
+ * El origen griego de la palabra, presentado como una pieza y no como un dato
+ * suelto. Es el único bloque con vidrio de toda la sección: usar vidrio en las
+ * cinco piezas lo convertiría en textura de fondo y dejaría de destacar nada.
+ */
+.etymology {
+  max-width: 44rem;
+  padding: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+  margin-bottom: clamp(3rem, 2rem + 3vw, 5rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--on-ink-border);
+  background: var(--on-ink-ghost);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.greek {
+  font: 700 clamp(2.25rem, 1.5rem + 3vw, 3.5rem) / 1 var(--font-family);
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
+}
+
+.translit {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  margin-bottom: 1rem;
+}
+
+.meaning {
+  font: var(--font-body-lg);
+  color: var(--color-on-ink);
+  text-wrap: pretty;
+}
+
+/* ══ Los tres pilares ═══════════════════════════════════════════════════ */
+
+.pillars {
+  display: grid;
+  gap: clamp(1.75rem, 1rem + 2vw, 3rem);
+  margin-bottom: clamp(2.5rem, 1.5rem + 2vw, 3.5rem);
+}
+
+/* Sin fondo ni borde: solo un filete superior. Tres tarjetas con vidrio acá
+   repetirían el bloque de etimología y aplanarían la jerarquía. */
+.pillar {
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--on-ink-hairline);
+}
+
+.pillarIcon {
+  display: grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  color: var(--color-gold);
+  border: 1px solid var(--color-gold-border);
+}
+
+.pillarTitle {
+  color: var(--color-on-ink);
+  margin-bottom: 0.3rem;
+}
+
+.pillarAction {
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-muted);
+  margin-bottom: 0.85rem;
+}
+
+.pillarBody {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  text-wrap: pretty;
+}
+
+.note {
+  max-width: 52rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--color-gold);
+  font: var(--font-body-lg);
+  color: var(--color-on-ink);
+}
+
+/* ══ Los dos caminos ════════════════════════════════════════════════════ */
+
+.paths {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.path {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--on-ink-border);
+  background: var(--on-ink-ghost);
+}
+
+.pathTitle {
+  color: var(--color-on-ink);
+  margin-bottom: 0.75rem;
+}
+
+.pathBody {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  margin-bottom: 1.75rem;
+  /* Empuja el botón al pie: los dos CTA quedan alineados aunque los textos
+     tengan largos distintos. Dos botones a distinta altura se leen como dos
+     opciones de distinta importancia. */
+  flex: 1;
+  text-wrap: pretty;
+}
+
+@media (min-width: 760px) {
+  .paths {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 900px) {
+  .pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

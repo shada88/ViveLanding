@@ -1,0 +1,190 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.net {
+  opacity: 0.5;
+}
+
+/*
+ * El resplandor vive DENTRO de los límites de la sección.
+ *
+ * Estaba en `top: -14%`, y como la sección recorta con `overflow: hidden`, la
+ * mitad superior del círculo difuminado se cortaba en seco justo en el borde
+ * de arriba: una línea recta de luz exactamente donde la banda oscura tenía
+ * que fundirse con la sección anterior. La luz confinada en un contenedor
+ * recortado siempre delata el borde del contenedor.
+ */
+.glow {
+  width: min(560px, 70vw);
+  height: min(560px, 70vw);
+  top: 8%;
+  left: -8%;
+  opacity: 0.4;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* ══ Composición ════════════════════════════════════════════════════════ */
+
+.layout {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 5rem);
+  align-items: start;
+}
+
+.aside,
+.main {
+  min-width: 0;
+}
+
+/* ══ Encabezado ═════════════════════════════════════════════════════════ */
+
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.5rem;
+}
+
+/*
+ * El título del documento se compone más grande que cualquier otro h2 de la
+ * página y con el interlineado más cerrado: es la única pieza de la landing
+ * que no es contenido de la fundación *sobre* algo, sino su palabra directa.
+ */
+.title {
+  font: 800 clamp(2.25rem, 1.5rem + 3.2vw, 4rem) / 1.04 var(--font-family);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-on-ink);
+  text-wrap: balance;
+  margin-bottom: 2rem;
+}
+
+.seal {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--on-ink-hairline);
+}
+
+.sealNote {
+  font: var(--font-caption);
+  color: var(--color-on-ink-muted);
+  max-width: 34ch;
+}
+
+/* ══ Artículos ══════════════════════════════════════════════════════════ */
+
+.articles {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  max-width: 54rem;
+  min-width: 0;
+}
+
+.article {
+  display: grid;
+  gap: 0.75rem clamp(1.5rem, 0.5rem + 3vw, 3rem);
+  padding-top: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  border-top: 1px solid var(--on-ink-hairline);
+}
+
+/*
+ * Numeración grande en dorado. El dorado significa valor en este sistema, y
+ * acá marca los seis puntos que la fundación se compromete a sostener.
+ * `tabular-nums` mantiene los seis números en la misma rejilla: sin eso el 1
+ * es más angosto y la columna se desalinea.
+ */
+.number {
+  font: 800 clamp(1.75rem, 1.2rem + 2vw, 2.75rem) / 1 var(--font-family);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-gold);
+}
+
+.articleBody {
+  min-width: 0;
+}
+
+.articleTitle {
+  font: var(--font-h3);
+  color: var(--color-on-ink);
+  margin-bottom: 0.85rem;
+  text-wrap: balance;
+}
+
+/*
+ * Medida de lectura corta y cuerpo generoso: son párrafos densos, de registro
+ * jurídico, y a 90 caracteres por línea se vuelven imposibles de seguir.
+ */
+.articleText {
+  font: var(--font-body-lg);
+  color: var(--color-on-ink-variant);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ══ Firma ══════════════════════════════════════════════════════════════ */
+
+/*
+ * Cierra la columna de lectura, después del artículo 6 — como la línea de
+ * firma al pie de un documento.
+ *
+ * El respiro superior es DELIBERADAMENTE mayor que la separación entre
+ * artículos: con el mismo espacio, el filete se leía como el borde del
+ * artículo 7 y quedaba pegado al texto del 6. Un cierre tiene que separarse
+ * más de lo que se separan entre sí las partes que cierra.
+ */
+.sign {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.25rem 2rem;
+  max-width: 54rem;
+  margin-top: clamp(4rem, 2.5rem + 5vw, 7rem);
+  padding-top: clamp(2.5rem, 1.5rem + 3vw, 3.5rem);
+  border-top: 1px solid var(--on-ink-border);
+}
+
+.signLead {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  max-width: 34ch;
+}
+
+@media (min-width: 760px) {
+  .article {
+    /* El número vive en su propia columna, alineado con el título. En una sola
+       columna quedaba como una viñeta suelta encima del texto. */
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+  }
+}
+
+@media (min-width: 1080px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  }
+
+  /* El encabezado acompaña la lectura de los seis artículos en vez de quedar
+     arriba del todo y perderse. La firma NO se fija: pertenece al final del
+     documento, no al margen. */
+  .aside {
+    position: sticky;
+    top: 7rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Un bloque fijo que se despega al hacer scroll ES movimiento, aunque no
+     sea una animación declarada. */
+  .aside {
+    position: static;
+  }
+}

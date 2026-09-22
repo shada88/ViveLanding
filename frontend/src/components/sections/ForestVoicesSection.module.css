@@ -1,0 +1,242 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.glow {
+  width: min(680px, 80vw);
+  height: min(680px, 80vw);
+  top: 12%;
+  right: -16%;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.catalog {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+}
+
+/* ══ Escenario ══════════════════════════════════════════════════════════ */
+
+.stage {
+  display: grid;
+  gap: clamp(2rem, 1rem + 3vw, 3.5rem);
+  align-items: center;
+}
+
+/* El panel recibe foco al cambiar de pestaña: el anillo tiene que verse, pero
+   sin el `outline-offset` grande del resto de la página, que acá cortaría el
+   retrato. */
+.stage:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 8px;
+  border-radius: var(--radius-lg);
+}
+
+/*
+ * Retrato con máscara orgánica. Las ilustraciones son fotografías cuadradas
+ * con fondo propio: un recorte rectangular las delataría como archivos
+ * pegados en la página. La forma irregular las integra al bosque.
+ */
+.portrait {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  max-width: 420px;
+  width: 100%;
+  margin-inline: auto;
+  border-radius: var(--radius-organic);
+  overflow: hidden;
+  box-shadow: var(--shadow-float);
+  animation: morph 26s var(--ease-in-out-soft) infinite alternate;
+  background: var(--color-ink-raised);
+}
+
+@keyframes morph {
+  0% {
+    border-radius: 46% 54% 38% 62% / 55% 42% 58% 45%;
+  }
+  50% {
+    border-radius: 60% 40% 52% 48% / 44% 56% 44% 56%;
+  }
+  100% {
+    border-radius: 38% 62% 46% 54% / 58% 44% 56% 42%;
+  }
+}
+
+.portraitImage {
+  object-fit: cover;
+  opacity: 0;
+  /* `visibility` acompaña a la opacidad: una imagen a `opacity: 0` sigue
+     siendo un objetivo para el puntero y para la búsqueda en página. */
+  visibility: hidden;
+  transition: opacity var(--transition-soft), visibility var(--transition-soft);
+}
+
+.portraitActive {
+  opacity: 1;
+  visibility: visible;
+}
+
+.portraitRim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 0 0 1px var(--color-gold-border),
+    inset 0 -50px 90px -60px var(--glow-gold);
+}
+
+/* ── Ficha del personaje ───────────────────────────────────────────────── */
+
+.details {
+  min-width: 0;
+}
+
+.species {
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-muted);
+  margin-bottom: 0.6rem;
+}
+
+.name {
+  font: 800 clamp(2rem, 1.4rem + 2.4vw, 3.25rem) / 1.05 var(--font-family);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-gold);
+  margin-bottom: 0.4rem;
+}
+
+.trait {
+  font: var(--font-body-lg);
+  font-weight: 600;
+  color: var(--color-on-ink);
+  margin-bottom: 2rem;
+}
+
+.teachesLabel {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-muted);
+  margin-bottom: 0.5rem;
+}
+
+.teaches {
+  font: var(--font-body-xl);
+  color: var(--color-on-ink);
+  max-width: 44ch;
+  margin-bottom: 1.5rem;
+  padding-left: 1.15rem;
+  border-left: 2px solid var(--color-gold);
+  text-wrap: pretty;
+}
+
+.lesson {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  max-width: 52ch;
+  text-wrap: pretty;
+}
+
+/* ══ La bandada ═════════════════════════════════════════════════════════ */
+
+.flock {
+  display: flex;
+  gap: 0.75rem;
+  /* Desborde horizontal deliberado y contenido: siete miniaturas no entran en
+     360 px, y comprimirlas hasta que entren las volvería ilegibles. */
+  overflow-x: auto;
+  padding-block: 0.5rem 1rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.thumb {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  width: 88px;
+  padding: 0;
+  background: none;
+  border: 0;
+  scroll-snap-align: center;
+  opacity: 0.55;
+  transition: opacity var(--transition), transform var(--transition);
+}
+
+.thumb:hover,
+.thumbActive {
+  opacity: 1;
+  transform: translateY(-4px);
+}
+
+.thumbImage {
+  position: relative;
+  display: block;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow-2);
+  transition: border-color var(--transition);
+}
+
+.thumbImage img {
+  object-fit: cover;
+}
+
+.thumbActive .thumbImage {
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.18), 0 0 24px var(--glow-gold);
+}
+
+.thumbName {
+  font: var(--font-caption);
+  color: var(--color-on-ink-variant);
+  text-align: center;
+}
+
+.thumbActive .thumbName {
+  color: var(--color-gold);
+}
+
+@media (min-width: 900px) {
+  .stage {
+    grid-template-columns: 0.85fr 1.15fr;
+  }
+
+  .flock {
+    justify-content: center;
+    overflow-x: visible;
+  }
+
+  .thumb {
+    width: 104px;
+  }
+
+  .thumbImage {
+    width: 84px;
+    height: 84px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portrait {
+    animation: none;
+  }
+
+  .thumb:hover,
+  .thumbActive {
+    transform: none;
+  }
+}

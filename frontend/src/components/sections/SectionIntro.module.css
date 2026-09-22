@@ -1,0 +1,34 @@
+.intro {
+  max-width: 44rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4.5rem);
+}
+
+.center {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.center .lede {
+  margin-inline: auto;
+}
+
+/* El número del capítulo en dorado: es lo que marca el avance del recorrido y
+   el dorado significa exactamente eso, valor acumulado. */
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+}
+
+.step::after {
+  content: '';
+  display: inline-block;
+  width: 0.5rem;
+}
+
+.title {
+  margin-bottom: 1.25rem;
+}
+
+.lede {
+  margin-bottom: 0;
+}

@@ -1,0 +1,194 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  /* El header es sticky y flota encima: el hero arranca DEBAJO de él sumando
+     su alto al padding superior, no empujando el contenido con un margen. */
+  padding-block: clamp(6rem, 3rem + 9vw, 10rem) clamp(4rem, 2rem + 6vw, 7rem);
+  /* Alto suficiente para que la escena de fondo se lea como escena y no como
+     una franja. La línea con `vh` NO es redundante: si el navegador no conoce
+     `svh`, toda la declaración que lo use es inválida y el hero colapsaría a
+     su relleno. La segunda pisa a la primera solo donde se entiende. */
+  min-height: min(96vh, 940px);
+  min-height: min(96svh, 940px);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/*
+ * Apilado del hero. Las tres capas de fondo —video, red y luz— comparten
+ * `z-index: 0` y se ordenan por su posición en el DOM, que es determinista:
+ * video, después red, después luz. Darle a cada una un `z-index` propio desde
+ * acá sería una apuesta al orden en que el empaquetador concatena los módulos
+ * CSS, porque todos los selectores en juego son de una sola clase y pesan
+ * exactamente lo mismo. El único que declara capa es el contenido.
+ */
+
+/* La red se atenúa sobre el video: dos texturas a plena intensidad compiten
+   entre sí y ninguna de las dos se lee. */
+.net {
+  opacity: 0.6;
+}
+
+.glow {
+  /* Acompaña a la luz cálida que ya trae la escena por la esquina superior
+     derecha, en vez de inventar una fuente de luz que la contradiga. */
+  width: min(560px, 70vw);
+  height: min(560px, 70vw);
+  top: -12%;
+  right: -6%;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+/*
+ * El texto vive en el tercio izquierdo, que es donde el video es azul plano.
+ * El tope de ancho no es decorativo: si la columna creciera, el titular
+ * invadiría la casilla 3 y taparía a la paloma.
+ */
+.copy {
+  /*
+   * 38rem, no 36: con 36 los dos CTA sumaban 575 px contra un contenedor de
+   * 576 y se partían en dos filas por un píxel. El tope sigue siendo holgado
+   * —a 1440 px la columna termina en ~728 px y la paloma empieza en ~1140—,
+   * así que el texto nunca invade la casilla 3.
+   */
+  max-width: min(38rem, 52%);
+}
+
+.title {
+  margin-bottom: 1.75rem;
+  text-wrap: balance;
+  /* Sombra larga y muy difusa: no se percibe como sombra, pero despega el
+     titular de la textura de lluvia en los pocos píxeles donde se tocan. */
+  text-shadow: 0 2px 28px rgba(4, 7, 14, 0.55);
+}
+
+.lede {
+  margin-bottom: 2.5rem;
+  max-width: 34rem;
+}
+
+.actions {
+  margin-bottom: 0;
+}
+
+.proof {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
+  margin-top: clamp(3.5rem, 2rem + 5vw, 6rem);
+  padding-top: clamp(2rem, 1rem + 2vw, 3rem);
+  /* Un filete de pelo que se disuelve hacia los costados en vez de un
+     `border-top` sólido de borde a borde. */
+  border-top: 1px solid transparent;
+  border-image: linear-gradient(
+      90deg,
+      transparent,
+      var(--color-outline-variant) 25%,
+      var(--color-outline-variant) 75%,
+      transparent
+    )
+    1;
+}
+
+.proofItem {
+  min-width: 0;
+}
+
+.scrollCue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: var(--tap-min);
+  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-surface-muted);
+  transition: color var(--transition);
+}
+
+.scrollCue svg {
+  animation: nudge 2.6s var(--ease-in-out-soft) infinite;
+}
+
+.scrollCue:hover {
+  color: var(--color-gold);
+}
+
+@keyframes nudge {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+@media (min-width: 900px) {
+  .proof {
+    grid-template-columns: repeat(3, 1fr);
+    /* La fila de datos tampoco cruza a la derecha: deja libre la franja donde
+       está el perro, que llega hasta abajo del encuadre. */
+    max-width: 62rem;
+  }
+}
+
+@media (max-width: 899px) {
+  .hero {
+    min-height: auto;
+    /*
+     * En móvil el video deja de estar DETRÁS del texto y ocupa una banda
+     * propia arriba: en 390 px de ancho no queda columna libre, y un 16:9 de
+     * fondo solo puede terminar invisible o ilegible.
+     *
+     * Los dos valores están atados: la banda mide 46 svh y el texto arranca
+     * 3 rem antes de que termine, montándose sobre el desvanecido. Si se
+     * cambia uno hay que cambiar el otro, o aparece un vacío entre la escena
+     * y el titular. `svh` y no `vh`: con `vh` la barra del navegador móvil
+     * empuja la banda y se come el arranque del texto.
+     */
+    --backdrop-height: 46vh;
+    padding-block: calc(46vh - 3rem) clamp(3rem, 2rem + 6vw, 5rem);
+  }
+
+  /*
+   * Mejora donde `svh` existe. Va en un `@supports` y no como segunda
+   * declaración porque `--backdrop-height` es una propiedad personalizada:
+   * acepta CUALQUIER texto sin validarlo, así que un `46svh` no entendido no
+   * se descarta acá — se descarta más tarde, al resolver `height: var(...)`,
+   * y ahí la banda se queda sin alto. La consulta lo evita de raíz.
+   */
+  @supports (height: 1svh) {
+    .hero {
+      --backdrop-height: 46svh;
+      padding-block: calc(46svh - 3rem) clamp(3rem, 2rem + 6vw, 5rem);
+    }
+  }
+
+  .copy {
+    max-width: none;
+  }
+
+  /* La red se apaga sobre la banda: ahí el video ya es la textura, y dos
+     texturas superpuestas en una franja chica se vuelven ruido. */
+  .net {
+    opacity: 0.35;
+  }
+
+  .proof {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrollCue svg {
+    animation: none;
+  }
+}
