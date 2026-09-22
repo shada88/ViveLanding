@@ -1,9 +1,9 @@
 import React from 'react';
+import Image from 'next/image';
 import { ArrowRight, ArrowUpRight, BookOpen } from 'lucide-react';
 import { CANONICAL_PROGRAMS } from '@/domain/entities/Program';
 import { Reveal } from '@/components/motion/Reveal';
 import { CordThread } from '@/components/visuals/CordThread';
-import { AmbientVideo } from '@/components/visuals/AmbientVideo';
 import { SectionIntro } from './SectionIntro';
 import styles from './ProgramsSection.module.css';
 
@@ -13,7 +13,7 @@ const INTERNAL_ANCHORS: Record<string, string> = {
   'rally-continental-2028': '#territorio',
 };
 
-const COCOPERRO_VIDEO = '/Video/Dove_and_dog_in_rain_20260921144522.mp4';
+const COCOPERRO_IMAGE = '/Video/Cocoperro_staring_closely_20260922164931.jpeg';
 
 /**
  * 10 — Programas del ecosistema.
@@ -84,13 +84,18 @@ export function ProgramsSection() {
                 )}
               </div>
 
-              {/* Cocoperro aparece en movimiento y no como una ilustración
-                  estática: es el personaje del libro, no un ícono de interfaz. */}
+              {/* Ilustración de Cocoperro, personaje principal del libro */}
               <div className={styles.programMedia}>
-                <AmbientVideo
-                  src={COCOPERRO_VIDEO}
-                  description="Cocoperro bajo la lluvia, acompañando a la paloma Esperanza."
-                />
+                <div className={styles.imageFrame}>
+                  <Image
+                    src={COCOPERRO_IMAGE}
+                    alt="Ilustración de Cocoperro mirando de cerca, del libro Cocoperro y El Cordón Amarillo"
+                    fill
+                    sizes="(max-width: 899px) 90vw, 340px"
+                    className={styles.image}
+                  />
+                  <span className={styles.imageRim} aria-hidden="true" />
+                </div>
               </div>
             </Reveal>
           </div>

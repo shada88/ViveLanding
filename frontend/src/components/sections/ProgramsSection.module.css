@@ -76,7 +76,35 @@
 .programMedia {
   min-width: 0;
   max-width: 340px;
+  width: 100%;
   margin-inline: auto;
+}
+
+.imageFrame {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-2);
+  background: var(--color-surface-low);
+}
+
+.image {
+  object-fit: cover;
+  transition: transform var(--transition-soft);
+}
+
+.imageFrame:hover .image {
+  transform: scale(1.03);
+}
+
+.imageRim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--color-gold-border);
 }
 
 /* ══ Programas con sección propia ═══════════════════════════════════════ */
