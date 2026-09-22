@@ -1,0 +1,177 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+/*
+ * El vidrio vive en un PSEUDO-ELEMENTO, nunca en el elemento que contiene
+ * texto. Si la máscara se aplicara al header, se desvanecerían también el
+ * logotipo y la navegación.
+ *
+ * `inset` se extiende 26 px por debajo y la máscara disuelve ese sobrante: el
+ * header termina en un degradado, no en una línea. Sin `border-bottom` ni
+ * `box-shadow` duro — los bordes rectos entre bandas son el anti-patrón número
+ * uno de este sistema.
+ */
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 -26px 0;
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 62%, transparent 100%);
+}
+
+/* En el tope de la página el header flota sobre el hero sin fondo: el mensaje
+   principal no compite con una barra. El vidrio aparece recién al bajar. */
+.lifted::before {
+  opacity: 1;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  height: 4.75rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: var(--radius-sm);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 0.3rem + 1.5vw, 2rem);
+}
+
+.link {
+  position: relative;
+  font: var(--font-label-md);
+  font-weight: 500;
+  color: var(--color-on-surface-variant);
+  padding-block: 0.5rem;
+  transition: color var(--transition);
+}
+
+/* Subrayado que crece desde el centro. Un solo gesto, repetido en todos los
+   enlaces de navegación: eso es tener sistema de movimiento y no una colección
+   de efectos. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background: var(--color-gold);
+  transition: width var(--transition), left var(--transition);
+}
+
+.link:hover {
+  color: var(--color-on-surface);
+}
+
+.link:hover::after,
+.link:focus-visible::after {
+  width: 100%;
+  left: 0;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.cta {
+  min-height: 2.5rem;
+  padding: 0.5rem 1.15rem;
+  font: var(--font-label-md);
+}
+
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-full);
+  background: var(--color-surface-low);
+  color: var(--color-on-surface);
+  transition: border-color var(--transition), background-color var(--transition);
+}
+
+.toggle:hover {
+  border-color: var(--color-outline);
+  background: var(--color-surface-container);
+}
+
+.panel {
+  position: relative;
+  z-index: 1;
+  background: var(--glass-bg-strong);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.panelNav {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--shell-max);
+  margin-inline: auto;
+  padding: 0.5rem var(--shell-pad) 1.5rem;
+}
+
+.panelLink {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  padding-block: 0.75rem;
+  font: var(--font-body-md);
+  font-weight: 500;
+  color: var(--color-on-surface);
+  border-bottom: 1px solid var(--color-outline-variant);
+}
+
+.panelLink:last-child {
+  border-bottom: 0;
+}
+
+.panelLink:hover {
+  color: var(--color-gold);
+}
+
+@media (max-width: 1080px) {
+  .nav {
+    display: none;
+  }
+
+  .toggle {
+    display: inline-flex;
+  }
+}
+
+@media (max-width: 520px) {
+  /* Con el ancho más ajustado el CTA del header cede su lugar: el mismo botón
+     aparece en el panel y, sobre todo, en el hero. Apretarlo hasta las 32 px
+     de alto sería peor que no tenerlo. */
+  .cta {
+    display: none;
+  }
+}

@@ -1,0 +1,130 @@
+.footer {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3.5rem, 2rem + 5vw, 6rem) 2.5rem;
+  /* Abre en el fondo de la página y se hunde: el pie no empieza con una línea
+     recta, se separa del cuerpo por profundidad. */
+  background: linear-gradient(
+    180deg,
+    var(--color-background) 0%,
+    var(--color-surface-lowest) 32%,
+    var(--color-surface-lowest) 100%
+  );
+}
+
+.glow {
+  width: min(700px, 90vw);
+  height: min(400px, 50vw);
+  bottom: -30%;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+.top {
+  display: grid;
+  gap: clamp(2.5rem, 1.5rem + 4vw, 4.5rem);
+  padding-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.identity {
+  max-width: 24rem;
+}
+
+.blurb {
+  margin: 1.5rem 0 1rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+.credit {
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+}
+
+.columns {
+  display: grid;
+  gap: 2rem;
+}
+
+.columnTitle {
+  font: var(--font-label-md);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 1rem;
+}
+
+.list {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  /* Altura táctil mínima también en el pie: es donde más enlaces juntos hay y
+     donde más fácil es errarle al de al lado. */
+  min-height: 2.5rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  transition: color var(--transition);
+}
+
+.link:hover {
+  color: var(--color-gold);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.legal {
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+  max-width: 60ch;
+}
+
+.toTop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: var(--tap-min);
+  padding: 0.5rem 1.15rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-outline-variant);
+  background: transparent;
+  font: var(--font-label-md);
+  color: var(--color-on-surface-variant);
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.toTop:hover {
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+@media (min-width: 720px) {
+  .columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .top {
+    grid-template-columns: 0.9fr 1.6fr;
+  }
+}
