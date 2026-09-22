@@ -1,0 +1,86 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  /* El lienzo es más alto que ancho (100 × 145): la proporción se declara acá
+     para que el contenedor reserve el espacio exacto y no haya salto de layout
+     cuando el SVG termina de pintarse. */
+  aspect-ratio: 100 / 145;
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+.svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.land path {
+  fill: url(#vceLandFill);
+  stroke: var(--color-primary);
+  stroke-width: 0.35;
+  stroke-linejoin: round;
+  opacity: 0.85;
+}
+
+.links line {
+  stroke: var(--net-4);
+  stroke-width: 1;
+  stroke-opacity: 0.32;
+  stroke-linecap: round;
+  stroke-dasharray: 3 5;
+  animation: travel 3.4s linear infinite;
+  animation-delay: calc(var(--i, 0) * -0.22s);
+}
+
+@keyframes travel {
+  to {
+    /* Desplaza exactamente un ciclo del guion (3 + 5): el bucle cierra sin
+       salto y la línea se lee como flujo continuo entre territorios. */
+    stroke-dashoffset: -8;
+  }
+}
+
+.node {
+  fill: var(--net-3);
+  opacity: 0.7;
+}
+
+.nodeAnchor {
+  fill: var(--color-gold);
+}
+
+.halo {
+  fill: none;
+  stroke: var(--color-gold);
+  stroke-width: 0.35;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: breathe 4.6s var(--ease-in-out-soft) infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    scale: 0.7;
+  }
+  50% {
+    opacity: 0;
+    scale: 1.7;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Las conexiones y los halos se congelan: el mapa sigue diciendo lo mismo
+     —qué territorios están enlazados— sin nada moviéndose. */
+  .links line,
+  .halo {
+    animation: none;
+  }
+
+  .halo {
+    opacity: 0.45;
+  }
+}
