@@ -77,6 +77,14 @@
   margin-bottom: 0;
 }
 
+.audienceHint {
+  font: var(--font-caption);
+  color: var(--color-on-surface-variant);
+  margin-top: 0.85rem;
+  letter-spacing: 0.015em;
+  opacity: 0.9;
+}
+
 .proof {
   display: grid;
   gap: clamp(1.5rem, 1rem + 2vw, 3rem);
