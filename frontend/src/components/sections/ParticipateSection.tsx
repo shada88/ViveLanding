@@ -86,6 +86,35 @@ export function ParticipateSection() {
     });
   };
 
+  React.useEffect(() => {
+    const handleSelectRole = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      const targetRoleId = customEvent.detail;
+      if (targetRoleId && PARTICIPATION_ROLES.some((r) => r.id === targetRoleId)) {
+        chooseRole(targetRoleId);
+      }
+    };
+
+    const handleHash = () => {
+      const hash = window.location.hash;
+      if (hash.startsWith('#participar-')) {
+        const targetRoleId = hash.replace('#participar-', '');
+        if (PARTICIPATION_ROLES.some((r) => r.id === targetRoleId)) {
+          chooseRole(targetRoleId);
+        }
+      }
+    };
+
+    window.addEventListener('vce:select-role', handleSelectRole);
+    window.addEventListener('hashchange', handleHash);
+    handleHash();
+
+    return () => {
+      window.removeEventListener('vce:select-role', handleSelectRole);
+      window.removeEventListener('hashchange', handleHash);
+    };
+  }, []);
+
   const update = (field: LeadField) => (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => setValues((current) => ({ ...current, [field]: event.target.value }));

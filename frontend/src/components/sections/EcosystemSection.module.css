@@ -8,17 +8,34 @@
   aspect-ratio: 1 / 1;
 }
 
+.instructionBanner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: fit-content;
+  max-width: 90%;
+  margin: 0 auto 2.25rem;
+  padding: 0.45rem 1.15rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold-border);
+  background: rgba(230, 190, 115, 0.08);
+  color: var(--color-gold);
+  font: var(--font-label-md);
+  letter-spacing: 0.015em;
+  text-align: center;
+}
+
+.instructionIcon {
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
 .links {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  /*
-   * `preserveAspectRatio="none"` alinea el sistema de coordenadas del SVG con
-   * los porcentajes del HTML: por eso los trazos caen exactamente sobre los
-   * nodos a cualquier ancho. `vector-effect` en los paths evita que el trazo
-   * se deforme cuando el lienzo se estira.
-   */
 }
 
 .linkBase {
@@ -56,7 +73,7 @@
 .hub {
   position: absolute;
   translate: -50% -50%;
-  width: min(42%, 300px);
+  width: min(46%, 330px);
   z-index: 2;
   text-align: center;
 }
@@ -85,9 +102,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
   aspect-ratio: 1 / 1;
-  padding: clamp(1rem, 0.5rem + 2vw, 2.25rem);
+  padding: clamp(0.75rem, 0.4rem + 1.5vw, 1.75rem);
   border-radius: 50%;
   background:
     radial-gradient(
@@ -97,12 +115,13 @@
       transparent 100%
     );
   border: 1px solid var(--color-outline-variant);
+  box-shadow: 0 4px 24px rgba(4, 7, 14, 0.6);
 }
 
 .hubLabel {
   font: var(--font-label-lg);
   color: var(--color-gold);
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.45rem;
   text-wrap: balance;
 }
 
@@ -110,6 +129,31 @@
   font: var(--font-body-sm);
   color: var(--color-on-surface-variant);
   text-wrap: pretty;
+  line-height: 1.45;
+}
+
+.hubAction {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: var(--color-gold);
+  color: var(--color-on-gold);
+  font: var(--font-label-md);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.hubAction:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 14px rgba(230, 190, 115, 0.4);
 }
 
 /* ── Nodos ─────────────────────────────────────────────────────────────── */
@@ -137,6 +181,7 @@
   border: 1px solid var(--color-outline-variant);
   border-radius: var(--radius-lg);
   background: var(--color-surface-low);
+  cursor: pointer;
   transition:
     border-color var(--transition),
     background-color var(--transition),
@@ -161,7 +206,9 @@
   color: var(--color-primary);
   background: var(--color-primary-soft);
   border: 1px solid var(--color-primary-border);
-  transition: color var(--transition), border-color var(--transition);
+  transition:
+    color var(--transition),
+    border-color var(--transition);
 }
 
 .nodeActive .nodeIcon {
@@ -175,16 +222,108 @@
   text-align: center;
 }
 
-/* En el radial el detalle vive en el centro, no en el nodo: repetirlo acá
-   llenaría la composición de texto diminuto. En móvil se revierte. */
 .nodeDetail {
   display: none;
 }
 
-/* ══ Móvil y tablet: columna con espina vertical ═══════════════════════ *
- * Todo radial colapsa por debajo de 900 px. Mismo significado, sin texto
- * ilegible ni desborde horizontal — y sin depender de hover para leer nada.
- */
+.mobileAction {
+  display: none;
+}
+
+/* ══ Fila de acceso rápido a roles ══════════════════════════════════════ */
+
+.quickRolesWrapper {
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-outline-variant);
+  text-align: center;
+}
+
+.quickRolesTitle {
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+  margin-bottom: 0.4rem;
+}
+
+.quickRolesSub {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  margin-bottom: 1.5rem;
+  max-width: 52ch;
+  margin-inline: auto;
+}
+
+.quickRolesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.quickRoleCard {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  padding: 1rem 1.15rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface-low);
+  color: var(--color-on-surface);
+  text-decoration: none;
+  cursor: pointer;
+  text-align: left;
+  transition:
+    border-color var(--transition),
+    background-color var(--transition),
+    transform var(--transition);
+}
+
+.quickRoleCard:hover {
+  border-color: var(--color-gold-border);
+  background: var(--color-surface-container);
+  transform: translateY(-2px);
+}
+
+.quickRoleIcon {
+  display: grid;
+  place-items: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: rgba(230, 190, 115, 0.12);
+  color: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.quickRoleBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+  flex-grow: 1;
+}
+
+.quickRoleHeading {
+  font: var(--font-label-lg);
+  color: var(--color-on-surface);
+}
+
+.quickRoleText {
+  font: var(--font-caption);
+  color: var(--color-on-surface-variant);
+}
+
+.quickRoleArrow {
+  color: var(--color-gold);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+
+.quickRoleCard:hover .quickRoleArrow {
+  transform: translateX(3px);
+}
+
+/* ══ Móvil y tablet: columna con espina vertical ═══════════════════════ */
+
 @media (max-width: 899px) {
   .graph {
     aspect-ratio: auto;
@@ -200,27 +339,30 @@
     position: static;
     translate: none;
     width: 100%;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
     text-align: left;
   }
 
   .hubBody {
     aspect-ratio: auto;
     border-radius: var(--radius-lg);
-    padding: 1.5rem;
+    padding: 1.35rem;
     background: var(--color-surface-low);
+    align-items: flex-start;
+  }
+
+  .hubAction {
+    margin-top: 0.85rem;
   }
 
   .nodes {
     position: relative;
     inset: auto;
     display: grid;
-    gap: 1.75rem;
+    gap: 1.85rem;
     padding-left: 2.25rem;
   }
 
-  /* La espina: una sola línea vertical que atraviesa la lista entera y
-     reemplaza a los ocho trazos radiales. */
   .nodes::before {
     content: '';
     position: absolute;
@@ -245,7 +387,6 @@
     width: 100%;
   }
 
-  /* Nudo sobre la espina, a la altura del ícono del nodo. */
   .nodeSlot::before {
     content: '';
     position: absolute;
@@ -285,12 +426,28 @@
     padding-left: 3.1rem;
     font: var(--font-body-sm);
     color: var(--color-on-surface-variant);
+    line-height: 1.5;
+  }
+
+  .mobileAction {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+    margin-left: 3.1rem;
+    font: var(--font-label-md);
+    color: var(--color-gold);
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .mobileAction:hover {
+    color: var(--color-primary);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Los enlaces quedan dibujados y quietos: el pulso era el movimiento, no la
-     información. El trazo base sigue contando quién está conectado con quién. */
   .linkPulse {
     animation: none;
     stroke-dasharray: none;
