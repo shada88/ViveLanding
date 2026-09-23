@@ -17,7 +17,7 @@ export interface StoreItem {
   story: string;
   /** A qué se destina lo recaudado. Concreto, nunca "a la causa". */
   funds: string;
-  icon: 'BookOpen' | 'Palette';
+  icon: 'BookOpen' | 'Palette' | 'Heart';
 }
 
 /** Línea de contacto de la tienda. Formato internacional, Colombia (+57). */
@@ -32,10 +32,6 @@ const STORE_MESSAGE =
  * `wa.me` y no `api.whatsapp.com`: es el formato que abre la aplicación
  * instalada en el teléfono y cae a WhatsApp Web en el escritorio, sin
  * intermediar una página de redirección.
- *
- * El mensaje va por `encodeURIComponent` y no escrito a mano: lleva tildes,
- * signos de apertura y espacios, y cualquiera de ellos sin codificar rompe el
- * texto que la persona ve al abrir el chat.
  */
 export const STORE_WHATSAPP_URL = `https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(
   STORE_MESSAGE,
@@ -46,6 +42,15 @@ export const BOOK_URL =
   'https://www.amazon.com/dp/B0FFBGQ9FF#detailBullets_feature_div';
 
 export const STORE_ITEMS: StoreItem[] = [
+  {
+    id: 'peluches-voces',
+    name: 'Peluches Pedagógicos «Voces del Bosque»',
+    kind: 'Edición artesanal de las 7 mascotas del Rally Continental 2028',
+    story:
+      'Las siete aves emblemáticas confeccionadas como compañeros de aprendizaje socioemocional y resiliencia para las aulas. Cada peluche encarna una lección de gestión del riesgo y cuidado territorial.',
+    funds: 'Financia kits de emergencia escolar y material pedagógico para escuelas vulnerables.',
+    icon: 'Heart',
+  },
   {
     id: 'libritos',
     name: 'Colección Libritos de Esperanza',

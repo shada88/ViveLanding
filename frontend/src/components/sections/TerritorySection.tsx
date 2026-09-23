@@ -46,7 +46,7 @@ export function TerritorySection() {
               step="07"
               eyebrow="Continental"
               titleId="territorio-titulo"
-              title="Lo que funciona en un territorio no se queda en ese territorio"
+              title="Lo que funciona en un territorio no se queda allí"
               lede="Trabajamos de Canadá a la Patagonia. Cada protocolo que una comunidad educativa prueba y ajusta vuelve a la red corregido, y la siguiente escuela ya no empieza de cero."
               className={styles.intro}
             />

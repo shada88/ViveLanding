@@ -2,10 +2,13 @@
 
 import React, { useState } from 'react';
 import {
+  ArrowRight,
   BookOpen,
   Building2,
   GraduationCap,
+  Heart,
   MapPin,
+  MousePointerClick,
   School,
   Sprout,
   Sun,
@@ -49,9 +52,11 @@ function link(x: number, y: number): string {
 }
 
 const DEFAULT_PANEL = {
-  label: 'Un ecosistema, no un programa',
+  label: 'Una red viva de 8 piezas',
   detail:
-    'Ocho piezas que ya existen en cualquier territorio. Lo que aportamos es el enlace entre ellas: elige una para ver qué función cumple.',
+    'Cada componente cumple un rol indispensable en el territorio. Toca o selecciona cualquier nodo para conocer cómo se conecta y sumarte directamente.',
+  roleId: 'escuelas' as const,
+  actionLabel: 'Quiero participar en la red',
 };
 
 /**
@@ -61,37 +66,40 @@ const DEFAULT_PANEL = {
  * estructura: ocho nodos alrededor de un centro, todos conectados, sin un
  * intermediario que se interponga.
  *
- * Tres decisiones de accesibilidad que condicionan el diseño:
- *
- * 1. **Los nodos son botones, no cosas con `:hover`.** Contenido que solo
- *    aparece al pasar el mouse no existe en un teléfono ni para quien navega
- *    con teclado. Acá se activa con click, con Enter y con Tab por igual.
- * 2. **`onFocus` activa igual que el click.** Tabular por la red cuenta la
- *    misma historia que recorrerla con el puntero.
- * 3. **El panel central es `aria-live="polite"`.** El texto cambia sin
- *    recargar nada; sin la región viva, un lector de pantalla no se enteraría
- *    de que algo cambió.
- *
- * Por debajo de 900 px el radial colapsa a una columna con espina vertical y
- * el detalle de cada nodo se muestra SIEMPRE: mismo significado, sin texto
- * ilegible, sin desborde y sin depender de una interacción.
+ * Accesibilidad y CRO:
+ * 1. Los nodos se activan con hover, click, Enter y Tab por igual.
+ * 2. Cada nodo conecta de forma directa con la acción de participación
+ *    específica de ese actor mediante `vce:select-role`.
+ * 3. En móvil la espina vertical muestra la función y el botón de acción
+ *    de cada uno sin ocultar nada tras una interacción forzada.
  */
 export function EcosystemSection() {
   const [activeId, setActiveId] = useState<string | null>(null);
   const active = ECOSYSTEM_NODES.find((node) => node.id === activeId);
   const panel = active ?? DEFAULT_PANEL;
 
+  const handleRoleSelect = (roleId: string) => {
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('vce:select-role', { detail: roleId }));
+    }
+  };
+
   return (
     <section id="ecosistema" className="section" aria-labelledby="ecosistema-titulo">
       <div className="shell">
         <SectionIntro
           step="04"
-          eyebrow="El ecosistema"
+          eyebrow="El ecosistema de articulación"
           titleId="ecosistema-titulo"
           align="center"
           title="Personas, escuelas, conocimiento y territorio. Conectados."
-          lede="Nada de esto es nuevo por separado. Lo que cambia el resultado es que estén enlazados y que el enlace no dependa de que alguien se acuerde de llamar."
+          lede="Ocho actores territoriales enlazados para resolver en red. Pasa el cursor o selecciona cada componente para descubrir su rol dentro del modelo."
         />
+
+        <div className={styles.instructionBanner}>
+          <MousePointerClick size={16} aria-hidden="true" className={styles.instructionIcon} />
+          <span>Toca o pasa el cursor sobre cada nodo para ver su función y sumarte a la red</span>
+        </div>
 
         <Reveal className={styles.graph}>
           <svg
@@ -108,8 +116,6 @@ export function EcosystemSection() {
                   className={styles.linkBase}
                   vectorEffect="non-scaling-stroke"
                 />
-                {/* Pulso que viaja por la línea: el enlace en movimiento, no un
-                    trazo inerte. `--i` escalona los ocho pulsos. */}
                 <path
                   d={link(node.x, node.y)}
                   className={`${styles.linkPulse} ${
@@ -130,6 +136,14 @@ export function EcosystemSection() {
             <div className={styles.hubBody} aria-live="polite">
               <p className={styles.hubLabel}>{panel.label}</p>
               <p className={styles.hubDetail}>{panel.detail}</p>
+              <a
+                href="#participar"
+                onClick={() => handleRoleSelect(panel.roleId)}
+                className={styles.hubAction}
+              >
+                <span>{panel.actionLabel}</span>
+                <ArrowRight size={14} aria-hidden="true" />
+              </a>
             </div>
           </div>
 
@@ -158,10 +172,87 @@ export function EcosystemSection() {
                     <span className={styles.nodeLabel}>{node.label}</span>
                   </button>
                   <p className={styles.nodeDetail}>{node.detail}</p>
+                  <a
+                    href="#participar"
+                    onClick={() => handleRoleSelect(node.roleId)}
+                    className={styles.mobileAction}
+                  >
+                    <span>{node.actionLabel}</span>
+                    <ArrowRight size={14} aria-hidden="true" />
+                  </a>
                 </li>
               );
             })}
           </ul>
+        </Reveal>
+
+        <Reveal className={styles.quickRolesWrapper}>
+          <h3 className={styles.quickRolesTitle}>¿Cómo quieres sumarte a la red?</h3>
+          <p className={styles.quickRolesSub}>
+            Selecciona tu perfil para ingresar directamente al formulario de vinculación con tu rol activo.
+          </p>
+
+          <div className={styles.quickRolesGrid}>
+            <a
+              href="#participar"
+              onClick={() => handleRoleSelect('escuelas')}
+              className={styles.quickRoleCard}
+            >
+              <span className={styles.quickRoleIcon}>
+                <School size={22} aria-hidden="true" />
+              </span>
+              <div className={styles.quickRoleBody}>
+                <span className={styles.quickRoleHeading}>Soy Escuela o Docente</span>
+                <span className={styles.quickRoleText}>Preinscribir plantel educativo</span>
+              </div>
+              <ArrowRight size={16} aria-hidden="true" className={styles.quickRoleArrow} />
+            </a>
+
+            <a
+              href="#participar"
+              onClick={() => handleRoleSelect('aliados')}
+              className={styles.quickRoleCard}
+            >
+              <span className={styles.quickRoleIcon}>
+                <Building2 size={22} aria-hidden="true" />
+              </span>
+              <div className={styles.quickRoleBody}>
+                <span className={styles.quickRoleHeading}>Empresa o Institución</span>
+                <span className={styles.quickRoleText}>Proponer alianza o cooperación</span>
+              </div>
+              <ArrowRight size={16} aria-hidden="true" className={styles.quickRoleArrow} />
+            </a>
+
+            <a
+              href="#participar"
+              onClick={() => handleRoleSelect('voluntarios')}
+              className={styles.quickRoleCard}
+            >
+              <span className={styles.quickRoleIcon}>
+                <Users size={22} aria-hidden="true" />
+              </span>
+              <div className={styles.quickRoleBody}>
+                <span className={styles.quickRoleHeading}>Voluntariado</span>
+                <span className={styles.quickRoleText}>Aportar tiempo, oficio o ideas</span>
+              </div>
+              <ArrowRight size={16} aria-hidden="true" className={styles.quickRoleArrow} />
+            </a>
+
+            <a
+              href="#participar"
+              onClick={() => handleRoleSelect('donantes')}
+              className={styles.quickRoleCard}
+            >
+              <span className={styles.quickRoleIcon}>
+                <Heart size={22} aria-hidden="true" />
+              </span>
+              <div className={styles.quickRoleBody}>
+                <span className={styles.quickRoleHeading}>Donante o Filantropía</span>
+                <span className={styles.quickRoleText}>Financiar kits y escuelas en riesgo</span>
+              </div>
+              <ArrowRight size={16} aria-hidden="true" className={styles.quickRoleArrow} />
+            </a>
+          </div>
         </Reveal>
       </div>
     </section>

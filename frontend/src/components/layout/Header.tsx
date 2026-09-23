@@ -6,24 +6,25 @@ import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import styles from './Header.module.css';
 
-/** Navegación de escritorio: seis destinos. Más de eso no se lee, se escanea. */
+/** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
 const NAV = [
-  { href: '#proposito', label: 'Propósito' },
-  { href: '#declaracion', label: 'Declaración' },
-  { href: '#ecosistema', label: 'Ecosistema' },
+  { href: '#ecosistema', label: 'Qué hacemos' },
+  { href: '#programas', label: 'Programas' },
   { href: '#herramientas', label: 'Herramientas' },
-  { href: '#kaleo', label: 'Kaleo' },
-  { href: '#voces', label: 'Voces del Bosque' },
+  { href: '#declaracion', label: 'La Declaración' },
+  { href: '#tienda', label: 'Tienda' },
 ] as const;
 
-/** El menú móvil sí lista todo: ahí el recorrido completo es el contenido. */
+/** Menú móvil estructurado por categorías clave. */
 const NAV_MOBILE = [
-  ...NAV,
-  { href: '#territorio', label: 'Territorio' },
-  { href: '#origen', label: 'El origen' },
-  { href: '#programas', label: 'Programas' },
-  { href: '#tienda', label: 'Tienda' },
-  { href: '#participar', label: 'Participar' },
+  { href: '#ecosistema', label: 'Qué hacemos (Ecosistema)' },
+  { href: '#programas', label: 'Programas del Ecosistema' },
+  { href: '#kaleo', label: 'Kaleo — Red de Alerta' },
+  { href: '#voces', label: 'Las Voces del Bosque' },
+  { href: '#herramientas', label: 'Herramientas de Crisis' },
+  { href: '#declaracion', label: 'La Declaración' },
+  { href: '#tienda', label: 'Tienda con Propósito' },
+  { href: '#participar', label: 'Participar / Preinscribir' },
 ] as const;
 
 export function Header() {

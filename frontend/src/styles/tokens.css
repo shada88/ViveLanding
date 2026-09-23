@@ -127,9 +127,9 @@
   --space-lg: 48px;
   --space-xl: 80px;
 
-  /* Ritmo editorial: secciones amplias, con aire. Es el token que más define
-     la diferencia entre "landing" y "aplicación". */
-  --section-y: clamp(5rem, 2.5rem + 9vw, 11rem);
+  /* Ritmo editorial: secciones amplias y respirables, pero compactas para evitar
+     espacios negros vacíos durante el desplazamiento. */
+  --section-y: clamp(3.25rem, 2rem + 3.5vw, 5.5rem);
   --shell-max: 1200px;
   --shell-narrow: 760px;
   --shell-pad: clamp(1.25rem, 0.6rem + 2.6vw, 2.75rem);
@@ -177,9 +177,9 @@
   --transition-fast: 140ms var(--ease-out-soft);
   --transition: 240ms var(--ease-out-soft);
   --transition-soft: 520ms var(--ease-out-soft);
-  --reveal-duration: 760ms;
-  --reveal-shift: 26px;
-  --reveal-stagger: 90ms;
+  --reveal-duration: 480ms;
+  --reveal-shift: 14px;
+  --reveal-stagger: 60ms;
 }
 
 /* ════════════════════════════════════════════════════════════════════════ *

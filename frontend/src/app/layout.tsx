@@ -7,18 +7,40 @@ const TITLE = 'Fundación Vive con Esperanza';
 const DESCRIPTION =
   'Convertimos escuelas en motores de desarrollo local. Red interamericana que conecta escuelas, docentes, comunidades e instituciones con herramientas, conocimiento y acompañamiento.';
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://vivesperanza.org';
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: TITLE,
     template: `%s — ${TITLE}`,
   },
   description: DESCRIPTION,
   applicationName: TITLE,
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: TITLE,
     description: 'Convertimos escuelas en motores de desarrollo local.',
+    url: SITE_URL,
+    siteName: TITLE,
     type: 'website',
-    locale: 'es',
+    locale: 'es_LA',
+    images: [
+      {
+        url: '/vivesperanza_logo.svg',
+        width: 800,
+        height: 600,
+        alt: 'Fundación Vive con Esperanza — Convertimos escuelas en motores de desarrollo local',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: TITLE,
+    description: 'Convertimos escuelas en motores de desarrollo local.',
+    images: ['/vivesperanza_logo.svg'],
   },
 };
 
@@ -27,6 +49,24 @@ export const viewport: Viewport = {
   // navegador en móvil queda blanca contra una página negra.
   themeColor: '#04070e',
   colorScheme: 'dark light',
+};
+
+const ORGANIZATION_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'NGO',
+  name: 'Fundación Vive con Esperanza',
+  alternateName: 'Vivesperanza',
+  url: 'https://vivesperanza.org',
+  logo: 'https://vivesperanza.org/vivesperanza_logo.svg',
+  taxID: '900.250.330-2',
+  description:
+    'Convertimos escuelas en motores de desarrollo local. Educación para el Desarrollo Sostenible (EDS) y Gestión del Riesgo de Desastres (GRD) en las Américas.',
+  sameAs: [
+    'https://www.facebook.com/fundacionviveconesperanza',
+    'https://www.youtube.com/@fundacionviveconesperanza',
+    'https://www.instagram.com/fundacionviveconesperanza/',
+    'https://www.linkedin.com/company/fundacion-vive-con-esperanza/',
+  ],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -66,6 +106,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               'try{var t=localStorage.getItem(' +
               JSON.stringify(THEME_STORAGE_KEY) +
               ");if(t==='light'||t==='dark')document.documentElement.dataset.theme=t}catch(e){}",
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(ORGANIZATION_SCHEMA),
           }}
         />
       </head>

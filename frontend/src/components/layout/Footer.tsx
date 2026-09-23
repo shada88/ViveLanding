@@ -7,42 +7,50 @@ import { BrandLogo } from './BrandLogo';
 import styles from './Footer.module.css';
 
 /**
- * Columnas del pie. El ecosistema lista EXACTAMENTE los tres programas
+ * Columnas del pie institucional. El ecosistema lista EXACTAMENTE los tres programas
  * canónicos: Kaleo, Rally Continental 2028 y el libro «Cocoperro y El Cordón
  * Amarillo» — un solo título, nunca partido en dos entradas.
  *
- * Forest Lovers, ViveImpact y ACT fueron retirados y no deben reaparecer acá.
- * El pie es justo el lugar donde un programa dado de baja sobrevive años,
- * porque nadie lo revisa.
+ * Además incorpora canales oficiales verificados y vinculación activa.
  */
 const COLUMNS = [
   {
     title: 'Recorrido',
     links: [
-      { label: 'Propósito', href: '#proposito' },
-      { label: 'La Declaración', href: '#declaracion' },
-      { label: 'Ecosistema', href: '#ecosistema' },
+      { label: 'Qué hacemos', href: '#ecosistema' },
+      { label: 'Programas', href: '#programas' },
       { label: 'Herramientas', href: '#herramientas' },
-      { label: 'Territorio', href: '#territorio' },
+      { label: 'La Declaración', href: '#declaracion' },
+      { label: 'Tienda con Propósito', href: '#tienda' },
     ],
   },
   {
     title: 'Ecosistema',
     links: [
-      { label: 'Kaleo', href: 'https://kaleo-sage.vercel.app/', external: true },
+      { label: 'Kaleo — Red de Alerta', href: 'https://kaleo-sage.vercel.app/', external: true },
       { label: 'Rally Continental 2028', href: '#territorio' },
       { label: 'Cocoperro y El Cordón Amarillo', href: '#programas' },
       { label: 'Las Voces del Bosque', href: '#voces' },
     ],
   },
   {
+    title: 'Canales Oficiales',
+    links: [
+      { label: 'Facebook', href: 'https://www.facebook.com/fundacionviveconesperanza', external: true },
+      { label: 'YouTube Oficial', href: 'https://www.youtube.com/@fundacionviveconesperanza', external: true },
+      { label: 'Instagram', href: 'https://www.instagram.com/fundacionviveconesperanza/', external: true },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/fundacion-vive-con-esperanza/', external: true },
+      { label: 'Portal Herramientas', href: 'https://vivesperanza.org/tools/', external: true },
+    ],
+  },
+  {
     title: 'Vinculación',
     links: [
       { label: 'Preinscribir escuela', href: '#participar' },
-      { label: 'Donar', href: '#participar' },
+      { label: 'Donar a la causa', href: '#participar' },
       { label: 'Tienda por WhatsApp', href: STORE_WHATSAPP_URL, external: true },
-      { label: 'Socios', href: 'https://vivesperanza.org/partnership/', external: true },
       { label: 'Sala de prensa', href: 'https://vivesperanza.org/press/', external: true },
+      { label: 'Alianzas y Socios', href: 'https://vivesperanza.org/partnership/', external: true },
     ],
   },
 ];
@@ -94,10 +102,14 @@ export function Footer() {
         </div>
 
         <div className={styles.bottom}>
-          <p className={styles.legal}>
-            © {new Date().getFullYear()} Fundación Vive con Esperanza. En articulación
-            intersectorial para las Américas.
-          </p>
+          <div className={styles.legalBlock}>
+            <p className={styles.legal}>
+              © {new Date().getFullYear()} Fundación Vive con Esperanza · <strong>NIT: 900.250.330-2</strong>
+            </p>
+            <p className={styles.legalSub}>
+              Entidad sin ánimo de lucro registrada para la Educación para el Desarrollo Sostenible (EDS) y la Gestión del Riesgo de Desastres (GRD) en las Américas.
+            </p>
+          </div>
 
           <button
             type="button"
@@ -105,15 +117,13 @@ export function Footer() {
             onClick={() =>
               window.scrollTo({
                 top: 0,
-                // `scroll-behavior: auto` cuando se pidió movimiento reducido: un
-                // salto instantáneo es justamente lo que esa preferencia espera.
                 behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
                   ? 'auto'
                   : 'smooth',
               })
             }
           >
-            <ArrowUp size={15} aria-hidden="true" />
+            <ArrowUp size={16} aria-hidden="true" />
             <span>Volver arriba</span>
           </button>
         </div>
