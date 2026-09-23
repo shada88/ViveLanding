@@ -1,5 +1,13 @@
-import React from 'react';
-import { ArrowUpRight, BookOpen, Mic, Newspaper, MessageCircle, Palette, type LucideIcon } from 'lucide-react';
+import {
+  ArrowUpRight,
+  BookOpen,
+  Heart,
+  MessageCircle,
+  Mic,
+  Newspaper,
+  Palette,
+  type LucideIcon,
+} from 'lucide-react';
 import { STORE_ITEMS, STORE_WHATSAPP_URL, type StoreItem } from '@/domain/entities/StoreItem';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionIntro } from './SectionIntro';
@@ -8,6 +16,7 @@ import styles from './StoreSection.module.css';
 const ITEM_ICONS: Record<StoreItem['icon'], LucideIcon> = {
   BookOpen,
   Palette,
+  Heart,
 };
 
 /**

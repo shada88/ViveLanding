@@ -56,7 +56,7 @@ type FormValues = Partial<Record<LeadField, string>>;
  */
 export function ParticipateSection() {
   const groupId = useId();
-  const [roleId, setRoleId] = useState<string | null>(null);
+  const [roleId, setRoleId] = useState<string | null>('escuelas');
   const [values, setValues] = useState<FormValues>({});
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState<{ role: ParticipationRole; email: string } | null>(null);

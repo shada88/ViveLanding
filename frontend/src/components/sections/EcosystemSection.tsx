@@ -49,9 +49,9 @@ function link(x: number, y: number): string {
 }
 
 const DEFAULT_PANEL = {
-  label: 'Un ecosistema, no un programa',
+  label: 'Explora los 8 componentes',
   detail:
-    'Ocho piezas que ya existen en cualquier territorio. Lo que aportamos es el enlace entre ellas: elige una para ver qué función cumple.',
+    'Ocho piezas clave que ya existen en el territorio. Toca o pasa el cursor sobre cualquiera de los nodos para conocer qué función cumple en la red.',
 };
 
 /**
@@ -86,11 +86,11 @@ export function EcosystemSection() {
       <div className="shell">
         <SectionIntro
           step="04"
-          eyebrow="El ecosistema"
+          eyebrow="El ecosistema de articulación"
           titleId="ecosistema-titulo"
           align="center"
           title="Personas, escuelas, conocimiento y territorio. Conectados."
-          lede="Nada de esto es nuevo por separado. Lo que cambia el resultado es que estén enlazados y que el enlace no dependa de que alguien se acuerde de llamar."
+          lede="Ocho actores territoriales enlazados para resolver en red. Pasa el cursor o selecciona cada componente para descubrir su rol dentro del modelo."
         />
 
         <Reveal className={styles.graph}>

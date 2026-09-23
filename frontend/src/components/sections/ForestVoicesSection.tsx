@@ -79,11 +79,11 @@ export function ForestVoicesSection() {
       <div className={`shell ${styles.inner}`}>
         <SectionIntro
           step="08"
-          eyebrow="Las Voces del Bosque"
+          eyebrow="Rally Continental 2028 · Mascotas Pedagógicas"
           titleId="voces-titulo"
           tone="ink"
-          title="Siete aves que le enseñan a la infancia lo que cuesta explicar"
-          lede="Cuando el bosque de Esperanza fue destruido, sus amigos salieron a buscarla. Cada uno aprendió algo en ese viaje, y eso es exactamente lo que hoy enseñan en las aulas."
+          title="Las Voces del Bosque: Embajadores del Rally Continental"
+          lede="Siete aves que personifican los desafíos ambientales y de resiliencia del Rally 2028. A través de la narrativa y sus ediciones de felpa con causa, acercan la gestión del riesgo a las aulas de todo el continente."
         />
 
         <Reveal className={styles.catalog}>
@@ -120,7 +120,7 @@ export function ForestVoicesSection() {
               {/* Muñeco de felpa que acompaña al ave seleccionada, ubicado al lado exterior del círculo */}
               <aside
                 className={styles.plushWrapper}
-                aria-label={`Muñeco de felpa de ${active.name}`}
+                aria-label={`Muñeco de felpa pedagógico de ${active.name}`}
               >
                 <div className={styles.plushContainer}>
                   {FOREST_VOICES.map((bird, i) => (
@@ -137,7 +137,9 @@ export function ForestVoicesSection() {
                     />
                   ))}
                 </div>
-                <span className={styles.plushTag}>Edición de felpa</span>
+                <a href="#tienda" className={styles.plushTag} title="Disponible en la tienda con propósito">
+                  Edición de felpa · Apoya escuelas
+                </a>
               </aside>
             </div>
 
@@ -146,7 +148,7 @@ export function ForestVoicesSection() {
               <h3 className={styles.name}>{active.name}</h3>
               <p className={styles.trait}>{active.trait}</p>
 
-              <p className={styles.teachesLabel}>Qué enseña</p>
+              <p className={styles.teachesLabel}>Qué enseña en el Rally</p>
               <p className={styles.teaches}>{active.teaches}</p>
 
               <p className={styles.lesson}>{active.lesson}</p>
@@ -179,8 +181,7 @@ export function ForestVoicesSection() {
                 <span className={styles.thumbImage}>
                   <Image
                     src={bird.image}
-                    alt=""
-                    aria-hidden="true"
+                    alt={`Miniatura de ${bird.name}`}
                     fill
                     sizes="88px"
                     loading="lazy"

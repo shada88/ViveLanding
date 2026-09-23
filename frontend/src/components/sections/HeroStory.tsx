@@ -66,12 +66,12 @@ export function HeroStory() {
           </p>
 
           <div className={`cta-row ${styles.actions}`}>
-            <a href="#ecosistema" className="btn btn--lg btn--primary">
-              <span>Conocer el ecosistema</span>
+            <a href="#participar" className="btn btn--lg btn--primary">
+              <span>Inscribir mi escuela</span>
               <ArrowRight size={18} aria-hidden="true" />
             </a>
             <a href="#herramientas" className="btn btn--lg btn--outline">
-              <span>Herramientas para mi escuela</span>
+              <span>Herramientas de crisis</span>
             </a>
           </div>
         </div>

@@ -13,9 +13,8 @@
 
 html {
   font-family: var(--font-family);
-  scroll-behavior: smooth;
   /* El header es sticky: los anclas de navegación no deben quedar debajo. */
-  scroll-padding-top: 6rem;
+  scroll-padding-top: 5rem;
   -webkit-text-size-adjust: 100%;
 }
 

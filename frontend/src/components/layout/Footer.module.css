@@ -117,14 +117,33 @@
   color: var(--color-gold);
 }
 
-@media (min-width: 720px) {
+.legalBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.legalSub {
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+  opacity: 0.85;
+  max-width: 65ch;
+}
+
+@media (min-width: 640px) {
   .columns {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 980px) {
+@media (min-width: 900px) {
+  .columns {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
   .top {
-    grid-template-columns: 0.9fr 1.6fr;
+    grid-template-columns: 0.8fr 1.8fr;
   }
 }
