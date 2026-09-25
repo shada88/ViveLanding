@@ -9,25 +9,35 @@
 }
 
 .intro {
-  margin-bottom: clamp(2rem, 1rem + 2vw, 3rem);
+  margin-bottom: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+}
+
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.5rem;
+}
+
+.logoTitleWrapper {
+  display: block;
+  margin-top: 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+/* El logotipo del Rally funciona directamente como el título principal de la sección.
+   Aumentamos su tamaño con escala fluida y drop-shadow sutil. */
+.rallyMainLogo {
+  display: block;
+  width: auto;
+  max-width: min(100%, 460px);
+  height: auto !important;
+  max-height: clamp(190px, 140px + 8vw, 270px);
+  object-fit: contain;
+  margin-bottom: 1rem;
 }
 
 .rally {
-  padding-top: clamp(2rem, 1rem + 2vw, 3rem);
-  border-top: 1px solid var(--color-outline-variant);
-}
-
-/* El logotipo del Rally trae su propio halo celeste horneado en el PNG.
-   Mantenemos escala proporcional con max-width: 100% y height: auto para que
-   en pantallas ultra angostas escale de forma limpia sin desbordar ni deformarse. */
-.rallyLogo {
-  display: block;
-  width: auto;
-  max-width: 100%;
-  height: auto !important;
-  max-height: 160px;
-  object-fit: contain;
-  margin-bottom: 1.5rem;
+  padding-top: 0.5rem;
 }
 
 .rallyTitle {

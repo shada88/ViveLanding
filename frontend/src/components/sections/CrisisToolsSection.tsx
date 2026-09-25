@@ -45,7 +45,7 @@ export function CrisisToolsSection() {
           step="05"
           eyebrow="Herramientas"
           titleId="herramientas-titulo"
-          title="Lo que una escuela necesita tener listo antes de necesitarlo"
+          title="Lo que una escuela necesita tener listo antes de la crisis"
           lede="Ocho instrumentos de aplicación directa, escritos en lenguaje escolar y pensados para funcionar sin internet, sin especialistas en el predio y sin presupuesto previo."
         />
 

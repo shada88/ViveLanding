@@ -11,7 +11,6 @@ import { KaleoShowcase } from '@/components/sections/KaleoShowcase';
 import { TerritorySection } from '@/components/sections/TerritorySection';
 import { ForestVoicesSection } from '@/components/sections/ForestVoicesSection';
 import { OriginAndCommitteeSection } from '@/components/sections/OriginAndCommitteeSection';
-import { ProgramsSection } from '@/components/sections/ProgramsSection';
 import { StoreSection } from '@/components/sections/StoreSection';
 import { ParticipateSection } from '@/components/sections/ParticipateSection';
 
@@ -23,14 +22,12 @@ import { ParticipateSection } from '@/components/sections/ParticipateSection';
  *   03         la palabra propia de la fundación: la Declaración
  *   04         cómo se conecta todo — la red
  *   05–06      qué entregamos y qué lo coordina
- *   07–08      dónde llega y quiénes se lo enseñan a la infancia
- *   09–10      de dónde salió la historia y con qué programas se sostiene
- *   11–12      cómo financiarlo y cómo entrar
+ *   07–08      dónde llega y quiénes se lo enseñan a la infancia (Rally y Voces)
+ *   09         comité, liderazgo institucional y reconocimiento histórico
+ *   10         tienda con propósito, libros y publicaciones (unificación Punto 10)
+ *   11         cómo financiarlo y cómo entrar (Participar)
  *
- * No es una lista de bloques independientes: cada sección deja planteado lo
- * que resuelve la siguiente. Reordenarlas rompe la narrativa aunque ninguna
- * deje de funcionar por separado — y al hacerlo hay que renumerar el `step`
- * de cada `SectionIntro`, que es la brújula del recorrido.
+ * Cada sección deja planteado lo que resuelve la siguiente.
  */
 export default function HomePage() {
   return (
@@ -48,7 +45,6 @@ export default function HomePage() {
         <TerritorySection />
         <ForestVoicesSection />
         <OriginAndCommitteeSection />
-        <ProgramsSection />
         <StoreSection />
         <ParticipateSection />
       </main>

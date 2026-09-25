@@ -62,10 +62,11 @@ const ORGANIZATION_SCHEMA = {
   description:
     'Convertimos escuelas en motores de desarrollo local. Educación para el Desarrollo Sostenible (EDS) y Gestión del Riesgo de Desastres (GRD) en las Américas.',
   sameAs: [
-    'https://www.facebook.com/fundacionviveconesperanza',
-    'https://www.youtube.com/@fundacionviveconesperanza',
-    'https://www.instagram.com/fundacionviveconesperanza/',
-    'https://www.linkedin.com/company/fundacion-vive-con-esperanza/',
+    'https://www.facebook.com/share/1BdTtNgTGA/',
+    'https://www.instagram.com/vivesperanzaoficial?stkn=MWx5eHhmbWxrcGdhYw==',
+    'https://www.youtube.com/@vivesperanzaoficial',
+    'https://x.com/vivesperanzaofi',
+    'https://www.linkedin.com/company/vivesperanza/',
   ],
 };
 

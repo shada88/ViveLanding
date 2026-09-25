@@ -32,7 +32,7 @@ const PILLAR_ICONS: Record<KaleoPillar['iconName'], LucideIcon> = {
  * CSS, y por eso no cuesta un solo kilobyte de JavaScript.
  */
 export function KaleoShowcase() {
-  const { etymology, pillars, paths } = KALEO_DATA;
+  const { pillars, paths } = KALEO_DATA;
 
   return (
     <section
@@ -54,8 +54,25 @@ export function KaleoShowcase() {
           <Reveal index={1} className={styles.logoRow}>
             {/* El logotipo real de Kaleo, servido desde su archivo. Va una sola
                 vez en toda la página: es un PNG incrustado de 220 KB. */}
-            <BrandLogo brand="kaleo" height={54} tone="on-ink" />
+            <a
+              href={KALEO_DATA.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.brandLink}
+              title="Abrir la plataforma principal de Kaleo"
+            >
+              <BrandLogo brand="kaleo" height={54} tone="on-ink" />
+            </a>
             <span className={styles.by}>{KALEO_DATA.byText}</span>
+            <a
+              href={KALEO_DATA.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`btn btn--sm btn--gold ${styles.directHeaderBtn}`}
+            >
+              <span>Acceder a la plataforma</span>
+              <ArrowUpRight size={14} aria-hidden="true" />
+            </a>
           </Reveal>
 
           <Reveal index={2}>
@@ -73,14 +90,26 @@ export function KaleoShowcase() {
           </Reveal>
         </header>
 
-        <Reveal className={styles.etymology}>
-          <p className={styles.greek} lang="grc">
-            {etymology.greek}
-          </p>
-          <p className={styles.translit}>
-            <em>{etymology.transliteration}</em> — {etymology.verbs.join(' · ')}
-          </p>
-          <p className={styles.meaning}>{etymology.meaning}</p>
+        <Reveal className={styles.platformBanner}>
+          <div className={styles.platformBannerContent}>
+            <div>
+              <p className={styles.platformBannerLabel}>Acceso directo</p>
+              <h3 className={`h3 ${styles.platformBannerTitle}`}>Plataforma Principal Kaleo</h3>
+              <p className={styles.platformBannerText}>
+                Ingresa directamente a la plataforma tecnológica para coordinar asistencia,
+                gestionar incidentes y desplegar acompañamiento psicosocial y escolar.
+              </p>
+            </div>
+            <a
+              href={KALEO_DATA.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--lg btn--gold"
+            >
+              <span>Ingresar a Kaleo</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
+          </div>
         </Reveal>
 
         <ol className={styles.pillars}>

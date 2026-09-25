@@ -9,21 +9,22 @@ import styles from './Header.module.css';
 /** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
 const NAV = [
   { href: '#ecosistema', label: 'Qué hacemos' },
-  { href: '#programas', label: 'Programas' },
   { href: '#herramientas', label: 'Herramientas' },
-  { href: '#declaracion', label: 'La Declaración' },
-  { href: '#tienda', label: 'Tienda' },
+  { href: '#kaleo', label: 'Kaleo' },
+  { href: '#territorio', label: 'Rally 2028' },
+  { href: '#tienda', label: 'Tienda & Libros' },
 ] as const;
 
 /** Menú móvil estructurado por categorías clave. */
 const NAV_MOBILE = [
   { href: '#ecosistema', label: 'Qué hacemos (Ecosistema)' },
-  { href: '#programas', label: 'Programas del Ecosistema' },
-  { href: '#kaleo', label: 'Kaleo — Red de Alerta' },
-  { href: '#voces', label: 'Las Voces del Bosque' },
   { href: '#herramientas', label: 'Herramientas de Crisis' },
+  { href: '#kaleo', label: 'Kaleo — Plataforma' },
+  { href: '#territorio', label: 'Rally Continental 2028' },
+  { href: '#voces', label: 'Las Voces del Bosque' },
+  { href: '#origen', label: 'Comité y Liderazgo' },
   { href: '#declaracion', label: 'La Declaración' },
-  { href: '#tienda', label: 'Tienda con Propósito' },
+  { href: '#tienda', label: 'Tienda & Publicaciones' },
   { href: '#participar', label: 'Participar / Preinscribir' },
 ] as const;
 

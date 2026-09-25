@@ -168,7 +168,7 @@ export function ParticipateSection() {
     <section id="participar" className="section section--sunken" aria-labelledby="participar-titulo">
       <div className="shell">
         <SectionIntro
-          step="12"
+          step="11"
           eyebrow="Participar"
           titleId="participar-titulo"
           title="Elige por dónde entras"

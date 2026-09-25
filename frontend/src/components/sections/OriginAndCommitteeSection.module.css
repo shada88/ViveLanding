@@ -1,88 +1,115 @@
-.layout {
+.sectionsContainer {
   display: grid;
-  gap: clamp(2.5rem, 1.5rem + 4vw, 5rem);
-  align-items: start;
+  gap: clamp(2rem, 1.5rem + 3vw, 3.5rem);
 }
 
-.narrative {
-  min-width: 0;
+.block {
+  display: flex;
+  flex-direction: column;
 }
 
-/*
- * El relato fundacional se compone más grande que el cuerpo normal y con
- * medida corta: es el único bloque de la página que se lee como un cuento, y
- * la tipografía tiene que anunciarlo antes que el contenido.
- */
-.narrativeBody {
-  font: var(--font-body-xl);
-  color: var(--color-on-surface-variant);
-  max-width: 52ch;
-  margin-bottom: 2rem;
-  text-wrap: pretty;
+.blockHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-outline-variant);
 }
 
-.bridge {
-  padding-left: 1.25rem;
-  border-left: 2px solid var(--color-gold);
-  font: var(--font-body-lg);
-  font-weight: 600;
-  color: var(--color-on-surface);
-  max-width: 46ch;
-}
-
-.committee {
-  min-width: 0;
-}
-
-.committeeTitle {
+.blockTitle {
   font: var(--font-label-md);
   text-transform: uppercase;
   letter-spacing: var(--tracking-eyebrow);
   color: var(--color-on-surface-muted);
-  padding-bottom: 1rem;
-  margin-bottom: 0;
-  border-bottom: 1px solid var(--color-outline-variant);
 }
 
-.people {
+.blockTag {
+  font: var(--font-caption);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-container);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+.cardsGrid {
   display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
 }
 
-.person {
-  padding-block: clamp(1.5rem, 1rem + 1.5vw, 2rem);
-  border-bottom: 1px solid var(--color-outline-variant);
+@media (min-width: 768px) {
+  .cardsGridTwo {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .cardsGridThree {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
-.personBadge {
+.card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-outline-variant);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-1);
+  transition: transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.card:hover {
+  border-color: var(--color-primary-border);
+}
+
+.cardHistorical {
+  border-left: 3px solid var(--color-gold);
+  background: var(--color-surface-low);
+}
+
+.cardBadge {
+  align-self: flex-start;
   font: var(--font-caption);
   text-transform: uppercase;
   letter-spacing: var(--tracking-eyebrow);
   color: var(--color-gold);
-  margin-bottom: 0.6rem;
-}
-
-.personName {
-  font: var(--font-h3);
-  color: var(--color-on-surface);
-  margin-bottom: 0.2rem;
-}
-
-.personRole {
-  font: var(--font-body-sm);
-  font-weight: 600;
-  color: var(--color-primary);
+  font-weight: 700;
   margin-bottom: 0.75rem;
 }
 
-.personBio {
-  font: var(--font-body-sm);
-  color: var(--color-on-surface-muted);
-  max-width: 56ch;
-  text-wrap: pretty;
+.cardBadgeActive {
+  color: var(--color-primary);
 }
 
-@media (min-width: 980px) {
-  .layout {
-    grid-template-columns: 0.85fr 1.15fr;
-  }
+.cardName {
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+  margin-bottom: 0.35rem;
+}
+
+.cardRole {
+  font: var(--font-body-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+}
+
+.cardBio {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  line-height: 1.6;
+  text-wrap: pretty;
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.historicalNote {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed var(--color-outline-variant);
+  font: var(--font-caption);
+  color: var(--color-gold-deep);
+  font-style: italic;
 }

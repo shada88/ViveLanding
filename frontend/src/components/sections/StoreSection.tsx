@@ -1,3 +1,7 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import {
   ArrowUpRight,
   BookOpen,
@@ -6,9 +10,17 @@ import {
   Mic,
   Newspaper,
   Palette,
+  X,
+  Sparkles,
   type LucideIcon,
 } from 'lucide-react';
-import { STORE_ITEMS, STORE_WHATSAPP_URL, type StoreItem } from '@/domain/entities/StoreItem';
+import {
+  STORE_CATEGORIES,
+  STORE_ITEMS,
+  STORE_WHATSAPP_URL,
+  type StoreCategory,
+  type StoreItem,
+} from '@/domain/entities/StoreItem';
 import { Reveal } from '@/components/motion/Reveal';
 import { SectionIntro } from './SectionIntro';
 import styles from './StoreSection.module.css';
@@ -20,42 +32,112 @@ const ITEM_ICONS: Record<StoreItem['icon'], LucideIcon> = {
 };
 
 /**
- * 11 — Tienda con propósito.
+ * 10 — Tienda con Propósito y Publicaciones (Unificación Punto 10).
  *
- * Lo que la distingue de un comercio electrónico no es la estética: es el
- * ORDEN de la información. Primero de dónde viene la pieza, después a qué se
- * destina lo recaudado, y recién al final qué es. Un catálogo hace exactamente
- * lo contrario, y por eso un catálogo nunca comunica pertenencia a algo mayor.
+ * Integra todos los materiales de lectura (Cocoperro y El Cordón Amarillo,
+ * Colección Libritos de Esperanza y guías pedagógicas) junto con los peluches
+ * pedagógicos y el arte del Rally.
  *
- * No hay precios, ni carrito, ni botón de "agregar": la venta se cierra por
- * conversación, en WhatsApp. Traer aquí media experiencia de compra daría lo
- * peor de los dos mundos — la fricción del comercio sin la confianza del trato
- * directo.
- *
- * La sala de prensa viaja al pie de esta sección y no en una columna propia:
- * es material de consulta para periodistas, no una puerta de conversión, y
- * dedicarle media pantalla sería darle un peso que no tiene.
+ * Ofrece navegación interactiva por categorías y una ventana de detalle/reseña
+ * pedagógica para explorar cada libro en profundidad.
  */
 export function StoreSection() {
+  const [activeCategory, setActiveCategory] = useState<StoreCategory>('todos');
+  const [selectedBook, setSelectedBook] = useState<StoreItem | null>(null);
+
+  const filteredItems =
+    activeCategory === 'todos'
+      ? STORE_ITEMS
+      : STORE_ITEMS.filter((item) => item.category === activeCategory);
+
+  // Cerrar modal al presionar Escape
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSelectedBook(null);
+      }
+    };
+    if (selectedBook) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedBook]);
+
   return (
     <section id="tienda" className="section" aria-labelledby="tienda-titulo">
+      {/* Ancla para enlaces previos a #programas para no romper navegación */}
+      <div id="programas" aria-hidden="true" style={{ position: 'relative', top: '-6rem' }} />
+
       <div className="shell">
         <SectionIntro
-          step="11"
-          eyebrow="Tienda con propósito"
+          step="10"
+          eyebrow="Tienda con Propósito & Publicaciones"
           titleId="tienda-titulo"
-          title="Cada pieza financia nuestros proyectos"
-          lede="No vendemos objetos decorativos sin sentido: cada compra sostiene directamente el trabajo en las escuelas, financiando la impresión de materiales pedagógicos, kits escolares y el acompañamiento en territorio."
+          title="Libros, Materiales y Piezas con Causa"
+          lede="Cada libro, guía pedagógica y pieza artesanal financia directamente el acompañamiento en escuelas, la impresión de materiales didácticos y la preparación ante emergencias."
         />
 
+        {/* ── Barra de Categorías / Filtros interactivos ── */}
+        <div className={styles.categoryBar} role="tablist" aria-label="Categorías de la tienda">
+          {STORE_CATEGORIES.map((cat) => {
+            const count =
+              cat.id === 'todos'
+                ? STORE_ITEMS.length
+                : STORE_ITEMS.filter((item) => item.category === cat.id).length;
+            const isActive = activeCategory === cat.id;
+
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                role="tab"
+                aria-selected={isActive}
+                className={`${styles.categoryBtn} ${isActive ? styles.categoryBtnActive : ''}`}
+                onClick={() => setActiveCategory(cat.id)}
+              >
+                <span>{cat.label}</span>
+                <span className={styles.categoryBadge}>{count}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* ── Cuadrícula de Piezas y Libros ── */}
         <div className={styles.items}>
-          {STORE_ITEMS.map((item, i) => {
+          {filteredItems.map((item, i) => {
             const Icon = ITEM_ICONS[item.icon];
+            const isBook = item.category === 'libros';
+
             return (
               <Reveal as="article" key={item.id} index={i} className={styles.item}>
-                <span className={styles.itemIcon}>
-                  <Icon size={22} aria-hidden="true" />
-                </span>
+                <div className={styles.itemHeader}>
+                  <span className={styles.itemIcon}>
+                    <Icon size={22} aria-hidden="true" />
+                  </span>
+                  <span
+                    className={`${styles.itemBadge} ${isBook ? styles.itemBadgeGold : ''}`}
+                  >
+                    {isBook ? 'Libro / Publicación' : item.category === 'peluches' ? 'Peluche' : 'Arte'}
+                  </span>
+                </div>
+
+                {item.featuredImage && (
+                  <div className={styles.imageFrame}>
+                    <Image
+                      src={item.featuredImage}
+                      alt={item.name}
+                      fill
+                      sizes="(max-width: 680px) 100vw, (max-width: 1040px) 50vw, 380px"
+                      className={styles.itemImage}
+                    />
+                  </div>
+                )}
 
                 <h3 className={`h3 ${styles.itemName}`}>{item.name}</h3>
                 <p className={styles.itemKind}>{item.kind}</p>
@@ -65,6 +147,35 @@ export function StoreSection() {
                   <span className={styles.fundsLabel}>Financia</span>
                   {item.funds}
                 </p>
+
+                <div className={styles.actionsRow}>
+                  {isBook && item.bookDetail && (
+                    <button
+                      type="button"
+                      className={styles.btnReview}
+                      onClick={() => setSelectedBook(item)}
+                    >
+                      <Sparkles size={16} aria-hidden="true" />
+                      <span>Ver reseña y detalles pedagógicos</span>
+                    </button>
+                  )}
+
+                  <a
+                    href={
+                      item.bookDetail?.externalUrl
+                        ? item.bookDetail.externalUrl
+                        : STORE_WHATSAPP_URL
+                    }
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--sm btn--gold"
+                  >
+                    <span>
+                      {item.bookDetail?.externalUrl ? 'Adquirir en Amazon' : 'Consultar por WhatsApp'}
+                    </span>
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                </div>
               </Reveal>
             );
           })}
@@ -78,12 +189,12 @@ export function StoreSection() {
             className="btn btn--lg btn--gold"
           >
             <MessageCircle size={18} aria-hidden="true" />
-            <span>Consultar por WhatsApp</span>
+            <span>Consultar catálogo completo por WhatsApp</span>
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
           <p className={styles.storeNote}>
-            Se abre una conversación con el equipo de la fundación. No pedimos datos de
-            pago en esta página.
+            Atención directa con el equipo de la fundación para pedidos institucionales,
+            envío de ejemplares a escuelas o donaciones con causa.
           </p>
         </Reveal>
 
@@ -118,6 +229,110 @@ export function StoreSection() {
           </div>
         </Reveal>
       </div>
+
+      {/* ── Modal Interactivo de Reseña y Detalles de Libro ── */}
+      {selectedBook && selectedBook.bookDetail && (
+        <div
+          className={styles.modalBackdrop}
+          onClick={() => setSelectedBook(null)}
+          role="presentation"
+        >
+          <div
+            className={styles.modalContent}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="modal-book-title"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              className={styles.modalCloseBtn}
+              onClick={() => setSelectedBook(null)}
+              aria-label="Cerrar detalles del libro"
+            >
+              <X size={20} aria-hidden="true" />
+            </button>
+
+            <div className={styles.modalGrid}>
+              <div className={styles.modalCoverFrame}>
+                <Image
+                  src={selectedBook.bookDetail.image}
+                  alt={`Portada de ${selectedBook.name}`}
+                  fill
+                  sizes="180px"
+                  className={styles.modalCoverImage}
+                />
+              </div>
+
+              <div>
+                <header className={styles.modalHeader}>
+                  <p className={styles.modalAuthor}>{selectedBook.bookDetail.author}</p>
+                  <h3 id="modal-book-title" className={styles.modalTitle}>
+                    {selectedBook.name}
+                  </h3>
+                  <p className={styles.modalSynopsis}>{selectedBook.bookDetail.synopsis}</p>
+                </header>
+
+                <div className={styles.modalMetaPills}>
+                  {selectedBook.bookDetail.targetAge && (
+                    <span className={styles.metaPill}>
+                      Dirigido a: {selectedBook.bookDetail.targetAge}
+                    </span>
+                  )}
+                  {selectedBook.bookDetail.format && (
+                    <span className={styles.metaPill}>
+                      Formato: {selectedBook.bookDetail.format}
+                    </span>
+                  )}
+                </div>
+
+                <p className={styles.modalSectionTitle}>Reseña Pedagógica & Enfoque</p>
+                <p className={styles.modalReviewText}>{selectedBook.bookDetail.review}</p>
+
+                <p className={styles.modalSectionTitle}>Aspectos Clave para el Aula</p>
+                <ul className={styles.modalHighlightsList}>
+                  {selectedBook.bookDetail.highlights.map((point) => (
+                    <li key={point} className={styles.modalHighlightItem}>
+                      {point}
+                    </li>
+                  ))}
+                </ul>
+
+                <div className={styles.modalFunds}>
+                  <p className={styles.modalFundsLabel}>Destino Social de la Adquisición</p>
+                  <p className={styles.modalFundsText}>{selectedBook.funds}</p>
+                </div>
+
+                <div className={styles.modalActions}>
+                  {selectedBook.bookDetail.externalUrl && (
+                    <a
+                      href={selectedBook.bookDetail.externalUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn--lg btn--gold"
+                    >
+                      <span>Adquirir en Amazon</span>
+                      <ArrowUpRight size={18} aria-hidden="true" />
+                    </a>
+                  )}
+
+                  <a
+                    href={`https://wa.me/573102528967?text=${encodeURIComponent(
+                      `Hola, quisiera solicitar información y ejemplares del libro "${selectedBook.name}".`,
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn--lg btn--primary"
+                  >
+                    <MessageCircle size={18} aria-hidden="true" />
+                    <span>Solicitar ejemplares por WhatsApp</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

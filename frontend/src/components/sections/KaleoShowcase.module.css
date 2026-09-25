@@ -177,3 +177,63 @@
     grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity var(--transition-fast);
+}
+
+.brandLink:hover {
+  opacity: 0.85;
+}
+
+.directHeaderBtn {
+  margin-left: auto;
+  text-decoration: none;
+}
+
+.platformBanner {
+  margin-bottom: clamp(2rem, 1.25rem + 2vw, 3rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--on-ink-border);
+  background: var(--on-ink-ghost);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.platformBannerContent {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+@media (min-width: 760px) {
+  .platformBannerContent {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.platformBannerLabel {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-gold);
+  margin-bottom: 0.25rem;
+}
+
+.platformBannerTitle {
+  color: var(--color-on-ink);
+  margin-bottom: 0.5rem;
+}
+
+.platformBannerText {
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  max-width: 44ch;
+  margin-bottom: 0;
+}

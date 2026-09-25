@@ -3,7 +3,6 @@ import { ArrowRight, Camera, Clapperboard, ShieldAlert } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
-import { SectionIntro } from './SectionIntro';
 import styles from './TerritorySection.module.css';
 
 /** Categorías del Rally. Los íconos nombran el medio, no decoran el texto. */
@@ -42,35 +41,44 @@ export function TerritorySection() {
       <div className="shell">
         <div className={styles.layout}>
           <div className={styles.copy}>
-            <SectionIntro
-              step="07"
-              eyebrow="Continental"
-              titleId="territorio-titulo"
-              title="Lo que funciona en un territorio no se queda allí"
-              lede="Trabajamos de Canadá a la Patagonia. Cada protocolo que una comunidad educativa prueba y ajusta vuelve a la red corregido, y la siguiente escuela ya no empieza de cero."
-              className={styles.intro}
-            />
+            <header className={styles.intro}>
+              <Reveal index={0}>
+                <p className="eyebrow">
+                  <span className={styles.step}>07</span>
+                  Convocatoria Continental
+                </p>
+              </Reveal>
+
+              <Reveal index={1} className={styles.logoTitleWrapper}>
+                {/* El logotipo ampliado funciona directamente como el título principal de la sección */}
+                <BrandLogo
+                  brand="rally"
+                  tone="as-is"
+                  height={240}
+                  className={styles.rallyMainLogo}
+                />
+                <h2 id="territorio-titulo" className="sr-only">
+                  Rally Continental 2028: Innovación para los territorios, escuela por escuela
+                </h2>
+              </Reveal>
+
+              <Reveal index={2}>
+                <h3 className={`h3 ${styles.rallyTitle}`}>
+                  Innovación para los territorios, escuela por escuela
+                </h3>
+              </Reveal>
+
+              <Reveal index={3}>
+                <p className={`lede ${styles.rallyBody}`}>
+                  Trabajamos de Canadá a la Patagonia. La convocatoria insignia de la fundación
+                  convierte el aula en un laboratorio de desarrollo sostenible tomando como punto
+                  de partida un problema real del barrio. Abierta a todo plantel del continente,
+                  público o privado, sin importar su presupuesto.
+                </p>
+              </Reveal>
+            </header>
 
             <Reveal className={styles.rally}>
-              {/* El logotipo ocupa el lugar del antiguo kicker de texto: ya dice
-                  «Rally Continental 2028», y repetirlo debajo en mayúsculas era
-                  decir dos veces lo mismo. El nombre no se pierde para quien no
-                  ve la imagen — viaja en el `alt` del archivo de marca. */}
-              <BrandLogo
-                brand="rally"
-                tone="as-is"
-                height={160}
-                className={styles.rallyLogo}
-              />
-              <h3 className={`h3 ${styles.rallyTitle}`}>
-                Innovación para los territorios, escuela por escuela
-              </h3>
-              <p className={styles.rallyBody}>
-                La convocatoria insignia de la fundación. Convierte el aula en un
-                laboratorio de desarrollo sostenible tomando como punto de partida un
-                problema real del barrio. Abierta a todo plantel del continente, público
-                o privado, sin importar su presupuesto.
-              </p>
 
               <ul className={styles.categories}>
                 {CATEGORIES.map((item) => {

@@ -22,7 +22,7 @@ export const KALEO_DATA = {
     verbs: ['llamar', 'invitar', 'convocar'],
     meaning: 'Una invitación a no atravesar las dificultades en soledad. Kaleo no habla por la persona: convoca y sostiene el encuentro.'
   },
-  premise: 'No damos la ayuda. Hacemos que la ayuda llegue.',
+  premise: 'Hacemos que la ayuda llegue',
   coreValue: 'La herramienta trabaja y coordina lo administrativo. El criterio y el vínculo siguen siendo humanos, siempre.',
   pillars: [
     {
