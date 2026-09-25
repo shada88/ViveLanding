@@ -5,6 +5,7 @@ import Image from 'next/image';
 import {
   ArrowUpRight,
   BookOpen,
+  GraduationCap,
   Heart,
   MessageCircle,
   Mic,
@@ -135,6 +136,7 @@ export function StoreSection() {
                       fill
                       sizes="(max-width: 680px) 100vw, (max-width: 1040px) 50vw, 380px"
                       className={styles.itemImage}
+                      style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined}
                     />
                   </div>
                 )}
@@ -142,6 +144,13 @@ export function StoreSection() {
                 <h3 className={`h3 ${styles.itemName}`}>{item.name}</h3>
                 <p className={styles.itemKind}>{item.kind}</p>
                 <p className={styles.itemStory}>{item.story}</p>
+
+                {item.hasSchoolProgram && item.schoolProgram && (
+                  <div className={styles.itemSchoolProgram}>
+                    <GraduationCap size={18} aria-hidden="true" className={styles.itemSchoolProgramIcon} />
+                    <p className={styles.itemSchoolProgramText}>{item.schoolProgram}</p>
+                  </div>
+                )}
 
                 <p className={styles.itemFunds}>
                   <span className={styles.fundsLabel}>Financia</span>

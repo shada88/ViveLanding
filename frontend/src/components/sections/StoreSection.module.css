@@ -46,6 +46,7 @@
 
 .items {
   display: grid;
+  align-items: start;
   gap: clamp(2rem, 1.5rem + 2vw, 2.75rem);
   margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
   grid-template-columns: 1fr;
@@ -157,6 +158,29 @@
   line-height: 1.6;
   text-wrap: pretty;
   flex: 1;
+}
+
+.itemSchoolProgram {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-md);
+  background: var(--color-gold-soft);
+  border: 1px solid var(--color-gold-border);
+  margin-bottom: 1.25rem;
+}
+
+.itemSchoolProgramIcon {
+  flex-shrink: 0;
+  color: var(--color-gold-deep);
+  margin-top: 0.15rem;
+}
+
+.itemSchoolProgramText {
+  font: var(--font-body-sm);
+  color: var(--color-on-surface);
+  line-height: 1.5;
 }
 
 .itemFunds {

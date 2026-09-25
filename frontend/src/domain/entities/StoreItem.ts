@@ -2,11 +2,11 @@
  * Tienda con propósito y Publicaciones — Fundación Vive con Esperanza
  *
  * Catálogo unificado con subsección interactiva para Libros y Publicaciones:
- * - Cocoperro y El Cordón Amarillo
- * - Colección Libritos de Esperanza: Las Voces del Bosque
+ * - Cocoperro y El Cordón Amarillo (con programa escolar para nuevas generaciones)
+ * - Colección Libritos de Esperanza: Las Voces del Bosque (con programa escolar continental)
  * - Guías y manuales pedagógicos de gestión del riesgo
  * - Peluches pedagógicos
- * - Arte del Rally Continental
+ * - Arte del Rally Continental (con obras creadas por estudiantes)
  */
 
 export type StoreCategory = 'todos' | 'libros' | 'peluches' | 'arte';
@@ -31,6 +31,9 @@ export interface StoreItem {
   funds: string;
   icon: 'BookOpen' | 'Palette' | 'Heart';
   featuredImage?: string;
+  imagePosition?: string;
+  hasSchoolProgram?: boolean;
+  schoolProgram?: string;
   bookDetail?: BookDetail;
 }
 
@@ -65,15 +68,19 @@ export const STORE_ITEMS: StoreItem[] = [
     funds: 'Financia la entrega de ejemplares físicos y guías didácticas a escuelas rurales sin biblioteca.',
     icon: 'BookOpen',
     featuredImage: '/Video/Cocoperro_staring_closely_20260922164931.jpeg',
+    hasSchoolProgram: true,
+    schoolProgram:
+      'Cuenta con un programa pedagógico estructurado para impactar a las escuelas y formar a las nuevas generaciones en resiliencia socioemocional, elaboración del duelo y empatía comunitaria.',
     bookDetail: {
       author: 'Rocío Galvis Guerrero & Fundación Vive con Esperanza',
       synopsis: 'El libro que enseña a nombrar el dolor sin vergüenza y a tejer redes afectivas de soporte.',
       review:
-        'Cocoperro aborda las pérdidas humanas, materiales y emocionales desde la mirada de la infancia. Con un lenguaje cálido y sin eufemismos, abre un espacio seguro para que estudiantes y maestros elaboren el duelo y la adversidad a través del arte, el diálogo y canciones.',
+        'Cocoperro aborda las pérdidas humanas, materiales y emocionales desde la mirada de la infancia. Con un lenguaje cálido y sin eufemismos, abre un espacio seguro para que estudiantes y maestros elaboren el duelo y la adversidad a través del arte, el diálogo y canciones. Se complementa con talleres escolares que transforman el aula en un refugio emocional.',
       highlights: [
+        'Programa pedagógico para escuelas: talleres de aula y orientación socioemocional',
         'Cuento ilustrado de alta sensibilidad con guía docente incluida',
-        'Herramienta de soporte socioemocional ante crisis y duelos colectivos',
-        'Recomendado para planteles educativos, psicólogos y familias',
+        'Herramienta de soporte para nuevas generaciones ante crisis y duelos colectivos',
+        'Recomendado para directivos, psicólogos, docentes y familias',
       ],
       targetAge: 'Educación inicial y primaria (6 a 12 años) y lectura compartida en familia',
       format: 'Tapa blanda / Edición ilustrada a color con guía pedagógica',
@@ -90,20 +97,24 @@ export const STORE_ITEMS: StoreItem[] = [
       'Las siete aves del bosque (Esperanza, Ojopelao, Saggy, Silvio, Carla, Lilo y Omar) cobran vida en una colección que transforma los protocolos de gestión del riesgo y cuidado ambiental en relatos entrañables para la escuela.',
     funds: 'Financia la impresión de lotes escolares y capacitaciones docentes en zonas de alta vulnerabilidad.',
     icon: 'BookOpen',
-    featuredImage: '/img Pajaros/Esperanza.jpeg',
+    featuredImage: '/recursos/libritos de esperanza.jpg',
+    hasSchoolProgram: true,
+    schoolProgram:
+      'Dispone de un programa de impacto escolar continental diseñado para involucrar a las nuevas generaciones en la gestión del riesgo de desastres, la acción climática y la transformación territorial.',
     bookDetail: {
       author: 'Fernando Galvis, Rocío Galvis Guerrero & Equipo Pedagógico',
       synopsis: 'Siete aventuras ilustradas donde cada personaje encarna un desafío ambiental y de protección civil.',
       review:
-        'Esta colección conecta la lectura infantil con la acción territorial. Cada cuento guía a las niñas y niños a través de dilemas reales (cuidado del agua, energía limpia, reducción de residuos, soberanía alimentaria y mitigación del cambio climático), consolidando una cultura preventiva antes de las crisis.',
+        'Esta colección conecta la lectura infantil con la acción territorial directa. Respaldada por un programa pedagógico integral para escuelas, cada volumen guía a las niñas y niños a través de dilemas reales (cuidado del agua, energía limpia, reducción de residuos, soberanía alimentaria y mitigación del cambio climático), sembrando en las nuevas generaciones la capacidad de liderar sus territorios.',
       highlights: [
-        '7 volúmenes ilustrados con lenguaje escolar accesible',
+        'Programa escolar de impacto continental con talleres docentes y proyectos estudiantiles',
+        '7 volúmenes ilustrados con lenguaje escolar accesible y dinámico',
         'Cada libro incluye taller pedagógico y ruta de acción escolar',
         'Material pedagógico oficial y complementario del Rally Continental 2028',
       ],
       targetAge: 'Infancia y juventud escolar (primaria y primeros grados de secundaria)',
       format: 'Colección modular ilustrada / Guía para docentes',
-      image: '/img Pajaros/Esperanza.jpeg',
+      image: '/recursos/libritos de esperanza.jpg',
     },
   },
   {
@@ -115,7 +126,7 @@ export const STORE_ITEMS: StoreItem[] = [
       'Instrumento técnico y práctico para directivos y maestros. Enseña a diseñar protocolos de contingencia, rutas de evacuación y comités escolares de emergencia sin requerir conectividad a internet ni presupuestos extraordinarios.',
     funds: 'Financia talleres presenciales de preparación ante desastres en comunidades apartadas.',
     icon: 'BookOpen',
-    featuredImage: '/img Pajaros/Silvio.jpeg',
+    featuredImage: '/recursos/Guia.jpg',
     bookDetail: {
       author: 'Comité Técnico Continental Vive con Esperanza',
       synopsis: 'Manual integral de prevención, respuesta y recuperación inmediata para planteles escolares.',
@@ -128,7 +139,7 @@ export const STORE_ITEMS: StoreItem[] = [
       ],
       targetAge: 'Directivos docentes, comités de gestión del riesgo y líderes comunitarios',
       format: 'Manual técnico encuadernado y digital interactivo',
-      image: '/img Pajaros/Silvio.jpeg',
+      image: '/recursos/Guia.jpg',
     },
   },
   {
@@ -140,7 +151,7 @@ export const STORE_ITEMS: StoreItem[] = [
       'Las siete aves emblemáticas confeccionadas como compañeros de aprendizaje socioemocional y resiliencia para las aulas. Cada peluche encarna una lección de gestión del riesgo y cuidado territorial.',
     funds: 'Financia kits de emergencia escolar y material pedagógico para escuelas vulnerables.',
     icon: 'Heart',
-    featuredImage: '/img Pajaros/felpa/Dove_plush_toy_smiling_20260922163219.png',
+    featuredImage: '/img Pajaros/felpa/catalogo.jpeg',
   },
   {
     id: 'arte-rally',
@@ -151,6 +162,7 @@ export const STORE_ITEMS: StoreItem[] = [
       'Piezas creadas por estudiantes y artistas aliados a partir de su propio territorio. Cada obra tiene nombre, escuela y país: no es decoración anónima, es el retrato de un lugar concreto.',
     funds: 'Financia la participación de escuelas rurales en el Rally Continental 2028.',
     icon: 'Palette',
-    featuredImage: '/img Pajaros/felpa/Hummingbird_plushie_toy_20260922163346.png',
+    featuredImage: '/recursos/IMG_20160812_104905.jpg',
+    imagePosition: 'center 78%',
   },
 ];
