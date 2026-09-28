@@ -216,7 +216,7 @@ export function StoreSection() {
                 Comunicados oficiales, material gráfico y vocería institucional.
               </p>
               <a
-                href="https://vivesperanza.org/press/"
+                href="https://info.vivesperanza.org/press/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-arrow"

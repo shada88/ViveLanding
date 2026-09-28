@@ -135,7 +135,7 @@ export const PARTICIPATION_ROLES: ParticipationRole[] = [
       'Te enviamos el detalle de los programas, el destino de cada aporte y las vías de pago disponibles.',
     secondaryAction: {
       label: 'Donar ahora',
-      url: 'https://vivesperanza.org/donate/',
+      url: 'https://info.vivesperanza.org/donate/',
       note: '¿Prefieres donar directamente? La pasarela de la fundación está activa.',
     },
     fields: [

@@ -1,7 +1,7 @@
 /**
  * La Declaración Vive con Esperanza.
  *
- * Fuente del texto: https://vivesperanza.org/sign/ — el original está en
+ * Fuente del texto: https://info.vivesperanza.org/sign/ — el original está en
  * inglés y esto es su traducción al español. Esa URL NO se exporta: es la
  * procedencia del texto, no un destino al que mandar a nadie. La firma se
  * recoge en `DECLARATION_SIGN_URL`.
@@ -24,7 +24,7 @@ export const DECLARATION_TITLE = 'La Declaración Vive con Esperanza';
 /**
  * Petición pública donde se firma la Declaración.
  *
- * Es change.org, NO la página de la fundación: `vivesperanza.org/sign/` es
+ * Es change.org, NO la página de la fundación: `info.vivesperanza.org/sign/` es
  * donde vive el texto, pero la firma se recoge acá. Los parámetros de
  * seguimiento vienen del enlace oficial de la campaña y se conservan tal cual
  * — recortarlos rompe la atribución de quién trajo cada firma.

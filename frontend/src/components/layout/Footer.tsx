@@ -41,7 +41,7 @@ const COLUMNS = [
       { label: 'YouTube', href: 'https://www.youtube.com/@vivesperanzaoficial', external: true },
       { label: 'X (Twitter)', href: 'https://x.com/vivesperanzaofi', external: true },
       { label: 'LinkedIn', href: 'https://www.linkedin.com/company/vivesperanza/', external: true },
-      { label: 'Portal Herramientas', href: 'https://vivesperanza.org/tools/', external: true },
+      { label: 'Portal Herramientas', href: 'https://info.vivesperanza.org/tools/', external: true },
     ],
   },
   {
@@ -50,8 +50,8 @@ const COLUMNS = [
       { label: 'Preinscribir escuela', href: '#participar' },
       { label: 'Donar a la causa', href: '#participar' },
       { label: 'Tienda por WhatsApp', href: STORE_WHATSAPP_URL, external: true },
-      { label: 'Sala de prensa', href: 'https://vivesperanza.org/press/', external: true },
-      { label: 'Alianzas y Socios', href: 'https://vivesperanza.org/partnership/', external: true },
+      { label: 'Sala de prensa', href: 'https://info.vivesperanza.org/press/', external: true },
+      { label: 'Alianzas y Socios', href: 'https://info.vivesperanza.org/partnership/', external: true },
     ],
   },
 ];

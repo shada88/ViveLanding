@@ -12,7 +12,7 @@ import { BrandLogo } from '@/components/layout/BrandLogo';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import styles from './DeclarationSection.module.css';
 
-const FULL_DECLARATION_URL = 'https://vivesperanza.org/sign/';
+const FULL_DECLARATION_URL = 'https://info.vivesperanza.org/sign/';
 
 /**
  * 03 — La Declaración Vive con Esperanza.
