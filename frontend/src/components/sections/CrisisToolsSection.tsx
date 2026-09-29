@@ -42,7 +42,7 @@ export function CrisisToolsSection() {
     <section id="herramientas" className="section" aria-labelledby="herramientas-titulo">
       <div className="shell">
         <SectionIntro
-          step="05"
+          step="04"
           eyebrow="Herramientas"
           titleId="herramientas-titulo"
           title="Lo que una escuela necesita tener listo antes de la crisis"

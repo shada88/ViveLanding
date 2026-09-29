@@ -4,29 +4,30 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
-import { KALEO_DATA } from '@/domain/entities/Kaleo';
 import styles from './Header.module.css';
 
 /** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
 const NAV = [
-  { href: '#ecosistema', label: 'Qué hacemos' },
-  { href: '#herramientas', label: 'Herramientas' },
   { href: '#kaleo', label: 'Kaleo' },
   { href: '#territorio', label: 'Rally 2028' },
+  { href: '#herramientas', label: 'Herramientas' },
   { href: '#tienda', label: 'Tienda & Libros' },
+  { href: '#proposito', label: 'Quiénes somos' },
 ] as const;
 
-/** Menú móvil estructurado por categorías clave. */
+/** Menú móvil estructurado siguiendo el nuevo recorrido narrativo. */
 const NAV_MOBILE = [
-  { href: '#ecosistema', label: 'Qué hacemos (Ecosistema)' },
-  { href: '#herramientas', label: 'Herramientas de Crisis' },
-  { href: '#kaleo', label: 'Kaleo — Plataforma' },
-  { href: '#territorio', label: 'Rally Continental 2028' },
-  { href: '#voces', label: 'Las Voces del Bosque' },
-  { href: '#origen', label: 'Comité y Liderazgo' },
-  { href: '#declaracion', label: 'La Declaración' },
-  { href: '#tienda', label: 'Tienda & Publicaciones' },
-  { href: '#participar', label: 'Participar / Preinscribir' },
+  { href: '#kaleo', label: '01 · Kaleo (Respuesta Escolar)' },
+  { href: '#territorio', label: '02 · Rally Continental 2028' },
+  { href: '#voces', label: '03 · Las Voces del Bosque' },
+  { href: '#herramientas', label: '04 · Herramientas de Crisis' },
+  { href: '#tienda', label: '05 · Tienda & Publicaciones' },
+  { href: '#proposito', label: '06 · Nuestro Propósito' },
+  { href: '#oportunidad', label: '07 · Punto de Partida' },
+  { href: '#ecosistema', label: '08 · Ecosistema de Articulación' },
+  { href: '#declaracion', label: '09 · Declaración Vivesperanza' },
+  { href: '#origen', label: '10 · Comité y Liderazgo' },
+  { href: '#participar', label: '11 · Participar / Preinscribir' },
 ] as const;
 
 export function Header() {
@@ -90,19 +91,9 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <a
-            href={KALEO_DATA.appUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`btn btn--primary ${styles.kaleoCta}`}
-            title="Abrir la plataforma principal de Kaleo"
-          >
-            <span>Necesito ayuda</span>
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
-
-          <a href="#participar" className={`btn btn--outline ${styles.cta}`}>
+          <a href="#participar" className={`btn btn--primary ${styles.cta}`}>
             <span>Participar</span>
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
 
           <button
@@ -137,25 +128,6 @@ export function Header() {
               {item.label}
             </a>
           ))}
-          <div className={styles.panelActions}>
-            <a
-              href={KALEO_DATA.appUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--primary btn--block"
-              onClick={() => setOpen(false)}
-            >
-              <span>Necesito ayuda (Kaleo)</span>
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </a>
-            <a
-              href="#participar"
-              className="btn btn--outline btn--block"
-              onClick={() => setOpen(false)}
-            >
-              <span>Participar en la red</span>
-            </a>
-          </div>
         </nav>
       </div>
     </header>

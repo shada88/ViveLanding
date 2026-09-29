@@ -44,7 +44,7 @@ export function TerritorySection() {
             <header className={styles.intro}>
               <Reveal index={0}>
                 <p className="eyebrow">
-                  <span className={styles.step}>07</span>
+                  <span className={styles.step}>02</span>
                   Convocatoria Continental
                 </p>
               </Reveal>

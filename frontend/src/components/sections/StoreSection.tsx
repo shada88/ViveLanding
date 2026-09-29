@@ -77,7 +77,7 @@ export function StoreSection() {
 
       <div className="shell">
         <SectionIntro
-          step="10"
+          step="05"
           eyebrow="Tienda con Propósito & Publicaciones"
           titleId="tienda-titulo"
           title="Libros, Materiales y Piezas con Causa"

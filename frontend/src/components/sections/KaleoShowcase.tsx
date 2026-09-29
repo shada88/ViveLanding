@@ -46,8 +46,8 @@ export function KaleoShowcase() {
         <header className={styles.head}>
           <Reveal index={0}>
             <p className="eyebrow eyebrow--ink">
-              <span className={styles.step}>06</span>
-              Herramienta propia
+              <span className={styles.step}>01</span>
+              Plataforma de respuesta escolar
             </p>
           </Reveal>
 

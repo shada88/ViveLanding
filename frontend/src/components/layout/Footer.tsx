@@ -19,7 +19,7 @@ const COLUMNS = [
     links: [
       { label: 'Qué hacemos', href: '#ecosistema' },
       { label: 'Herramientas', href: '#herramientas' },
-      { label: 'La Declaración', href: '#declaracion' },
+      { label: 'Declaración Vivesperanza', href: '#declaracion' },
       { label: 'Comité y Liderazgo', href: '#origen' },
       { label: 'Tienda & Publicaciones', href: '#tienda' },
     ],
