@@ -2,7 +2,7 @@
  * Comité, Liderazgo y Reconocimiento Histórico — Fundación Vive con Esperanza
  *
  * Estructura de gobernanza y trayectoria:
- * 1. Destacados y Liderazgo: Fernando Galvis (Fundador) y Rocío Galvis Guerrero (Esposa del fundador y parte del liderazgo).
+ * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero (Esposa del fundador y parte del liderazgo).
  * 2. Personas Emblemáticas / Reconocimiento Histórico: Sonia Mora (Trayectoria e impacto histórico, no forma parte directa actualmente).
  * 3. Integrantes Actuales: Equipo y comité activo en territorio.
  *
@@ -28,7 +28,7 @@ export const COMMITTEE_SECTION_DATA = {
 /** Destacados y Liderazgo */
 export const FOUNDERS_LEADERSHIP: Leader[] = [
   {
-    name: 'Fernando Galvis',
+    name: 'Fernando Rafael García García',
     role: 'Fundador de la Fundación Vive con Esperanza',
     bio: 'Psicólogo con posgrados en Cooperación Internacional y Gestión de Proyectos de Desarrollo. Visionario de la resiliencia escolar y director del Rally Continental. Ha liderado alianzas estratégicas con la OEA, UNDRR, PNUMA y ministerios de educación en toda la región para transformar las aulas en motores de desarrollo local.',
     badge: 'Fundador',

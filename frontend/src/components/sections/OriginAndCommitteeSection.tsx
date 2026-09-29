@@ -13,7 +13,7 @@ import styles from './OriginAndCommitteeSection.module.css';
  * 09 — Comité y Liderazgo de la Fundación.
  *
  * Estructura clara de gobernanza, trayectoria e integrantes:
- * 1. Destacados y Liderazgo: Fernando Galvis (Fundador) y Rocío Galvis Guerrero.
+ * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero.
  * 2. Personas Emblemáticas / Reconocimiento Histórico: Sonia Mora (explicando
  *    su impacto y especificando que ya no forma parte directa actualmente).
  * 3. Integrantes Actuales: Equipo y comités que coordinan el trabajo en terreno hoy.

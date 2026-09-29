@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
+import { KALEO_DATA } from '@/domain/entities/Kaleo';
 import styles from './Header.module.css';
 
 /** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
@@ -89,9 +90,19 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <a href="#participar" className={`btn btn--primary ${styles.cta}`}>
-            <span>Participar</span>
+          <a
+            href={KALEO_DATA.appUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={`btn btn--primary ${styles.kaleoCta}`}
+            title="Abrir la plataforma principal de Kaleo"
+          >
+            <span>Necesito ayuda</span>
             <ArrowUpRight size={16} aria-hidden="true" />
+          </a>
+
+          <a href="#participar" className={`btn btn--outline ${styles.cta}`}>
+            <span>Participar</span>
           </a>
 
           <button
@@ -126,6 +137,25 @@ export function Header() {
               {item.label}
             </a>
           ))}
+          <div className={styles.panelActions}>
+            <a
+              href={KALEO_DATA.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--primary btn--block"
+              onClick={() => setOpen(false)}
+            >
+              <span>Necesito ayuda (Kaleo)</span>
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+            <a
+              href="#participar"
+              className="btn btn--outline btn--block"
+              onClick={() => setOpen(false)}
+            >
+              <span>Participar en la red</span>
+            </a>
+          </div>
         </nav>
       </div>
     </header>

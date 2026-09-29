@@ -102,7 +102,7 @@ export const STORE_ITEMS: StoreItem[] = [
     schoolProgram:
       'Dispone de un programa de impacto escolar continental diseñado para involucrar a las nuevas generaciones en la gestión del riesgo de desastres, la acción climática y la transformación territorial.',
     bookDetail: {
-      author: 'Fernando Galvis, Rocío Galvis Guerrero & Equipo Pedagógico',
+      author: 'Fernando Rafael García García, Rocío Galvis Guerrero & Equipo Pedagógico',
       synopsis: 'Siete aventuras ilustradas donde cada personaje encarna un desafío ambiental y de protección civil.',
       review:
         'Esta colección conecta la lectura infantil con la acción territorial directa. Respaldada por un programa pedagógico integral para escuelas, cada volumen guía a las niñas y niños a través de dilemas reales (cuidado del agua, energía limpia, reducción de residuos, soberanía alimentaria y mitigación del cambio climático), sembrando en las nuevas generaciones la capacidad de liderar sus territorios.',
