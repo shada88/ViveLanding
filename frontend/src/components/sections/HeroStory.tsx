@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, ArrowDown, ArrowUpRight } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Wrench } from 'lucide-react';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import { AmbientVideo } from '@/components/visuals/AmbientVideo';
 import { KALEO_DATA } from '@/domain/entities/Kaleo';
@@ -76,8 +76,13 @@ export function HeroStory() {
               <span>Necesito ayuda</span>
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
-            <a href="#participar" className="btn btn--lg btn--outline">
+            <a href="#participar" className="btn btn--lg btn--primary">
               <span>Sé parte de la red</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a href="#herramientas" className={`btn btn--lg btn--outline ${styles.btnCrisis}`}>
+              <Wrench size={16} aria-hidden="true" />
+              <span>Herramientas para crisis</span>
             </a>
           </div>
 
