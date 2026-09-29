@@ -1,9 +1,10 @@
 'use client';
 
 import React from 'react';
-import { ArrowRight, ArrowDown } from 'lucide-react';
+import { ArrowDown, ArrowRight, ArrowUpRight, Wrench } from 'lucide-react';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import { AmbientVideo } from '@/components/visuals/AmbientVideo';
+import { KALEO_DATA } from '@/domain/entities/Kaleo';
 import styles from './HeroStory.module.css';
 
 /**
@@ -66,12 +67,22 @@ export function HeroStory() {
           </p>
 
           <div className={`cta-row ${styles.actions}`}>
+            <a
+              href={KALEO_DATA.appUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn--lg btn--primary"
+            >
+              <span>Necesito ayuda</span>
+              <ArrowUpRight size={18} aria-hidden="true" />
+            </a>
             <a href="#participar" className="btn btn--lg btn--primary">
               <span>Sé parte de la red</span>
               <ArrowRight size={18} aria-hidden="true" />
             </a>
-            <a href="#herramientas" className="btn btn--lg btn--outline">
-              <span>Herramientas de crisis</span>
+            <a href="#herramientas" className={`btn btn--lg btn--outline ${styles.btnCrisis}`}>
+              <Wrench size={16} aria-hidden="true" />
+              <span>Herramientas para crisis</span>
             </a>
           </div>
 

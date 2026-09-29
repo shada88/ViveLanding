@@ -19,7 +19,7 @@ export interface Leader {
 }
 
 export const COMMITTEE_SECTION_DATA = {
-  step: '09',
+  step: '10',
   eyebrow: 'Gobernanza Institucional',
   title: 'Comité y Liderazgo de la Fundación',
   lede: 'Las personas que concibieron la misión, las figuras emblemáticas que han marcado nuestra historia continental y el equipo que hoy impulsa el trabajo en cada territorio.',

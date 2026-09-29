@@ -88,7 +88,7 @@ export function EcosystemSection() {
     <section id="ecosistema" className="section" aria-labelledby="ecosistema-titulo">
       <div className="shell">
         <SectionIntro
-          step="04"
+          step="08"
           eyebrow="El ecosistema de articulación"
           titleId="ecosistema-titulo"
           align="center"

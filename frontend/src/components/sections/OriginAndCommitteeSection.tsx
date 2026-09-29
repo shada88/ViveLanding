@@ -10,7 +10,7 @@ import { SectionIntro } from './SectionIntro';
 import styles from './OriginAndCommitteeSection.module.css';
 
 /**
- * 09 — Comité y Liderazgo de la Fundación.
+ * 10 — Comité y Liderazgo de la Fundación.
  *
  * Estructura clara de gobernanza, trayectoria e integrantes:
  * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero.

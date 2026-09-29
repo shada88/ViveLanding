@@ -46,7 +46,7 @@ export function OpportunitySection() {
     >
       <div className="shell">
         <SectionIntro
-          step="02"
+          step="07"
           eyebrow="Punto de partida"
           titleId="oportunidad-titulo"
           title="Los territorios no están vacíos. Están desconectados."

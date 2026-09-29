@@ -35,8 +35,8 @@ export function PurposeSection() {
     <section id="proposito" className="section" aria-labelledby="proposito-titulo">
       <div className="shell">
         <SectionIntro
-          step="01"
-          eyebrow="Propósito"
+          step="06"
+          eyebrow="Propósito Institucional"
           titleId="proposito-titulo"
           title={
             <>

@@ -19,7 +19,7 @@ export interface DeclarationArticle {
   body: string;
 }
 
-export const DECLARATION_TITLE = 'La Declaración Vive con Esperanza';
+export const DECLARATION_TITLE = 'Declaración Vivesperanza';
 
 /**
  * Petición pública donde se firma la Declaración.
