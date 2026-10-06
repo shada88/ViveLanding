@@ -78,7 +78,7 @@ export function ForestVoicesSection() {
 
       <div className={`shell ${styles.inner}`}>
         <SectionIntro
-          step="03"
+          step="06"
           eyebrow="Rally Continental 2028 · Mascotas Pedagógicas"
           titleId="voces-titulo"
           tone="ink"

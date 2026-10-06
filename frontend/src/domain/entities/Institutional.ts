@@ -2,9 +2,8 @@
  * Comité, Liderazgo y Reconocimiento Histórico — Fundación Vive con Esperanza
  *
  * Estructura de gobernanza y trayectoria:
- * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero (Esposa del fundador y parte del liderazgo).
- * 2. Personas Emblemáticas / Reconocimiento Histórico: Sonia Mora (Trayectoria e impacto histórico, no forma parte directa actualmente).
- * 3. Integrantes Actuales: Equipo y comité activo en territorio.
+ * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero (Fundadora y directora administrativa).
+ * 2. Personas Emblemáticas / Reconocimiento Histórico: Sonia Mora y Aurora Zegarra Huapaya.
  *
  * "Libritos de Esperanza" se desvincula por completo de esta área y vive en la Tienda & Publicaciones.
  */
@@ -14,7 +13,7 @@ export interface Leader {
   role: string;
   bio: string;
   badge: string;
-  category: 'founders' | 'historical' | 'active';
+  category: 'founders' | 'historical';
   note?: string;
 }
 
@@ -22,7 +21,7 @@ export const COMMITTEE_SECTION_DATA = {
   step: '10',
   eyebrow: 'Gobernanza Institucional',
   title: 'Comité y Liderazgo de la Fundación',
-  lede: 'Las personas que concibieron la misión, las figuras emblemáticas que han marcado nuestra historia continental y el equipo que hoy impulsa el trabajo en cada territorio.',
+  lede: 'Las personas que concibieron la misión y las figuras emblemáticas que han marcado nuestra historia continental.',
 };
 
 /** Destacados y Liderazgo */
@@ -30,14 +29,14 @@ export const FOUNDERS_LEADERSHIP: Leader[] = [
   {
     name: 'Fernando Rafael García García',
     role: 'Fundador de la Fundación Vive con Esperanza',
-    bio: 'Psicólogo con posgrados en Cooperación Internacional y Gestión de Proyectos de Desarrollo. Visionario de la resiliencia escolar y director del Rally Continental. Ha liderado alianzas estratégicas con la OEA, UNDRR, PNUMA y ministerios de educación en toda la región para transformar las aulas en motores de desarrollo local.',
+    bio: 'Psicólogo, escritor, cooperante internacional y gestor de proyectos de desarrollo, es gerente de organizaciones internacionales y Sostenibilidad. Visionario de la resiliencia escolar, ha liderado alianzas con autoridades en educación y medio ambiente en toda la región.',
     badge: 'Fundador',
     category: 'founders',
   },
   {
     name: 'Rocío Galvis Guerrero',
-    role: 'Esposa del Fundador & Liderazgo Institucional',
-    bio: 'Administradora de Empresas con formación avanzada en Sostenibilidad y Responsabilidad Social. Parte fundamental del liderazgo de la fundación y referente en la articulación de proyectos de alto impacto humano, ambiental y formativo en comunidades educativas.',
+    role: 'Fundadora & Directora administrativa Institucional',
+    bio: 'Administradora de Empresas con formación avanzada en Sostenibilidad, Calidad e Innovación Social. Parte fundamental del liderazgo de la fundación y referente en la articulación de proyectos de alto impacto humano, ambiental y formativo en comunidades educativas.',
     badge: 'Liderazgo Institucional',
     category: 'founders',
   },
@@ -53,29 +52,11 @@ export const HISTORICAL_RECOGNITION: Leader[] = [
     category: 'historical',
     note: 'Reconocimiento a su contribución histórica (no forma parte directa del equipo activo actualmente).',
   },
-];
-
-/** Integrantes Actuales: Equipo y Comité Activo */
-export const ACTIVE_COMMITTEE: Leader[] = [
   {
-    name: 'Coordinación Territorial & Enlace Escolar',
-    role: 'Gestión en Terreno y Red de Escuelas',
-    bio: 'Acompañamiento directo a directivos y docentes en la adopción de herramientas de crisis y proyectos de sostenibilidad local.',
-    badge: 'Comité Activo',
-    category: 'active',
-  },
-  {
-    name: 'Comité de Tecnología & Plataforma Kaleo',
-    role: 'Sistemas y Coordinación Humanitaria',
-    bio: 'Despliegue, soporte continuo y optimización operativa de la red de respuesta y resiliencia escolar Kaleo.',
-    badge: 'Comité Activo',
-    category: 'active',
-  },
-  {
-    name: 'Comité Pedagógico Rally Continental',
-    role: 'Educación para el Desarrollo Sostenible (EDS) y GRD',
-    bio: 'Diseño de rúbricas, desafíos ambientales de Las Voces del Bosque y evaluación de iniciativas estudiantiles a nivel continental.',
-    badge: 'Comité Activo',
-    category: 'active',
+    name: 'Aurora Zegarra Huapaya',
+    role: 'Ex-Directora de la Oficina de Defensa Nacional y Gestión del Riesgo de Desastres del Ministerio de Educación del Perú',
+    bio: 'Maestra gerente y comunicadora de primer nivel en la gestión del riesgo de desastres a nivel internacional. Experta en desarrollo de estrategias y equipos humanos para la rehabilitación del servicio educativo en contextos de emergencias y desastres.',
+    badge: 'Reconocimiento Histórico',
+    category: 'historical',
   },
 ];

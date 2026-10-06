@@ -10,7 +10,6 @@ import {
   MessageCircle,
   Mic,
   Newspaper,
-  Palette,
   X,
   Sparkles,
   type LucideIcon,
@@ -28,16 +27,14 @@ import styles from './StoreSection.module.css';
 
 const ITEM_ICONS: Record<StoreItem['icon'], LucideIcon> = {
   BookOpen,
-  Palette,
   Heart,
 };
 
 /**
  * 10 — Tienda con Propósito y Publicaciones (Unificación Punto 10).
  *
- * Integra todos los materiales de lectura (Cocoperro y El Cordón Amarillo,
- * Colección Libritos de Esperanza y guías pedagógicas) junto con los peluches
- * pedagógicos y el arte del Rally.
+ * Tres piezas pares: Cocoperro y El Cordón Amarillo, la Colección Libritos de
+ * Esperanza y los peluches pedagógicos «Voces del Bosque».
  *
  * Ofrece navegación interactiva por categorías y una ventana de detalle/reseña
  * pedagógica para explorar cada libro en profundidad.
@@ -77,11 +74,11 @@ export function StoreSection() {
 
       <div className="shell">
         <SectionIntro
-          step="05"
+          step="04"
           eyebrow="Tienda con Propósito & Publicaciones"
           titleId="tienda-titulo"
           title="Libros, Materiales y Piezas con Causa"
-          lede="Cada libro, guía pedagógica y pieza artesanal financia directamente el acompañamiento en escuelas, la impresión de materiales didácticos y la preparación ante emergencias."
+          lede="Cada libro y cada peluche pedagógico financia directamente el acompañamiento en escuelas, la impresión de materiales didácticos y la preparación ante emergencias."
         />
 
         {/* ── Barra de Categorías / Filtros interactivos ── */}
@@ -124,7 +121,7 @@ export function StoreSection() {
                   <span
                     className={`${styles.itemBadge} ${isBook ? styles.itemBadgeGold : ''}`}
                   >
-                    {isBook ? 'Libro / Publicación' : item.category === 'peluches' ? 'Peluche' : 'Arte'}
+                    {isBook ? 'Libro / Publicación' : 'Peluche'}
                   </span>
                 </div>
 

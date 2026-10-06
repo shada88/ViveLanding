@@ -49,7 +49,7 @@ export function DeclarationSection() {
           <div className={styles.aside}>
             <Reveal index={0}>
               <p className="eyebrow eyebrow--ink">
-                <span className={styles.step}>09</span>
+                <span className={styles.step}>07</span>
                 Documento fundacional
               </p>
             </Reveal>

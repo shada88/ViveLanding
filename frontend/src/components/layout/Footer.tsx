@@ -18,6 +18,7 @@ const COLUMNS = [
     title: 'Recorrido',
     links: [
       { label: 'Qué hacemos', href: '#ecosistema' },
+      { label: 'Banco Vivo', href: '#banco-vivo' },
       { label: 'Herramientas', href: '#herramientas' },
       { label: 'Declaración Vivesperanza', href: '#declaracion' },
       { label: 'Comité y Liderazgo', href: '#origen' },

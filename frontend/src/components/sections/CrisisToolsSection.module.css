@@ -6,15 +6,12 @@
   margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
 }
 
+/*
+ * Cada ruta es un desplegable de ancho completo. Cerrada muestra el nombre y
+ * la bajada; abierta, el índice. El dorado marca la que está abierta, sin
+ * cambiarle el tamaño: las dos rutas siguen siendo pares.
+ */
 .route {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  /* 56 px es el mínimo táctil de un CTA público. Estos son la puerta de
-     entrada a todo el material: no bajan de ahí. */
-  min-height: var(--tap-cta);
-  padding: 1.25rem 1.5rem;
-  text-align: left;
   border: 1px solid var(--color-outline-variant);
   border-radius: var(--radius-lg);
   background: transparent;
@@ -24,54 +21,85 @@
     box-shadow var(--transition);
 }
 
-.route:hover {
-  border-color: var(--color-outline);
-  background: var(--color-surface-low);
-}
-
-/*
- * El camino activo se marca con el DORADO y con una superficie, nunca con un
- * tamaño distinto. Los dos caminos son pares: agrandar el seleccionado
- * sugeriría que uno importa más, y eso lo decide la escuela, no la página.
- */
-.routeActive {
+.route[open] {
   border-color: var(--color-gold-border);
   background: var(--color-surface-low);
   box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
+.summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--tap-cta);
+  padding: 1.25rem 1.5rem;
+  list-style: none;
+  cursor: pointer;
+}
+
+.summary::-webkit-details-marker {
+  display: none;
+}
+
+.summary:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: -4px;
+}
+
+.routeCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
 .routeLabel {
+  margin: 0;
   font: var(--font-h3);
   color: var(--color-on-surface);
 }
 
-.routeActive .routeLabel {
+.route[open] .routeLabel {
   color: var(--color-gold);
 }
 
 .routeBlurb {
   font: var(--font-body-sm);
   color: var(--color-on-surface-muted);
-  max-width: 52ch;
+  max-width: 62ch;
+}
+
+.chevron {
+  flex: none;
+  color: var(--color-gold);
+  transition: transform var(--transition);
+}
+
+.route[open] .chevron {
+  transform: rotate(180deg);
 }
 
 /* ══ Índice de herramientas ═════════════════════════════════════════════ */
 
 .panel {
-  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
+  padding: 0 1.5rem 1.25rem;
 }
 
-/*
- * El código del camino — «Ruta A» / «Ruta B» — una sola vez, como encabezado
- * del panel. Antes venía repetido sobre cada herramienta: con cuatro entradas
- * por camino, el mismo rótulo se leía cuatro veces seguidas.
- */
-.panelTitle {
-  font: var(--font-label-md);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
-  color: var(--color-gold);
-  margin-bottom: 1rem;
+.routeActions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.75rem;
+  margin-bottom: clamp(1.25rem, 0.75rem + 1vw, 2rem);
+}
+
+@media (min-width: 720px) {
+  .routeActions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+  }
 }
 
 .list {
@@ -175,57 +203,6 @@
   transform: translateY(-1px);
 }
 
-/* ══ Bloque descargable consolidado para Ruta B ══════════════════════════ */
-
-.routeDownloadBlock {
-  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
-  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
-  background: var(--color-surface-low);
-  border: 1px solid var(--color-gold-border);
-  border-radius: var(--radius-lg);
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-  align-items: flex-start;
-  box-shadow: inset 3px 0 0 var(--color-gold);
-}
-
-.routeDownloadContent {
-  max-width: 60ch;
-}
-
-.routeDownloadBadge {
-  display: inline-block;
-  font: var(--font-caption);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
-  color: var(--color-gold);
-  margin-bottom: 0.5rem;
-}
-
-.routeDownloadTitle {
-  color: var(--color-on-surface);
-  margin-bottom: 0.5rem;
-}
-
-.routeDownloadDescription {
-  font: var(--font-body-md);
-  color: var(--color-on-surface-variant);
-  text-wrap: pretty;
-}
-
-.routeDownloadBtn {
-  flex-shrink: 0;
-}
-
-@media (min-width: 768px) {
-  .routeDownloadBlock {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-}
-
 .footnote {
   margin-top: clamp(2rem, 1rem + 2vw, 3rem);
   font: var(--font-body-md);
@@ -238,9 +215,10 @@
   min-height: auto;
 }
 
-@media (min-width: 720px) {
-  .routes {
-    grid-template-columns: 1fr 1fr;
+@media (prefers-reduced-motion: reduce) {
+  .chevron,
+  .route {
+    transition: none;
   }
 }
 

@@ -85,32 +85,10 @@ export function KaleoShowcase() {
             <p className={`lede lede--ink ${styles.lede}`}>
               Hay personas que necesitan acompañamiento y hay psicólogos, docentes,
               voluntarios y organizaciones dispuestos a darlo. Kaleo coordina ese
-              encuentro de punta a punta y no suelta el caso hasta que cierra.
+              encuentro de punta a punta.
             </p>
           </Reveal>
         </header>
-
-        <Reveal className={styles.platformBanner}>
-          <div className={styles.platformBannerContent}>
-            <div>
-              <p className={styles.platformBannerLabel}>Acceso directo</p>
-              <h3 className={`h3 ${styles.platformBannerTitle}`}>Plataforma Principal Kaleo</h3>
-              <p className={styles.platformBannerText}>
-                Ingresa directamente a la plataforma tecnológica para coordinar asistencia,
-                gestionar incidentes y desplegar acompañamiento psicosocial y escolar.
-              </p>
-            </div>
-            <a
-              href={KALEO_DATA.appUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--lg btn--gold"
-            >
-              <span>Ingresar a Kaleo</span>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-          </div>
-        </Reveal>
 
         <ol className={styles.pillars}>
           {pillars.map((pillar, i) => {

@@ -14,7 +14,7 @@ import styles from './HeroStory.module.css';
 const PROOF = [
   { value: '10–45 min', label: 'Lo que tarda una escuela en evaluar su predio y volver a abrir.' },
   { value: '14 países', label: 'Comunidades educativas enlazadas de Canadá a la Patagonia.' },
-  { value: '3 fases', label: 'Prevenir, actuar y recuperar. Ningún caso queda abierto en silencio.' },
+  { value: '3 fases', label: 'Prevenir, actuar y recuperar.' },
 ];
 
 const HERO_VIDEO = '/Video/Dove_and_dog_in_rain_20260921145005.mp4';

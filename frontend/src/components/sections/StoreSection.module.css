@@ -46,19 +46,13 @@
 
 .items {
   display: grid;
-  align-items: start;
-  gap: clamp(2rem, 1.5rem + 2vw, 2.75rem);
+  align-items: stretch;
+  gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
   margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
   grid-template-columns: 1fr;
 }
 
-@media (min-width: 680px) {
-  .items {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1040px) {
+@media (min-width: 960px) {
   .items {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -141,6 +135,8 @@
   color: var(--color-on-surface);
   margin-bottom: 0.35rem;
   font: var(--font-h3);
+  /* Tres líneas reservadas: los títulos arrancan y terminan a la misma altura. */
+  min-height: calc(1.3em * 3);
 }
 
 .itemKind {
@@ -149,6 +145,7 @@
   letter-spacing: var(--tracking-eyebrow);
   color: var(--color-on-surface-muted);
   margin-bottom: 1rem;
+  min-height: calc(1.45em * 2);
 }
 
 .itemStory {
