@@ -73,7 +73,7 @@ export function HeroStory() {
               rel="noopener noreferrer"
               className="btn btn--lg btn--primary"
             >
-              <span>Necesito ayuda</span>
+              <span>Necesito ayuda urgente</span>
               <ArrowUpRight size={18} aria-hidden="true" />
             </a>
             <a href="#participar" className="btn btn--lg btn--primary">
