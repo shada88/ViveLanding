@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { ChevronDown, Clock, Download, FileText, Users } from 'lucide-react';
+import { ChevronDown, Clock, Download, FileText, Star, Users } from 'lucide-react';
 import {
   CANONICAL_CRISIS_TOOLS,
   CRISIS_ROUTES,
@@ -64,29 +64,122 @@ export function CrisisToolsSection() {
   );
 }
 
+const FRONTS = [
+  {
+    title: 'Proteger el territorio',
+    body: 'Promueven educación ambiental, prevención y acciones concretas de cuidado del entorno.',
+  },
+  {
+    title: 'Proteger la vida',
+    body: 'Acompañan la prevención de autoagresión, detectan señales de alerta y activan la cadena de aviso. No reemplazan al profesional: conectan a quien necesita ayuda con quien puede brindarla.',
+  },
+  {
+    title: 'Prevenir la violencia',
+    body: 'Promueven convivencia, identificación temprana de riesgos y organización comunitaria antes de que el conflicto escale.',
+  },
+] as const;
+
+const RESPONSE_VERBS = ['Observar', 'Alertar', 'Acompañar', 'Conectar', 'Movilizar'] as const;
+
+function FirstRespondersSheet() {
+  return (
+    <article className={styles.sheet}>
+      <h4 className={styles.sheetTitle}>Estudiantes como primeros respondedores</h4>
+      <p className={styles.sheetDeck}>
+        Jóvenes de últimos grados que convierten la escuela en una primera línea de protección
+      </p>
+      <p className={styles.sheetLead}>Son parte de la respuesta ante las crisis.</p>
+      <p className={styles.sheetIntro}>
+        Estudiantes de 10.º y 11.º reciben formación práctica para actuar como primeros
+        respondedores escolares en tres frentes esenciales:
+      </p>
+
+      <ol className={styles.fronts}>
+        {FRONTS.map((front) => (
+          <li key={front.title} className={styles.front}>
+            <h5 className={styles.frontTitle}>{front.title}</h5>
+            <p className={styles.frontBody}>{front.body}</p>
+          </li>
+        ))}
+      </ol>
+
+      <div className={styles.agents}>
+        <h5 className={styles.agentsTitle}>Estudiantes como agentes de respuesta</h5>
+        <p className={styles.sheetIntro}>Cada joven aprende a</p>
+        <ul className={styles.verbs}>
+          {RESPONSE_VERBS.map((verb) => (
+            <li key={verb}>{verb}</li>
+          ))}
+        </ul>
+        <p className={styles.sheetBody}>
+          El programa integra el servicio social estudiantil con un entregable real para la
+          escuela, articulado con docentes, familias, orientadores y la red Kaleo.
+        </p>
+        <p className={styles.sheetBody}>
+          La Fundación Vivesperanza certifica el servicio social realizado, reconociendo la
+          participación, formación y aporte concreto de cada estudiante a su comunidad
+          educativa.
+        </p>
+        <p className={styles.sheetClose}>
+          Ayudamos a preparar una nueva generación para cuidar su comunidad.
+        </p>
+      </div>
+    </article>
+  );
+}
+
+function GoldStars() {
+  return (
+    <span className={styles.stars} aria-hidden="true">
+      {Array.from({ length: 5 }, (_, index) => (
+        <Star key={index} size={12} strokeWidth={1.25} />
+      ))}
+    </span>
+  );
+}
+
 function RouteDisclosure({ route }: { route: CrisisRoute }) {
   const tools = CANONICAL_CRISIS_TOOLS.filter((tool) => tool.route === route.id);
 
   return (
-    <details id={`ruta-${route.id}`} className={styles.route}>
+    <details
+      id={`ruta-${route.id}`}
+      className={route.id === 'process' ? `${styles.route} ${styles.routeFeature}` : styles.route}
+    >
       <summary className={styles.summary}>
         <span className={styles.routeCopy}>
+          {route.id === 'process' && (
+            <span className={styles.signalRow}>
+              <span className={styles.signal}>
+                <span className={styles.signalMark} aria-hidden="true" />
+                Primeros respondedores
+              </span>
+              <GoldStars />
+            </span>
+          )}
           <h3 className={styles.routeLabel}>{route.label}</h3>
           <span className={styles.routeBlurb}>{route.blurb}</span>
         </span>
-        <ChevronDown size={18} aria-hidden="true" className={styles.chevron} />
+        <ChevronDown
+          size={route.id === 'process' ? 22 : 18}
+          aria-hidden="true"
+          className={styles.chevron}
+        />
       </summary>
 
       <div className={styles.panel} id={`panel-${route.id}`}>
         {route.id === 'process' && (
-          <div className={styles.routeActions}>
-            <button type="button" className="btn btn--lg btn--primary">
-              Solicita subvención ahora
-            </button>
-            <button type="button" className="btn btn--lg btn--outline">
-              Materiales de malla curricular
-            </button>
-          </div>
+          <>
+            <FirstRespondersSheet />
+            <div className={styles.routeActions}>
+              <button type="button" className="btn btn--lg btn--primary">
+                Solicita subvención ahora
+              </button>
+              <button type="button" className="btn btn--lg btn--outline">
+                Materiales de malla curricular
+              </button>
+            </div>
+          </>
         )}
 
         <div className={styles.list}>
