@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect } from 'react';
-import { ChevronDown, Clock, Download, FileText, Users } from 'lucide-react';
+import { ArrowRight, ChevronDown, Clock, Download, FileText, Users } from 'lucide-react';
 import {
   CANONICAL_CRISIS_TOOLS,
   CRISIS_ROUTES,
@@ -80,12 +80,20 @@ function RouteDisclosure({ route }: { route: CrisisRoute }) {
       <div className={styles.panel} id={`panel-${route.id}`}>
         {route.id === 'process' && (
           <div className={styles.routeActions}>
-            <button type="button" className="btn btn--lg btn--primary">
-              Solicita subvención ahora
-            </button>
-            <button type="button" className="btn btn--lg btn--outline">
-              Materiales de malla curricular
-            </button>
+            <a href="#participar" className="btn btn--lg btn--primary">
+              <span>Solicita subvención ahora</span>
+              <ArrowRight size={18} aria-hidden="true" />
+            </a>
+            <a
+              href="/docs/herramientas/proceso-preparacion-educacion-sostenible.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download
+              className="btn btn--lg btn--outline"
+            >
+              <Download size={18} aria-hidden="true" />
+              <span>Materiales de malla curricular (PDF)</span>
+            </a>
           </div>
         )}
 
