@@ -1,26 +1,29 @@
 import React from 'react';
-import { ArrowRight, Camera, Clapperboard, ShieldAlert } from 'lucide-react';
+import { AppWindow, ArrowRight, Camera, Clapperboard, type LucideIcon } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
 import styles from './TerritorySection.module.css';
 
+interface CategoryItem {
+  icon: LucideIcon;
+  title: string;
+  body?: string;
+}
+
 /** Categorías del Rally. Los íconos nombran el medio, no decoran el texto. */
-const CATEGORIES = [
+const CATEGORIES: CategoryItem[] = [
   {
     icon: Camera,
-    title: 'Fotografía ambiental',
-    body: 'Documentar el patrimonio y la biodiversidad que solo conoce quien vive ahí.',
+    title: 'Fotografía y arte digital',
   },
   {
     icon: Clapperboard,
-    title: 'Arte digital y cortometrajes',
-    body: 'Narrativas audiovisuales hechas por jóvenes sobre su propio territorio.',
+    title: 'Música y Cortometraje',
   },
   {
-    icon: ShieldAlert,
-    title: 'Proyectos de gestión del riesgo',
-    body: 'Acciones concretas de mitigación en el predio escolar y en el barrio.',
+    icon: AppWindow,
+    title: 'Aplicaciones tecnológicas con tecnologías emergentes',
   },
 ];
 
@@ -44,7 +47,7 @@ export function TerritorySection() {
             <header className={styles.intro}>
               <Reveal index={0}>
                 <p className="eyebrow">
-                  <span className={styles.step}>02</span>
+                  <span className={styles.step}>05</span>
                   Convocatoria Continental
                 </p>
               </Reveal>
@@ -70,10 +73,13 @@ export function TerritorySection() {
 
               <Reveal index={3}>
                 <p className={`lede ${styles.rallyBody}`}>
-                  Trabajamos de Canadá a la Patagonia. La convocatoria insignia de la fundación
-                  convierte el aula en un laboratorio de desarrollo sostenible tomando como punto
-                  de partida un problema real del barrio. Abierta a todo plantel del continente,
-                  público o privado, sin importar su presupuesto.
+                  La convocatoria insignia de la Vivesperanza convierte el aula en un laboratorio
+                  de desarrollo sostenible y gestión del riesgo de desastres, desarrollando
+                  procesos de innovación y protección territorial apoyados con tecnologías
+                  emergentes. Abierta a todo plantel del continente, público o privado. Una
+                  iniciativa que históricamente ha contado con el apoyo de instituciones como
+                  UNESCO, OEA, UNDRR y UNEP, así como ministerios de educación, ambiente y
+                  cultura de todo el hemisferio.
                 </p>
               </Reveal>
             </header>
@@ -88,7 +94,7 @@ export function TerritorySection() {
                       <Icon size={18} aria-hidden="true" className={styles.categoryIcon} />
                       <div>
                         <p className={styles.categoryTitle}>{item.title}</p>
-                        <p className={styles.categoryBody}>{item.body}</p>
+                        {item.body ? <p className={styles.categoryBody}>{item.body}</p> : null}
                       </div>
                     </li>
                   );

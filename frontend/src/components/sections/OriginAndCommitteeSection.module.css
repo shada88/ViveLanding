@@ -44,8 +44,9 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .cardsGridThree {
-    grid-template-columns: repeat(3, 1fr);
+  /* Las dos fichas históricas ocupan el mismo par de columnas que el liderazgo. */
+  .cardsGrid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
@@ -77,10 +78,6 @@
   color: var(--color-gold);
   font-weight: 700;
   margin-bottom: 0.75rem;
-}
-
-.cardBadgeActive {
-  color: var(--color-primary);
 }
 
 .cardName {

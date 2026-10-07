@@ -1,15 +1,13 @@
 /**
  * Tienda con propósito y Publicaciones — Fundación Vive con Esperanza
  *
- * Catálogo unificado con subsección interactiva para Libros y Publicaciones:
- * - Cocoperro y El Cordón Amarillo (con programa escolar para nuevas generaciones)
- * - Colección Libritos de Esperanza: Las Voces del Bosque (con programa escolar continental)
- * - Guías y manuales pedagógicos de gestión del riesgo
- * - Peluches pedagógicos
- * - Arte del Rally Continental (con obras creadas por estudiantes)
+ * Catálogo de tres piezas pares:
+ * - Cocoperro y El Cordón Amarillo
+ * - Colección Libritos de Esperanza: Voces del Bosque
+ * - Peluches pedagógicos «Voces del Bosque»
  */
 
-export type StoreCategory = 'todos' | 'libros' | 'peluches' | 'arte';
+export type StoreCategory = 'todos' | 'libros' | 'peluches';
 
 export interface BookDetail {
   author: string;
@@ -25,11 +23,11 @@ export interface BookDetail {
 export interface StoreItem {
   id: string;
   name: string;
-  category: 'libros' | 'peluches' | 'arte';
+  category: 'libros' | 'peluches';
   kind: string;
   story: string;
   funds: string;
-  icon: 'BookOpen' | 'Palette' | 'Heart';
+  icon: 'BookOpen' | 'Heart';
   featuredImage?: string;
   imagePosition?: string;
   hasSchoolProgram?: boolean;
@@ -54,7 +52,6 @@ export const STORE_CATEGORIES: { id: StoreCategory; label: string; count?: numbe
   { id: 'todos', label: 'Todo el catálogo' },
   { id: 'libros', label: 'Libros y Publicaciones' },
   { id: 'peluches', label: 'Peluches Voces del Bosque' },
-  { id: 'arte', label: 'Arte del Rally' },
 ];
 
 export const STORE_ITEMS: StoreItem[] = [
@@ -118,31 +115,6 @@ export const STORE_ITEMS: StoreItem[] = [
     },
   },
   {
-    id: 'guia-riesgo-escolar',
-    name: 'Guía Metodológica: Escuela Segura y Resiliente',
-    category: 'libros',
-    kind: 'Manual de protocolos y Plan Escolar de Gestión del Riesgo',
-    story:
-      'Instrumento técnico y práctico para directivos y maestros. Enseña a diseñar protocolos de contingencia, rutas de evacuación y comités escolares de emergencia sin requerir conectividad a internet ni presupuestos extraordinarios.',
-    funds: 'Financia talleres presenciales de preparación ante desastres en comunidades apartadas.',
-    icon: 'BookOpen',
-    featuredImage: '/recursos/Guia.jpg',
-    bookDetail: {
-      author: 'Comité Técnico Continental Vive con Esperanza',
-      synopsis: 'Manual integral de prevención, respuesta y recuperación inmediata para planteles escolares.',
-      review:
-        'Desarrollado bajo los lineamientos de la UNESCO y la UNDRR, este manual traduce marcos normativos complejos en pasos operativos concretos que cualquier escuela puede implementar de inmediato con sus propios recursos.',
-      highlights: [
-        'Plantillas descargables y formatos listos para imprimir',
-        'Matrices de riesgo escolar basadas en la experiencia comunitaria',
-        'Metodología validada en escuelas públicas de 8 países de las Américas',
-      ],
-      targetAge: 'Directivos docentes, comités de gestión del riesgo y líderes comunitarios',
-      format: 'Manual técnico encuadernado y digital interactivo',
-      image: '/recursos/Guia.jpg',
-    },
-  },
-  {
     id: 'peluches-voces',
     name: 'Peluches Pedagógicos «Voces del Bosque»',
     category: 'peluches',
@@ -152,17 +124,5 @@ export const STORE_ITEMS: StoreItem[] = [
     funds: 'Financia kits de emergencia escolar y material pedagógico para escuelas vulnerables.',
     icon: 'Heart',
     featuredImage: '/img Pajaros/felpa/catalogo.jpeg',
-  },
-  {
-    id: 'arte-rally',
-    name: 'Arte del Rally Continental',
-    category: 'arte',
-    kind: 'Obra digital y fotografía en edición limitada',
-    story:
-      'Piezas creadas por estudiantes y artistas aliados a partir de su propio territorio. Cada obra tiene nombre, escuela y país: no es decoración anónima, es el retrato de un lugar concreto.',
-    funds: 'Financia la participación de escuelas rurales en el Rally Continental 2028.',
-    icon: 'Palette',
-    featuredImage: '/recursos/IMG_20160812_104905.jpg',
-    imagePosition: 'center 78%',
   },
 ];

@@ -9,23 +9,24 @@ import styles from './Header.module.css';
 /** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
 const NAV = [
   { href: '#kaleo', label: 'Kaleo' },
-  { href: '#territorio', label: 'Rally 2028' },
+  { href: '#banco-vivo', label: 'Banco Vivo' },
   { href: '#herramientas', label: 'Herramientas' },
   { href: '#tienda', label: 'Tienda & Libros' },
+  { href: '#territorio', label: 'Rally 2028' },
   { href: '#proposito', label: 'Quiénes somos' },
 ] as const;
 
 /** Menú móvil estructurado siguiendo el nuevo recorrido narrativo. */
 const NAV_MOBILE = [
   { href: '#kaleo', label: '01 · Kaleo (Respuesta Escolar)' },
-  { href: '#territorio', label: '02 · Rally Continental 2028' },
-  { href: '#voces', label: '03 · Las Voces del Bosque' },
-  { href: '#herramientas', label: '04 · Herramientas de Crisis' },
-  { href: '#tienda', label: '05 · Tienda & Publicaciones' },
-  { href: '#proposito', label: '06 · Nuestro Propósito' },
-  { href: '#oportunidad', label: '07 · Punto de Partida' },
-  { href: '#ecosistema', label: '08 · Ecosistema de Articulación' },
-  { href: '#declaracion', label: '09 · Declaración Vivesperanza' },
+  { href: '#banco-vivo', label: '02 · Banco Vivo' },
+  { href: '#herramientas', label: '03 · Herramientas de Crisis' },
+  { href: '#tienda', label: '04 · Tienda & Publicaciones' },
+  { href: '#territorio', label: '05 · Rally Continental 2028' },
+  { href: '#voces', label: '06 · Las Voces del Bosque' },
+  { href: '#declaracion', label: '07 · Declaración Vivesperanza' },
+  { href: '#proposito', label: '08 · Nuestro Propósito' },
+  { href: '#ecosistema', label: '09 · Ecosistema de Articulación' },
   { href: '#origen', label: '10 · Comité y Liderazgo' },
   { href: '#participar', label: '11 · Participar / Preinscribir' },
 ] as const;

@@ -18,26 +18,22 @@ export interface CrisisRoute {
   code: string;
   label: string;
   blurb: string;
-  downloadUrl?: string;
-  downloadLabel?: string;
 }
 
 export const CRISIS_ROUTES: CrisisRoute[] = [
   {
     id: 'emergency',
     code: 'Ruta A',
-    label: 'Cuando ya pasó',
+    label: 'Ruta A: Cuando hay una crisis activa. Siempre gratuito',
     blurb:
       'Materiales para las primeras horas y los primeros días. Se imprimen, se usan en el predio y no necesitan conexión.',
   },
   {
     id: 'process',
     code: 'Ruta B',
-    label: 'Para construir',
+    label: 'Ruta B: Cultura preventiva. Con subvenciones hasta 100%',
     blurb:
       'Procesos sostenidos que convierten un problema del territorio en un proyecto escolar con resultado verificable.',
-    downloadUrl: '/docs/herramientas/proceso-preparacion-educacion-sostenible.pdf',
-    downloadLabel: 'Descargar proceso de preparación (PDF)',
   },
 ];
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import { Reveal } from '@/components/motion/Reveal';
-import { BrandLogo } from '@/components/layout/BrandLogo';
 import { SectionIntro } from './SectionIntro';
 import styles from './PurposeSection.module.css';
 
@@ -24,18 +23,16 @@ const VERBS = [
 ];
 
 /**
- * 01 — Propósito. Quiénes somos y por qué existimos.
+ * 08 — Propósito. Quiénes somos y por qué existimos.
  *
- * Abre con el logotipo real de la marca en dorado sobre una declaración corta.
- * El logo no se recrea con texto ni se reemplaza por una inicial en un cuadrado
- * de color: es el archivo de marca, recoloreado en la capa de presentación.
+ * Los tres verbos siguen al texto de la sección, en una sola columna.
  */
 export function PurposeSection() {
   return (
     <section id="proposito" className="section" aria-labelledby="proposito-titulo">
       <div className="shell">
         <SectionIntro
-          step="06"
+          step="08"
           eyebrow="Propósito Institucional"
           titleId="proposito-titulo"
           title={
@@ -44,20 +41,10 @@ export function PurposeSection() {
               pueda producirlas.
             </>
           }
-          lede="Vive con Esperanza es una fundación interamericana que trabaja con comunidades educativas del continente. Partimos de una convicción incómoda: casi todo lo que un territorio necesita para transformarse ya está adentro de sus escuelas. Lo que falta es método, herramientas y una red que no se apague cuando se apagan las cámaras."
+          lede="Partimos de una convicción incómoda: casi todo lo que un territorio necesita para transformarse ya está adentro de sus escuelas. Lo que falta es método, herramientas y una red que no se apague cuando se apagan las cámaras."
         />
 
-        <div className={styles.body}>
-          <Reveal className={styles.statement} index={0}>
-            <BrandLogo brand="vivesperanza" height={40} tone="gold" className={styles.mark} />
-            <blockquote className={styles.quote}>
-              La esperanza no es un discurso. Es infraestructura: alguien que sabe qué
-              hacer, algo con qué hacerlo y alguien más al otro lado del teléfono.
-            </blockquote>
-            <cite className={styles.cite}>Principio fundacional</cite>
-          </Reveal>
-
-          <ol className={styles.verbs}>
+        <ol className={styles.verbs}>
             {VERBS.map((item, i) => (
               <Reveal as="li" key={item.verb} index={i} className={styles.verbItem}>
                 <span className={styles.verbIndex} aria-hidden="true">
@@ -67,8 +54,7 @@ export function PurposeSection() {
                 <p className={styles.verbBody}>{item.body}</p>
               </Reveal>
             ))}
-          </ol>
-        </div>
+        </ol>
       </div>
     </section>
   );
