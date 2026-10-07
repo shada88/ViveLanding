@@ -1,12 +1,18 @@
 import React from 'react';
-import { AppWindow, ArrowRight, Camera, Clapperboard } from 'lucide-react';
+import { AppWindow, ArrowRight, Camera, Clapperboard, type LucideIcon } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
 import styles from './TerritorySection.module.css';
 
+interface CategoryItem {
+  icon: LucideIcon;
+  title: string;
+  body?: string;
+}
+
 /** Categorías del Rally. Los íconos nombran el medio, no decoran el texto. */
-const CATEGORIES = [
+const CATEGORIES: CategoryItem[] = [
   {
     icon: Camera,
     title: 'Fotografía y arte digital',
