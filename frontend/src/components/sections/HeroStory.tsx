@@ -62,8 +62,8 @@ export function HeroStory() {
 
           <p className={`lede ${styles.lede}`}>
             La escuela ya está en el barrio, ya conoce a las familias y ya abre sus
-            puertas todos los días. Nosotros le damos lo que le falta: herramientas,
-            método y una red que la sostiene cuando algo pasa.
+            puertas todos los días. Nosotros le damos lo que le falta: herramientas y
+            método para prepararla, así como una red para sostenerla ante un desastre.
           </p>
 
           <div className={`cta-row ${styles.actions}`}>
