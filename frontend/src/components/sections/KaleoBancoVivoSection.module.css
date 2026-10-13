@@ -1,0 +1,303 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}
+
+/* ══ Encabezado ═════════════════════════════════════════════════════════ */
+
+.head {
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+}
+
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.5rem;
+}
+
+.title {
+  color: var(--color-on-ink);
+  margin-bottom: 1.25rem;
+  text-wrap: balance;
+}
+
+.lede {
+  margin-bottom: 0;
+}
+
+/* ══ Las dos columnas pares ═════════════════════════════════════════════ */
+
+.columns {
+  display: grid;
+  gap: 1.5rem;
+}
+
+/* Velo claro sobre la banda: funciona igual en los dos temas porque la banda
+   es oscura en ambos. Las dos columnas comparten exactamente el mismo marco. */
+.column {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: clamp(1.5rem, 1rem + 2vw, 2.25rem);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--on-ink-border);
+  background: var(--on-ink-ghost);
+  scroll-margin-top: 6rem;
+}
+
+.kicker {
+  margin: 0 0 1.25rem;
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.bancoMark {
+  width: min(100%, 20rem);
+  height: auto;
+  margin-bottom: 1.25rem;
+}
+
+.kaleoRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  transition: opacity var(--transition-fast);
+}
+
+.brandLink:hover {
+  opacity: 0.85;
+}
+
+.by {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-muted);
+}
+
+.body {
+  margin: 0;
+  font: var(--font-body-md);
+  color: var(--color-on-ink-variant);
+  text-wrap: pretty;
+}
+
+.body strong {
+  color: var(--color-on-ink);
+  font-weight: 600;
+}
+
+/* ── Beneficios de Banco Vivo (desplegable) ────────────────────────────── */
+
+.gains {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--on-ink-hairline);
+}
+
+.gainsTitle {
+  margin: 0;
+  font: var(--font-label-lg);
+  color: var(--color-on-ink);
+}
+
+.gainsTrigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.gainsTrigger:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 4px;
+}
+
+.chevron {
+  flex: none;
+  color: var(--color-gold);
+  transition: transform var(--transition);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* Alto animado con `grid-template-rows`: abre a la altura real del contenido
+   sin medirlo con JavaScript. */
+.gainsPanel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--transition);
+}
+
+.gainsPanelOpen {
+  grid-template-rows: 1fr;
+}
+
+.gainsList {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.gainsPanelOpen .gainsList {
+  padding-top: 0.75rem;
+}
+
+.gainLabel {
+  margin: 0 0 0.25rem;
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.gainBody {
+  margin: 0;
+  font: var(--font-body-sm);
+  color: var(--color-on-ink-variant);
+  text-wrap: pretty;
+}
+
+/* ── Pilares de Kaleo, en versión compacta ─────────────────────────────── */
+
+.pillars {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0 0;
+  padding: 1rem 0 0;
+  list-style: none;
+  border-top: 1px solid var(--on-ink-hairline);
+}
+
+.pillar {
+  display: flex;
+  gap: 0.85rem;
+}
+
+.pillarIcon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.pillarCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.pillarTitle {
+  font: var(--font-label-lg);
+  color: var(--color-on-ink);
+}
+
+.pillarBody {
+  font: var(--font-body-sm);
+  color: var(--color-on-ink-variant);
+  text-wrap: pretty;
+}
+
+/* El pie de cada columna baja al fondo: los dos CTA quedan a la misma altura
+   aunque los textos tengan largos distintos. */
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1.75rem;
+}
+
+.legalLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--tap-min);
+  font: var(--font-label-md);
+  color: var(--color-on-ink-variant);
+  transition: color var(--transition);
+}
+
+.legalLink:hover {
+  color: var(--color-gold);
+}
+
+/* ══ Cierre ═════════════════════════════════════════════════════════════ */
+
+.note {
+  max-width: 52rem;
+  margin-top: clamp(2.5rem, 1.5rem + 3vw, 4rem);
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--color-gold);
+  font: var(--font-body-lg);
+  color: var(--color-on-ink);
+}
+
+.disclaimer {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 52rem;
+  margin-top: 1.75rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-ink-muted);
+}
+
+.disclaimer p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+.disclaimerIcon {
+  flex: none;
+  margin-top: 0.15rem;
+  color: var(--color-on-ink-variant);
+}
+
+@media (min-width: 860px) {
+  .columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gainsPanel,
+  .chevron {
+    transition: none;
+  }
+}

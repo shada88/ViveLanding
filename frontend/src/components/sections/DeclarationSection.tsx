@@ -1,7 +1,6 @@
-'use client';
-
-import React, { useState } from 'react';
-import { ArrowUpRight, ChevronLeft, ChevronRight, FileText } from 'lucide-react';
+import React from 'react';
+import Link from 'next/link';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import {
   DECLARATION_ARTICLES,
   DECLARATION_SIGN_URL,
@@ -12,29 +11,22 @@ import { BrandLogo } from '@/components/layout/BrandLogo';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import styles from './DeclarationSection.module.css';
 
-const FULL_DECLARATION_URL = 'https://info.vivesperanza.org/sign/';
-
 /**
- * 03 — La Declaración Vive con Esperanza.
+ * 07 — Cápsula de la Declaración Vivesperanza.
  *
- * Presentación interactiva y condensada del documento fundacional:
- * seis compromisos rectores navegables en un solo cuadro de lectura ágil.
- * Mantiene la sobriedad editorial de la fundación y permite acceder al
- * documento íntegro o sumar la firma en la petición continental.
+ * La landing NO es un repositorio de estatutos. Acá queda lo que sostiene la
+ * confianza en diez segundos —la síntesis, el índice de los seis principios y
+ * la firma— y el texto íntegro se traslada a `/sobre-nosotros#declaracion`,
+ * donde quien quiere leerlo vino a hacerlo.
+ *
+ * El índice muestra SOLO los títulos, tal como los registra la fundación. Los
+ * cuerpos no se resumen ni se parafrasean: el texto institucional no se toca;
+ * si no cabe entero, se enlaza.
+ *
+ * Componente de servidor: no hay estado. La red de fondo es la única pieza
+ * cliente y ya se aísla sola.
  */
 export function DeclarationSection() {
-  const [activeNumber, setActiveNumber] = useState(1);
-  const activeArticle =
-    DECLARATION_ARTICLES.find((a) => a.number === activeNumber) ?? DECLARATION_ARTICLES[0];
-
-  const handlePrev = () => {
-    setActiveNumber((cur) => (cur > 1 ? cur - 1 : DECLARATION_ARTICLES.length));
-  };
-
-  const handleNext = () => {
-    setActiveNumber((cur) => (cur < DECLARATION_ARTICLES.length ? cur + 1 : 1));
-  };
-
   return (
     <section
       id="declaracion"
@@ -46,7 +38,7 @@ export function DeclarationSection() {
 
       <div className={`shell ${styles.inner}`}>
         <div className={styles.layout}>
-          <div className={styles.aside}>
+          <div className={styles.copy}>
             <Reveal index={0}>
               <p className="eyebrow eyebrow--ink">
                 <span className={styles.step}>07</span>
@@ -61,117 +53,55 @@ export function DeclarationSection() {
             </Reveal>
 
             <Reveal index={2}>
-              <p className={styles.introNote}>
-                Seis compromisos rectores para salvaguardar el derecho de las nuevas generaciones a un futuro viable. Selecciona cada artículo para explorar su principio:
+              <p className={styles.synthesis}>
+                Seis principios rectores para salvaguardar el derecho de las nuevas
+                generaciones a un futuro viable en las Américas. Se sostiene con firmas de todo
+                el continente.
               </p>
             </Reveal>
 
-            <div className={styles.tabList} role="tablist" aria-label="Artículos de la Declaración">
-              {DECLARATION_ARTICLES.map((article) => {
-                const isSelected = article.number === activeNumber;
-                return (
-                  <button
-                    key={article.number}
-                    type="button"
-                    role="tab"
-                    id={`tab-articulo-${article.number}`}
-                    aria-selected={isSelected}
-                    aria-controls="panel-articulo"
-                    className={`${styles.tabItem} ${isSelected ? styles.tabItemActive : ''}`}
-                    onClick={() => setActiveNumber(article.number)}
-                  >
-                    <span className={styles.tabNumber}>
-                      {String(article.number).padStart(2, '0')}
-                    </span>
-                    <span className={styles.tabTitle}>{article.title}</span>
-                  </button>
-                );
-              })}
-            </div>
+            <Reveal index={3} className={styles.actions}>
+              <a
+                href={DECLARATION_SIGN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn--lg btn--gold"
+              >
+                <span>Firmar la Declaración en Change.org</span>
+                <ArrowUpRight size={18} aria-hidden="true" />
+              </a>
+            </Reveal>
+
+            <Reveal index={4}>
+              <p className={styles.bridge}>
+                Lee los 6 artículos de la Declaración y nuestra historia en{' '}
+                <Link href="/sobre-nosotros#declaracion" className={styles.bridgeLink}>
+                  <span>Sobre Nosotros</span>
+                  <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+              </p>
+            </Reveal>
+          </div>
+
+          <Reveal className={styles.index}>
+            <ol className={styles.articles} aria-label="Principios de la Declaración">
+              {DECLARATION_ARTICLES.map((article) => (
+                <li key={article.number} className={styles.article}>
+                  <span className={styles.number} aria-hidden="true">
+                    {String(article.number).padStart(2, '0')}
+                  </span>
+                  <span className={styles.articleTitle}>{article.title}</span>
+                </li>
+              ))}
+            </ol>
 
             <div className={styles.seal}>
-              <BrandLogo brand="vivesperanza" height={28} tone="on-ink" />
+              <BrandLogo brand="vivesperanza" height={24} tone="on-ink" />
               <p className={styles.sealNote}>
                 Traducción oficial del documento registrado por la fundación.
               </p>
             </div>
-          </div>
-
-          <div className={styles.main}>
-            <div
-              id="panel-articulo"
-              role="tabpanel"
-              aria-labelledby={`tab-articulo-${activeArticle.number}`}
-              className={styles.activeCard}
-            >
-              <div className={styles.cardHeader}>
-                <span className={styles.number} aria-hidden="true">
-                  {String(activeArticle.number).padStart(2, '0')}
-                </span>
-                <span className={styles.cardCounter}>
-                  Artículo {activeArticle.number} de {DECLARATION_ARTICLES.length}
-                </span>
-              </div>
-
-              <h3 className={styles.articleTitle}>{activeArticle.title}</h3>
-              <p className={styles.articleText}>{activeArticle.body}</p>
-
-              <div className={styles.navRow}>
-                <button
-                  type="button"
-                  onClick={handlePrev}
-                  className={styles.navBtn}
-                  aria-label="Artículo anterior"
-                >
-                  <ChevronLeft size={18} aria-hidden="true" />
-                  <span>Anterior</span>
-                </button>
-                <div className={styles.dots} aria-hidden="true">
-                  {DECLARATION_ARTICLES.map((a) => (
-                    <span
-                      key={a.number}
-                      className={`${styles.dot} ${a.number === activeNumber ? styles.dotActive : ''}`}
-                    />
-                  ))}
-                </div>
-                <button
-                  type="button"
-                  onClick={handleNext}
-                  className={styles.navBtn}
-                  aria-label="Artículo siguiente"
-                >
-                  <span>Siguiente</span>
-                  <ChevronRight size={18} aria-hidden="true" />
-                </button>
-              </div>
-            </div>
-
-            <div className={styles.sign}>
-              <p className={styles.signLead}>
-                Esta declaración se sostiene con firmas de toda América. La petición continental está abierta.
-              </p>
-              <div className={styles.signActions}>
-                <a
-                  href={DECLARATION_SIGN_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn--lg btn--gold"
-                >
-                  <span>Firmar la Declaración</span>
-                  <ArrowUpRight size={18} aria-hidden="true" />
-                </a>
-                <a
-                  href={FULL_DECLARATION_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={styles.btnFullDoc}
-                >
-                  <FileText size={18} aria-hidden="true" />
-                  <span>Leer texto íntegro</span>
-                </a>
-              </div>
-            </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

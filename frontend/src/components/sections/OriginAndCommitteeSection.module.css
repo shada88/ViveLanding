@@ -1,112 +1,95 @@
-.sectionsContainer {
+/* ══ Barra de respaldo ══════════════════════════════════════════════════ */
+
+.bar {
   display: grid;
-  gap: clamp(2rem, 1.5rem + 3vw, 3.5rem);
+  gap: clamp(1.75rem, 1rem + 2vw, 3rem);
+  align-items: start;
 }
 
-.block {
-  display: flex;
-  flex-direction: column;
+.identity,
+.governance {
+  min-width: 0;
 }
 
-.blockHeader {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-bottom: 0.85rem;
-  margin-bottom: 1.5rem;
-  border-bottom: 1px solid var(--color-outline-variant);
+.title {
+  margin: 0.75rem 0 0.75rem;
+  font: var(--font-h2);
+  color: var(--color-on-surface);
+  text-wrap: balance;
 }
 
-.blockTitle {
-  font: var(--font-label-md);
-  text-transform: uppercase;
+.legal {
+  margin: 0;
+  max-width: 46ch;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  text-wrap: pretty;
+}
+
+.label {
+  display: block;
+  margin: 0 0 0.85rem;
+  font: var(--font-caption);
   letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
   color: var(--color-on-surface-muted);
 }
 
-.blockTag {
-  font: var(--font-caption);
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
-  background: var(--color-surface-container);
-  color: var(--color-primary);
-  font-weight: 600;
-}
-
-.cardsGrid {
+/* Línea de firmas: nombre arriba, cargo abajo, filete entre personas. */
+.people {
   display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
+  margin: 0 0 1.5rem;
+  padding: 0;
+  list-style: none;
 }
 
-@media (min-width: 768px) {
-  .cardsGridTwo {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  /* Las dos fichas históricas ocupan el mismo par de columnas que el liderazgo. */
-  .cardsGrid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.card {
+.person {
   display: flex;
   flex-direction: column;
-  padding: clamp(1.5rem, 1.25rem + 1vw, 2rem);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-outline-variant);
-  background: var(--color-surface);
-  box-shadow: var(--shadow-1);
-  transition: transform var(--transition-fast), border-color var(--transition-fast);
+  gap: 0.15rem;
+  padding: 0.85rem 0;
+  border-top: 1px solid var(--color-outline-variant);
 }
 
-.card:hover {
-  border-color: var(--color-primary-border);
+.person:last-child {
+  border-bottom: 1px solid var(--color-outline-variant);
 }
 
-.cardHistorical {
-  border-left: 3px solid var(--color-gold);
-  background: var(--color-surface-low);
-}
-
-.cardBadge {
-  align-self: flex-start;
-  font: var(--font-caption);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
-  color: var(--color-gold);
-  font-weight: 700;
-  margin-bottom: 0.75rem;
-}
-
-.cardName {
-  font: var(--font-h3);
+.name {
+  font: var(--font-label-lg);
   color: var(--color-on-surface);
-  margin-bottom: 0.35rem;
 }
 
-.cardRole {
-  font: var(--font-body-sm);
-  font-weight: 600;
-  color: var(--color-primary);
-  margin-bottom: 1rem;
-}
-
-.cardBio {
+.role {
   font: var(--font-body-sm);
   color: var(--color-on-surface-variant);
-  line-height: 1.6;
-  text-wrap: pretty;
-  margin-bottom: 0;
-  flex: 1;
 }
 
-.historicalNote {
-  margin-top: 1rem;
-  padding-top: 0.75rem;
-  border-top: 1px dashed var(--color-outline-variant);
-  font: var(--font-caption);
-  color: var(--color-gold-deep);
-  font-style: italic;
+.support {
+  margin: 0 0 0.5rem;
+}
+
+.supportList {
+  font: var(--font-label-lg);
+  letter-spacing: 0.04em;
+  color: var(--color-gold);
+}
+
+@media (min-width: 720px) {
+  .people {
+    grid-template-columns: 1fr 1fr;
+    column-gap: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  }
+
+  /* En dos columnas el último par cierra con filete en ambas celdas. */
+  .person:nth-last-child(2) {
+    border-bottom: 1px solid var(--color-outline-variant);
+  }
+}
+
+@media (min-width: 960px) {
+  .bar {
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(2.5rem, 1.5rem + 3vw, 5rem);
+  }
 }

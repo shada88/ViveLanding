@@ -1,0 +1,214 @@
+/* ══ Hero institucional ═════════════════════════════════════════════════ */
+
+.hero {
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(3rem, 2rem + 4vw, 5.5rem);
+}
+
+.net {
+  opacity: 0.45;
+}
+
+.glow {
+  width: min(620px, 80vw);
+  height: min(620px, 80vw);
+  top: -20%;
+  right: -10%;
+  opacity: 0.35;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 1;
+  max-width: 60rem;
+}
+
+/* `flex` y no `inline-flex`: el eyebrow que sigue también es `inline-flex`, y
+   dos elementos en línea se acomodan uno al lado del otro en vez de apilarse. */
+.back {
+  display: flex;
+  width: fit-content;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--tap-min);
+  margin-bottom: 1.5rem;
+  font: var(--font-label-md);
+  color: var(--color-on-surface-variant);
+  transition: gap var(--transition), color var(--transition);
+}
+
+.back:hover {
+  gap: 0.75rem;
+  color: var(--color-primary);
+}
+
+.heroTitle {
+  margin: 1rem 0 1.25rem;
+  text-wrap: balance;
+}
+
+.heroLede {
+  max-width: 52ch;
+  margin-bottom: 1.5rem;
+}
+
+.legal {
+  margin: 0;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+}
+
+.legal strong {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+/* ══ 01 · Origen ════════════════════════════════════════════════════════ */
+
+.origin {
+  align-items: center;
+}
+
+.originMedia,
+.originCopy {
+  min-width: 0;
+}
+
+.step {
+  color: var(--color-gold);
+  font-variant-numeric: tabular-nums;
+  margin-right: 0.5rem;
+}
+
+.originTitle {
+  margin: 0 0 1.25rem;
+  text-wrap: balance;
+}
+
+.prose {
+  max-width: 52ch;
+  margin: 0 0 1rem;
+  font: var(--font-body-lg);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+/* ══ 02 · Tesis territorial ═════════════════════════════════════════════ */
+
+.thesisTitle {
+  max-width: 22ch;
+  margin: 0.75rem 0 1.25rem;
+  font: 800 clamp(2rem, 1.35rem + 2.8vw, 3.5rem) / 1.08 var(--font-family);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-on-surface);
+  text-wrap: balance;
+}
+
+.thesisLede {
+  max-width: 56ch;
+}
+
+.chainWrap {
+  margin-top: clamp(2rem, 1.25rem + 2vw, 3rem);
+}
+
+/*
+ * La red como cadena: siete nodos unidos por un filete. En móvil se apila en
+ * vertical (el filete corre a la izquierda); en escritorio se extiende en una
+ * línea. El último nodo es el único dorado: la esperanza es lo que vale.
+ */
+.chain {
+  position: relative;
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chain::before {
+  content: '';
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  left: 0.4375rem;
+  width: 1px;
+  background: var(--color-outline-variant);
+}
+
+.chainNode {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-width: 0;
+}
+
+.chainDot {
+  flex: none;
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-primary);
+  background: var(--color-background);
+}
+
+.chainNodeGold .chainDot {
+  border-color: var(--color-gold);
+  background: var(--color-gold);
+  box-shadow: var(--shadow-gold);
+}
+
+.chainLabel {
+  font: var(--font-label-lg);
+  color: var(--color-on-surface-variant);
+}
+
+.chainNodeGold .chainLabel {
+  color: var(--color-gold);
+}
+
+/* ══ Cierre ═════════════════════════════════════════════════════════════ */
+
+.close {
+  max-width: 44rem;
+  text-align: center;
+}
+
+.closeTitle {
+  margin: 0 0 1rem;
+}
+
+.closeLede {
+  margin: 0 auto 2rem;
+}
+
+.closeActions {
+  justify-content: center;
+}
+
+@media (min-width: 900px) {
+  .chain {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .chain::before {
+    top: 0.4375rem;
+    bottom: auto;
+    left: calc(100% / 14);
+    right: calc(100% / 14);
+    width: auto;
+    height: 1px;
+  }
+
+  .chainNode {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .chainLabel {
+    font: var(--font-label-md);
+  }
+}

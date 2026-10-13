@@ -23,16 +23,20 @@ const VERBS = [
 ];
 
 /**
- * 08 — Propósito. Quiénes somos y por qué existimos.
+ * Propósito. Quiénes somos y por qué existimos — vive en `/sobre-nosotros`.
  *
  * Los tres verbos siguen al texto de la sección, en una sola columna.
  */
-export function PurposeSection() {
+interface PurposeSectionProps {
+  step?: string;
+}
+
+export function PurposeSection({ step }: PurposeSectionProps) {
   return (
     <section id="proposito" className="section" aria-labelledby="proposito-titulo">
       <div className="shell">
         <SectionIntro
-          step="08"
+          step={step}
           eyebrow="Propósito Institucional"
           titleId="proposito-titulo"
           title={

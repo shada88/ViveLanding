@@ -31,7 +31,7 @@ const ITEM_ICONS: Record<StoreItem['icon'], LucideIcon> = {
 };
 
 /**
- * 10 — Tienda con Propósito y Publicaciones (Unificación Punto 10).
+ * 06 — Tienda con causa: materiales para llevar al aula.
  *
  * Tres piezas pares: Cocoperro y El Cordón Amarillo, la Colección Libritos de
  * Esperanza y los peluches pedagógicos «Voces del Bosque».
@@ -74,7 +74,7 @@ export function StoreSection() {
 
       <div className="shell">
         <SectionIntro
-          step="04"
+          step="06"
           eyebrow="Tienda con Propósito & Publicaciones"
           titleId="tienda-titulo"
           title="Libros, Materiales y Piezas con Causa"

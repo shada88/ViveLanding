@@ -1,10 +1,9 @@
 'use client';
 
 import React from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Wrench } from 'lucide-react';
+import { ArrowDown, ArrowRight, ShieldAlert } from 'lucide-react';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import { AmbientVideo } from '@/components/visuals/AmbientVideo';
-import { KALEO_DATA } from '@/domain/entities/Kaleo';
 import styles from './HeroStory.module.css';
 
 /**
@@ -66,25 +65,28 @@ export function HeroStory() {
             método para prepararla, así como una red para sostenerla ante un desastre.
           </p>
 
+          {/* Dos caminos rápidos, nada más: la promesa se sostiene con UNA
+              decisión clara, no con un menú de botones. */}
           <div className={`cta-row ${styles.actions}`}>
-            <a
-              href={KALEO_DATA.appUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn btn--lg btn--primary"
-            >
-              <span>Necesito ayuda urgente</span>
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-            <a href="#participar" className="btn btn--lg btn--primary">
-              <span>Sé parte de la red</span>
+            <a href="#ruta-process" className="btn btn--lg btn--primary">
+              <span>Explorar la Ruta B</span>
               <ArrowRight size={18} aria-hidden="true" />
             </a>
-            <a href="#herramientas" className={`btn btn--lg btn--outline ${styles.btnCrisis}`}>
-              <Wrench size={16} aria-hidden="true" />
-              <span>Herramientas para crisis</span>
+            <a href="#alianzas" className={`btn btn--lg btn--outline ${styles.btnSecondary}`}>
+              <span>Ver alianzas</span>
             </a>
           </div>
+
+          <p className={styles.emergencyHint}>
+            <ShieldAlert size={16} aria-hidden="true" />
+            <span>
+              ¿Tu escuela afronta una emergencia?{' '}
+              <a href="#ruta-emergency" className={styles.emergencyLink}>
+                Ve a la Ruta A
+              </a>{' '}
+              y conoce el siguiente paso con Kaleo.
+            </span>
+          </p>
 
           <p className={styles.audienceHint}>
             Para escuelas · aliados · empresas · voluntarios
@@ -100,9 +102,9 @@ export function HeroStory() {
           ))}
         </div>
 
-        <a href="#proposito" className={styles.scrollCue}>
+        <a href="#rutas" className={styles.scrollCue}>
           <ArrowDown size={16} aria-hidden="true" />
-          <span>Por qué existimos</span>
+          <span>Elige tu ruta</span>
         </a>
       </div>
 
