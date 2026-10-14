@@ -19,6 +19,12 @@ const pairs = [
   ['CLARO   dorado / blanco',              '#8a6520','#ffffff', 4.5],
   ['CLARO   botón primario',               '#ffffff','#0047ab', 4.5],
   ['CLARO   dorado / gold-soft',           '#8a6520','#fbf3e2', 4.5],
+  // Mensaje de error de campo, sobre el bloque del formulario (surface).
+  ['OSCURO  error / surface',              '#ffb4ab','#070c16', 4.5],
+  ['CLARO   error / surface',              '#ba1a1a','#ffffff', 4.5],
+  // Nota de protección de menores (FAQ), sobre primary-soft.
+  ['OSCURO  texto variante / primary-soft','#a9b7ce','#0b1930', 4.5],
+  ['CLARO   texto variante / primary-soft','#43506b','#eaf0ff', 4.5],
 ];
 let fail=0;
 for (const [name,fg,bg,min] of pairs) {

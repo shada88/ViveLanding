@@ -17,21 +17,23 @@ const COLUMNS = [
   {
     title: 'Recorrido',
     links: [
-      { label: 'Qué hacemos', href: '#ecosistema' },
-      { label: 'Banco Vivo', href: '#banco-vivo' },
-      { label: 'Herramientas', href: '#herramientas' },
-      { label: 'Declaración Vivesperanza', href: '#declaracion' },
-      { label: 'Comité y Liderazgo', href: '#origen' },
-      { label: 'Tienda & Publicaciones', href: '#tienda' },
+      { label: 'Elige tu ruta', href: '/#rutas' },
+      { label: 'El método', href: '/#metodo' },
+      { label: 'Herramientas', href: '/#herramientas' },
+      { label: 'Alianzas', href: '/#alianzas' },
+      { label: 'Preguntas frecuentes', href: '/#preguntas' },
+      { label: 'Sobre Nosotros', href: '/sobre-nosotros' },
     ],
   },
   {
     title: 'Ecosistema',
     links: [
       { label: 'Kaleo — Plataforma', href: 'https://kaleo-sage.vercel.app/', external: true },
-      { label: 'Rally Continental 2028', href: '#territorio' },
-      { label: 'Cocoperro y El Cordón Amarillo', href: '#tienda' },
-      { label: 'Las Voces del Bosque', href: '#voces' },
+      { label: 'Banco Vivo', href: '/#banco-vivo' },
+      { label: 'Rally Continental 2028', href: '/#rally' },
+      { label: 'Cocoperro y El Cordón Amarillo', href: '/#tienda' },
+      { label: 'Las Voces del Bosque', href: '/#voces' },
+      { label: 'Declaración Vivesperanza', href: '/sobre-nosotros#declaracion' },
     ],
   },
   {
@@ -48,8 +50,8 @@ const COLUMNS = [
   {
     title: 'Vinculación',
     links: [
-      { label: 'Preinscribir escuela', href: '#participar' },
-      { label: 'Donar a la causa', href: '#participar' },
+      { label: 'Unirse a la red', href: '/#participar' },
+      { label: 'Donar a la causa', href: 'https://info.vivesperanza.org/donate/', external: true },
       { label: 'Tienda por WhatsApp', href: STORE_WHATSAPP_URL, external: true },
       { label: 'Sala de prensa', href: 'https://info.vivesperanza.org/press/', external: true },
       { label: 'Alianzas y Socios', href: 'https://info.vivesperanza.org/partnership/', external: true },

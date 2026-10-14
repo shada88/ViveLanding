@@ -1,0 +1,265 @@
+/* ══ Simulador ══════════════════════════════════════════════════════════ */
+
+.simulator {
+  display: grid;
+  gap: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+}
+
+/* ── Riel de pasos: cuatro nodos de la red ─────────────────────────────── */
+
+.rail {
+  /* Estado inicial declarado acá; el componente solo lo sobrescribe. */
+  --method-progress: 0;
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+/*
+ * La línea de la red une los centros de los nodos. Su tramo encendido crece
+ * con `--method-progress` (0 a 1): se escala en X, que se compone en GPU, en lugar
+ * de animar un ancho que obligaría a recalcular el layout.
+ */
+.railLine {
+  position: absolute;
+  top: 1.375rem;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: var(--color-outline-variant);
+  pointer-events: none;
+}
+
+.railLine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--color-gold);
+  transform-origin: left center;
+  transform: scaleX(var(--method-progress));
+  transition: transform var(--transition-soft);
+}
+
+.node {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: var(--tap-cta);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-on-surface-muted);
+  cursor: pointer;
+  text-align: center;
+}
+
+.node:focus-visible {
+  outline: none;
+}
+
+.node:focus-visible .nodeDot {
+  box-shadow: var(--ring-focus);
+}
+
+.nodeDot {
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface);
+  color: var(--color-on-surface-variant);
+  transition:
+    border-color var(--transition),
+    color var(--transition),
+    background-color var(--transition);
+}
+
+.node:hover .nodeDot {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.nodeDone .nodeDot {
+  border-color: var(--color-gold-border);
+  color: var(--color-gold);
+}
+
+.nodeActive .nodeDot,
+.node.nodeActive:hover .nodeDot {
+  border-color: var(--color-gold);
+  background: var(--color-gold-soft);
+  color: var(--color-gold);
+}
+
+.nodeLabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font: var(--font-label-md);
+  color: var(--color-on-surface-variant);
+}
+
+.nodeActive .nodeLabel {
+  color: var(--color-on-surface);
+}
+
+.nodeNumber {
+  font: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-surface-muted);
+}
+
+.nodeActive .nodeNumber {
+  color: var(--color-gold);
+}
+
+/* ── Panel del paso activo ─────────────────────────────────────────────── */
+
+.panel {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+}
+
+.panel:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 4px;
+}
+
+.panelCopy {
+  min-width: 0;
+}
+
+.panelStep {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.85rem;
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+.panelTitle {
+  margin: 0 0 0.75rem;
+  color: var(--color-on-surface);
+  text-wrap: balance;
+}
+
+.panelBody {
+  margin: 0;
+  max-width: 56ch;
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+/* El producto se separa con un filete, no con otra caja dentro de la caja. */
+.product {
+  min-width: 0;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.productLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.5rem;
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-surface-muted);
+}
+
+.productTitle {
+  margin: 0 0 0.4rem;
+  font: var(--font-label-lg);
+  color: var(--color-on-surface);
+}
+
+.productNote {
+  margin: 0;
+  max-width: 48ch;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  text-wrap: pretty;
+}
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  grid-column: 1 / -1;
+}
+
+.navBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: var(--tap-min);
+  padding: 0.6rem 1.1rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-outline-variant);
+  background: transparent;
+  color: var(--color-on-surface-variant);
+  font: var(--font-label-md);
+  cursor: pointer;
+  transition: border-color var(--transition), color var(--transition);
+}
+
+.navBtn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.navBtn:focus-visible {
+  outline: none;
+  box-shadow: var(--ring-focus);
+}
+
+/* En pantallas angostas el rótulo largo no entra bajo cada nodo: queda el
+   número y el panel dice el nombre completo del paso. */
+@media (max-width: 559px) {
+  .nodeLabel {
+    font: var(--font-caption);
+  }
+
+  .nodeNumber {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .panel {
+    grid-template-columns: 1.3fr 1fr;
+    align-items: start;
+  }
+
+  .product {
+    padding-top: 0;
+    padding-left: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+    border-top: 0;
+    border-left: 1px solid var(--color-outline-variant);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .railLine::after {
+    transition: none;
+  }
+}

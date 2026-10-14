@@ -2,33 +2,40 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import styles from './Header.module.css';
 
-/** Navegación de producto en escritorio: orientada a la acción y claridad de oferta. */
+/**
+ * Navegación de escritorio: cinco destinos, una sola línea. Cada uno responde a
+ * una intención distinta —empezar, convocatoria, apoyo, materiales, quiénes
+ * somos—; agregar un sexto la parte en dos renglones y el header deja de ser
+ * sobrio.
+ *
+ * Los anclas llevan `/` delante para funcionar también desde
+ * `/sobre-nosotros`: en la landing, `/#rutas` es la misma página y solo hace
+ * scroll; desde otra ruta, vuelve a la landing y baja al ancla.
+ */
 const NAV = [
-  { href: '#kaleo', label: 'Kaleo' },
-  { href: '#banco-vivo', label: 'Banco Vivo' },
-  { href: '#herramientas', label: 'Herramientas' },
-  { href: '#tienda', label: 'Tienda & Libros' },
-  { href: '#territorio', label: 'Rally 2028' },
-  { href: '#proposito', label: 'Quiénes somos' },
+  { href: '/#rutas', label: 'Rutas' },
+  { href: '/#rally', label: 'Rally 2028' },
+  { href: '/#kaleo', label: 'Kaleo' },
+  { href: '/#tienda', label: 'Tienda' },
+  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
 ] as const;
 
-/** Menú móvil estructurado siguiendo el nuevo recorrido narrativo. */
+/** Menú móvil: el recorrido completo, en el orden de los actos de la landing. */
 const NAV_MOBILE = [
-  { href: '#kaleo', label: '01 · Kaleo (Respuesta Escolar)' },
-  { href: '#banco-vivo', label: '02 · Banco Vivo' },
-  { href: '#herramientas', label: '03 · Herramientas de Crisis' },
-  { href: '#tienda', label: '04 · Tienda & Publicaciones' },
-  { href: '#territorio', label: '05 · Rally Continental 2028' },
-  { href: '#voces', label: '06 · Las Voces del Bosque' },
-  { href: '#declaracion', label: '07 · Declaración Vivesperanza' },
-  { href: '#proposito', label: '08 · Nuestro Propósito' },
-  { href: '#ecosistema', label: '09 · Ecosistema de Articulación' },
-  { href: '#origen', label: '10 · Comité y Liderazgo' },
-  { href: '#participar', label: '11 · Participar / Preinscribir' },
+  { href: '/#rutas', label: '01 · Elige tu ruta' },
+  { href: '/#metodo', label: '02 · El método' },
+  { href: '/#rally', label: '03 · Rally 2028 y Voces del Bosque' },
+  { href: '/#kaleo', label: '04 · Kaleo y Banco Vivo' },
+  { href: '/#alianzas', label: '05 · Alianzas' },
+  { href: '/#tienda', label: '06 · Tienda con causa' },
+  { href: '/#declaracion', label: '07 · Quiénes somos' },
+  { href: '/#participar', label: '08 · Unirse a la red' },
+  { href: '/#preguntas', label: '09 · Preguntas frecuentes' },
+  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
 ] as const;
 
 export function Header() {
@@ -85,17 +92,17 @@ export function Header() {
 
         <nav className={styles.nav} aria-label="Navegación principal">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className={styles.link}>
+            <Link key={item.href} href={item.href} className={styles.link}>
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
         <div className={styles.actions}>
-          <a href="#participar" className={`btn btn--primary ${styles.cta}`}>
-            <span>Participar</span>
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
+          <Link href="/#participar" className={`btn btn--primary ${styles.cta}`}>
+            <span>Unirse a la Red</span>
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
 
           <button
             ref={toggleRef}
@@ -120,14 +127,14 @@ export function Header() {
       <div id="menu-movil" className={styles.panel} hidden={!open}>
         <nav className={styles.panelNav} aria-label="Navegación completa">
           {NAV_MOBILE.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className={styles.panelLink}
               onClick={() => setOpen(false)}
             >
               {item.label}
-            </a>
+            </Link>
           ))}
         </nav>
       </div>

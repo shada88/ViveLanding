@@ -12,7 +12,10 @@ import { SectionIntro } from './SectionIntro';
 import styles from './CrisisToolsSection.module.css';
 
 /**
- * 03 — Herramientas.
+ * 01 (detalle) — Herramientas de cada ruta.
+ *
+ * Va justo debajo de «Elige tu ruta»: allá se decide, acá se consulta. Los
+ * paneles de la sección de rutas abren estos desplegables por su ancla.
  *
  * Cada ruta es un desplegable. Cerrada, se lee el nombre y para qué sirve.
  * Abierta, muestra el índice de instrumentos de ese camino. Las dos empiezan
@@ -38,8 +41,8 @@ export function CrisisToolsSection() {
     <section id="herramientas" className="section" aria-labelledby="herramientas-titulo">
       <div className="shell">
         <SectionIntro
-          step="03"
-          eyebrow="Herramientas"
+          step="01"
+          eyebrow="Herramientas de cada ruta"
           titleId="herramientas-titulo"
           title="Acceso universal para escuelas antes, durante y después de la crisis"
           lede="Instrumentos de aplicación directa, en lenguaje escolar y pensados incluso para funcionar sin internet."

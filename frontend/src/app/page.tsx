@@ -2,37 +2,36 @@ import React from 'react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { HeroStory } from '@/components/sections/HeroStory';
-import { KaleoShowcase } from '@/components/sections/KaleoShowcase';
-import { TerritorySection } from '@/components/sections/TerritorySection';
-import { ForestVoicesSection } from '@/components/sections/ForestVoicesSection';
+import { RoutesSection } from '@/components/sections/RoutesSection';
 import { CrisisToolsSection } from '@/components/sections/CrisisToolsSection';
+import { MethodSection } from '@/components/sections/MethodSection';
+import { TerritorySection } from '@/components/sections/TerritorySection';
+import { KaleoBancoVivoSection } from '@/components/sections/KaleoBancoVivoSection';
+import { AlliancesSection } from '@/components/sections/AlliancesSection';
 import { StoreSection } from '@/components/sections/StoreSection';
-import { PurposeSection } from '@/components/sections/PurposeSection';
-import { EcosystemSection } from '@/components/sections/EcosystemSection';
 import { DeclarationSection } from '@/components/sections/DeclarationSection';
 import { OriginAndCommitteeSection } from '@/components/sections/OriginAndCommitteeSection';
-import { BancoVivoSection } from '@/components/sections/BancoVivoSection';
 import { ParticipateSection } from '@/components/sections/ParticipateSection';
+import { FAQSection } from '@/components/sections/FAQSection';
 
 /**
- * El recorrido de la landing. Dos bloques narrativos complementarios:
+ * La landing como RUTA CLARA HACIA LA CONVERSIÓN.
  *
- *   Hero       La promesa: «Convertimos escuelas en motores de desarrollo local»
+ * No es un repositorio de estatutos: cada acto responde una pregunta concreta
+ * de la persona y la deja un paso más cerca del registro. Toda la profundidad
+ * documental —los seis artículos, las biografías, el manifiesto— vive en
+ * `/sobre-nosotros`; acá quedan cápsulas de confianza con un puente visible.
  *
- *   PARTE 1 — QUÉ HACEMOS Y ENTREGAMOS (Programas, herramientas e impacto tangible)
- *   01         Kaleo — Plataforma viva de respuesta y acompañamiento escolar
- *   02         Banco Vivo — Experiencias reales convertidas en conocimiento para otras escuelas
- *   03         Herramientas de Crisis — Protocolos e instrumentos de aplicación directa
- *   04         Tienda & Publicaciones — Libros y piezas que financian la misión en territorio
- *   05         Rally Continental 2028 — Convocatoria y movilización escolar
- *   06         Las Voces del Bosque — Pedagogía e infancias (mascotas oficiales del Rally)
- *
- *   PARTE 2 — QUIÉNES SOMOS Y CÓMO NOS ARTICULAMOS (Fundamento, gobernanza y manifiesto)
- *   07         Declaración Vivesperanza — Documento fundacional y petición continental
- *   08         Nuestro Propósito — La misión institucional en el aula
- *   09         Ecosistema de Articulación — La red de 8 actores conectados
- *   10         Comité y Liderazgo — Fundadores, trayectoria histórica y equipo activo
- *   11         Participar — Preinscripción al Rally Continental 2028
+ *   00  Hero                     ¿De qué se trata y qué me ofrecen?
+ *   01  Rutas + Herramientas     ¿Por dónde empiezo según mi situación?
+ *   02  El método                ¿Cómo funciona en la práctica en el aula?
+ *   03  Rally 2028 + Voces       ¿Cuál es la convocatoria continental?
+ *   04  Kaleo y Banco Vivo       ¿Cómo nos cuidamos entre escuelas?
+ *   05  Alianzas                 ¿Mi organización cómo encaja acá?
+ *   06  Tienda con causa         ¿Qué materiales puedo llevar al aula ya?
+ *   07  Cápsula institucional    ¿Quién está detrás de todo esto?
+ *   08  ¿Cómo puedo ser parte?   ¡Me interesa! ¿Cómo me sumo?  ← clímax
+ *   09  Preguntas y seguridad    ¿Qué pasa con mis datos y la seguridad?
  */
 export default function HomePage() {
   return (
@@ -41,17 +40,17 @@ export default function HomePage() {
 
       <main id="contenido">
         <HeroStory />
-        <KaleoShowcase />
-        <BancoVivoSection />
+        <RoutesSection />
         <CrisisToolsSection />
-        <StoreSection />
+        <MethodSection />
         <TerritorySection />
-        <ForestVoicesSection />
+        <KaleoBancoVivoSection />
+        <AlliancesSection />
+        <StoreSection />
         <DeclarationSection />
-        <PurposeSection />
-        <EcosystemSection />
         <OriginAndCommitteeSection />
         <ParticipateSection />
+        <FAQSection />
       </main>
 
       <Footer />

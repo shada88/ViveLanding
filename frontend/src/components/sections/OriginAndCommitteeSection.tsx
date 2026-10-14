@@ -1,78 +1,65 @@
 import React from 'react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import {
-  COMMITTEE_SECTION_DATA,
   FOUNDERS_LEADERSHIP,
   HISTORICAL_RECOGNITION,
+  INSTITUTIONAL_IDENTITY,
 } from '@/domain/entities/Institutional';
 import { Reveal } from '@/components/motion/Reveal';
-import { SectionIntro } from './SectionIntro';
 import styles from './OriginAndCommitteeSection.module.css';
 
 /**
- * 10 — Comité y Liderazgo de la Fundación.
+ * 07 — Cápsula de confianza: quién está detrás.
  *
- * Estructura clara de gobernanza, trayectoria e integrantes:
- * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero.
- * 2. Personas Emblemáticas / Reconocimiento Histórico: Sonia Mora y Aurora Zegarra Huapaya.
+ * Una BARRA de respaldo, no cuatro tarjetas biográficas. Quien está a punto de
+ * registrarse necesita saber que hay una institución real —nombre legal, NIT,
+ * personas con cargo— y no leer cuatro biografías. Las biografías completas
+ * viven en `/sobre-nosotros#equipo`.
  *
- * Libritos de Esperanza se desvincula de esta sección (vive en Tienda & Publicaciones).
+ * Los nombres van separados por filetes, sin cajas: es una línea de firmas, no
+ * un catálogo de perfiles.
  */
 export function OriginAndCommitteeSection() {
+  const people = [...FOUNDERS_LEADERSHIP, ...HISTORICAL_RECOGNITION];
+
   return (
-    <section id="origen" className="section" aria-labelledby="origen-titulo">
+    <section id="respaldo" className="section section--tight" aria-labelledby="respaldo-titulo">
       <div className="shell">
-        <SectionIntro
-          step={COMMITTEE_SECTION_DATA.step}
-          eyebrow={COMMITTEE_SECTION_DATA.eyebrow}
-          titleId="origen-titulo"
-          title={COMMITTEE_SECTION_DATA.title}
-          lede={COMMITTEE_SECTION_DATA.lede}
-        />
+        <div className={styles.bar}>
+          <Reveal className={styles.identity}>
+            <p className="eyebrow">Quién está detrás</p>
+            <h2 id="respaldo-titulo" className={styles.title}>
+              {INSTITUTIONAL_IDENTITY.legalName}
+            </h2>
+            <p className={styles.legal}>
+              NIT {INSTITUTIONAL_IDENTITY.nit} · {INSTITUTIONAL_IDENTITY.scope}
+            </p>
+          </Reveal>
 
-        <div className={styles.sectionsContainer}>
-          {/* ── 1. Destacados y Liderazgo Fundador ── */}
-          <div className={styles.block}>
-            <div className={styles.blockHeader}>
-              <h3 className={styles.blockTitle}>Destacados y Liderazgo</h3>
-              <span className={styles.blockTag}>Fundación</span>
-            </div>
-
-            <div className={`${styles.cardsGrid} ${styles.cardsGridTwo}`}>
-              {FOUNDERS_LEADERSHIP.map((leader, i) => (
-                <Reveal as="article" key={leader.name} index={i} className={styles.card}>
-                  <p className={styles.cardBadge}>{leader.badge}</p>
-                  <h4 className={styles.cardName}>{leader.name}</h4>
-                  <p className={styles.cardRole}>{leader.role}</p>
-                  <p className={styles.cardBio}>{leader.bio}</p>
-                </Reveal>
+          <Reveal className={styles.governance}>
+            <h3 className={styles.label}>Gobernanza y reconocimientos históricos</h3>
+            <ul className={styles.people}>
+              {people.map((person) => (
+                <li key={person.name} className={styles.person}>
+                  <span className={styles.name}>{person.name}</span>
+                  <span className={styles.role}>{person.shortRole}</span>
+                </li>
               ))}
-            </div>
-          </div>
+            </ul>
 
-          {/* ── 2. Personas Emblemáticas / Reconocimiento Histórico ── */}
-          <div className={styles.block}>
-            <div className={styles.blockHeader}>
-              <h3 className={styles.blockTitle}>Personas Emblemáticas / Reconocimiento Histórico</h3>
-              <span className={styles.blockTag}>Legado Continental</span>
-            </div>
+            <p className={styles.support}>
+              <span className={styles.label}>Apoyo histórico al Rally</span>
+              <span className={styles.supportList}>
+                {INSTITUTIONAL_IDENTITY.historicalSupport.join(' · ')}
+              </span>
+            </p>
 
-            <div className={styles.cardsGrid}>
-              {HISTORICAL_RECOGNITION.map((person, i) => (
-                <Reveal
-                  as="article"
-                  key={person.name}
-                  index={i}
-                  className={`${styles.card} ${styles.cardHistorical}`}
-                >
-                  <p className={styles.cardBadge}>{person.badge}</p>
-                  <h4 className={styles.cardName}>{person.name}</h4>
-                  <p className={styles.cardRole}>{person.role}</p>
-                  <p className={styles.cardBio}>{person.bio}</p>
-                  {person.note && <p className={styles.historicalNote}>{person.note}</p>}
-                </Reveal>
-              ))}
-            </div>
-          </div>
+            <Link href="/sobre-nosotros#equipo" className="link-arrow link-arrow--gold">
+              <span>Ver los perfiles completos en Sobre Nosotros</span>
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </Reveal>
         </div>
       </div>
     </section>

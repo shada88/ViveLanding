@@ -9,7 +9,7 @@ import { SectionIntro } from './SectionIntro';
 import styles from './ForestVoicesSection.module.css';
 
 /**
- * 08 — Las Voces del Bosque.
+ * 03 (cierre) — Las Voces del Bosque. Se monta dentro de `TerritorySection`.
  *
  * Un catálogo exploratorio de personajes, no una galería de imágenes. La
  * diferencia está en que acá cada ave declara QUÉ ENSEÑA: la imagen es la
@@ -78,8 +78,8 @@ export function ForestVoicesSection() {
 
       <div className={`shell ${styles.inner}`}>
         <SectionIntro
-          step="06"
-          eyebrow="Rally Continental 2028 · Mascotas Pedagógicas"
+          step="03"
+          eyebrow="Rally Continental 2028 · Las Voces del Bosque"
           titleId="voces-titulo"
           tone="ink"
           title="Las Voces del Bosque: Embajadores del Rally Continental"

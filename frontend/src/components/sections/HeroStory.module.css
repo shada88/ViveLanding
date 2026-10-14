@@ -84,16 +84,43 @@
  * (#9db8ff = --color-primary dark, ratio ~8:1) como color fijo porque el
  * hero es siempre una superficie oscura sin excepción de tema.
  */
-.btnCrisis {
+.btnSecondary {
   /* #9db8ff = --color-primary (dark mode) — único valor legible sobre el
      fondo oscuro del hero independientemente del tema del sistema operativo. */
   color: #9db8ff !important;
   border-color: #9db8ff !important;
 }
 
-.btnCrisis:hover,
-.btnCrisis:focus-visible {
+.btnSecondary:hover,
+.btnSecondary:focus-visible {
   background-color: rgba(157, 184, 255, 0.12) !important;
+}
+
+.emergencyHint {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  max-width: 52ch;
+  margin-top: 1.25rem;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+}
+
+.emergencyHint svg {
+  flex: none;
+  margin-top: 0.2rem;
+  color: var(--color-gold);
+}
+
+.emergencyLink {
+  color: var(--color-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.emergencyLink:hover {
+  color: var(--color-gold-bright);
 }
 
 .audienceHint {

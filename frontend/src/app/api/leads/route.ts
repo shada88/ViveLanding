@@ -1,13 +1,14 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { leadSchema, type LeadInput } from '@/lib/leadSchema';
 
 /**
  * Captura de contactos del formulario público.
  *
- * El formulario tiene CUATRO variantes —escuela, donante, profesional y
- * aliado— y cada una manda un subconjunto distinto de campos. Por eso todo lo
- * que no sea nombre, correo e interés es opcional: obligar a un donante a
- * declarar un plantel sería pedirle un dato que no tiene.
+ * Un solo formulario con selector de interés —escuela, aliado, profesional
+ * voluntario o donante—. Todo lo que no sea nombre, correo e interés es
+ * opcional salvo dos reglas cruzadas del esquema: escuela y aliado declaran
+ * institución; voluntario declara oficio.
  *
  * `ESCUELA` es un interés propio y no un `ALIADO` reetiquetado: una escuela
  * que se preinscribe al Rally no es lo mismo que una universidad que propone
@@ -28,16 +29,11 @@ import { z } from 'zod';
  * Un fallo ruidoso se arregla; uno silencioso se descubre meses después, sin
  * los datos.
  */
-const leadSchema = z.object({
-  fullName: z.string().min(2, 'Nombre requerido'),
-  email: z.string().email('Correo inválido'),
-  phone: z.string().optional(),
-  organization: z.string().optional(),
-  profession: z.string().optional(),
-  country: z.string().optional(),
-  interestType: z.enum(['ESCUELA', 'VOLUNTARIO', 'DONANTE', 'ALIADO', 'INFORMACION']),
-  message: z.string().optional(),
-});
+/*
+ * El esquema vive en `src/lib/leadSchema.ts` y lo comparte con el formulario:
+ * el cliente valida por cortesía y esta ruta revalida SIEMPRE, porque
+ * cualquiera puede llamarla sin pasar por el formulario.
+ */
 
 /**
  * Tope de espera del webhook.
@@ -50,7 +46,7 @@ const leadSchema = z.object({
 const WEBHOOK_TIMEOUT_MS = 10_000;
 
 export async function POST(request: Request) {
-  let validatedData: z.infer<typeof leadSchema>;
+  let validatedData: LeadInput;
 
   try {
     validatedData = leadSchema.parse(await request.json());

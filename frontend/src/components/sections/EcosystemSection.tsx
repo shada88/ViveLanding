@@ -15,6 +15,8 @@ import {
   Users,
   type LucideIcon,
 } from 'lucide-react';
+import { participateHref } from '@/domain/entities/Participation';
+import { selectParticipationRole } from '@/lib/participation';
 import {
   ECOSYSTEM_HUB,
   ECOSYSTEM_NODES,
@@ -60,7 +62,7 @@ const DEFAULT_PANEL = {
 };
 
 /**
- * 04 — El ecosistema como RED.
+ * El ecosistema como RED — vive en `/sobre-nosotros`, como tesis territorial.
  *
  * Acá el concepto transversal de la landing deja de ser fondo y pasa a ser
  * estructura: ocho nodos alrededor de un centro, todos conectados, sin un
@@ -73,22 +75,25 @@ const DEFAULT_PANEL = {
  * 3. En móvil la espina vertical muestra la función y el botón de acción
  *    de cada uno sin ocultar nada tras una interacción forzada.
  */
-export function EcosystemSection() {
+interface EcosystemSectionProps {
+  step?: string;
+}
+
+export function EcosystemSection({ step }: EcosystemSectionProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const active = ECOSYSTEM_NODES.find((node) => node.id === activeId);
   const panel = active ?? DEFAULT_PANEL;
 
-  const handleRoleSelect = (roleId: string) => {
-    if (typeof window !== 'undefined') {
-      window.dispatchEvent(new CustomEvent('vce:select-role', { detail: roleId }));
-    }
-  };
+  // `participateHref` lleva el interés en la URL: desde esta página el evento
+  // no llega al formulario, que vive en la landing. El evento se despacha
+  // igual por si la sección vuelve a montarse junto al formulario.
+  const handleRoleSelect = selectParticipationRole;
 
   return (
     <section id="ecosistema" className="section" aria-labelledby="ecosistema-titulo">
       <div className="shell">
         <SectionIntro
-          step="09"
+          step={step}
           eyebrow="El ecosistema de articulación"
           titleId="ecosistema-titulo"
           align="center"
@@ -137,7 +142,7 @@ export function EcosystemSection() {
               <p className={styles.hubLabel}>{panel.label}</p>
               <p className={styles.hubDetail}>{panel.detail}</p>
               <a
-                href="#participar"
+                href={participateHref(panel.roleId)}
                 onClick={() => handleRoleSelect(panel.roleId)}
                 className={styles.hubAction}
               >
@@ -173,7 +178,7 @@ export function EcosystemSection() {
                   </button>
                   <p className={styles.nodeDetail}>{node.detail}</p>
                   <a
-                    href="#participar"
+                    href={participateHref(node.roleId)}
                     onClick={() => handleRoleSelect(node.roleId)}
                     className={styles.mobileAction}
                   >
@@ -194,7 +199,7 @@ export function EcosystemSection() {
 
           <div className={styles.quickRolesGrid}>
             <a
-              href="#participar"
+              href={participateHref('escuelas')}
               onClick={() => handleRoleSelect('escuelas')}
               className={styles.quickRoleCard}
             >
@@ -209,7 +214,7 @@ export function EcosystemSection() {
             </a>
 
             <a
-              href="#participar"
+              href={participateHref('aliados')}
               onClick={() => handleRoleSelect('aliados')}
               className={styles.quickRoleCard}
             >
@@ -224,7 +229,7 @@ export function EcosystemSection() {
             </a>
 
             <a
-              href="#participar"
+              href={participateHref('voluntarios')}
               onClick={() => handleRoleSelect('voluntarios')}
               className={styles.quickRoleCard}
             >
@@ -239,7 +244,7 @@ export function EcosystemSection() {
             </a>
 
             <a
-              href="#participar"
+              href={participateHref('donantes')}
               onClick={() => handleRoleSelect('donantes')}
               className={styles.quickRoleCard}
             >
