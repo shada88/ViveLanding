@@ -59,26 +59,8 @@
   text-align: left;
 }
 
-/* Azul del sistema hacia el blanco de lectura. El recorte deja el texto
-   visible si el navegador no soporta background-clip. */
 .titleAccent {
-  background: linear-gradient(
-    105deg,
-    var(--color-primary) 0%,
-    var(--color-on-surface) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-}
-
-@supports not (background-clip: text) {
-  .titleAccent {
-    background: none;
-    color: var(--color-primary);
-    -webkit-text-fill-color: currentColor;
-  }
+  color: var(--color-primary);
 }
 
 .lede {
