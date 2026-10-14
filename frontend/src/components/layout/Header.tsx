@@ -100,7 +100,7 @@ export function Header() {
 
         <div className={styles.actions}>
           <Link href="/#participar" className={`btn btn--primary ${styles.cta}`}>
-            <span>Unirse a la Red</span>
+            <span>Dona ahora</span>
             <ArrowRight size={16} aria-hidden="true" />
           </Link>
 
