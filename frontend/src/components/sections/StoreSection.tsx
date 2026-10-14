@@ -1,208 +1,154 @@
-'use client';
-
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Image from 'next/image';
+import { ArrowRight, ArrowUpRight, Mic, Newspaper } from 'lucide-react';
 import {
-  ArrowUpRight,
-  BookOpen,
-  GraduationCap,
-  Heart,
-  MessageCircle,
-  Mic,
-  Newspaper,
-  X,
-  Sparkles,
-  type LucideIcon,
-} from 'lucide-react';
-import {
-  STORE_CATEGORIES,
-  STORE_ITEMS,
-  STORE_WHATSAPP_URL,
-  type StoreCategory,
-  type StoreItem,
+  STORE_FROM_ROUTE_B,
+  STORE_INTRO,
+  STORE_MISSION,
+  STORE_OFFERS,
+  type StoreActionTone,
 } from '@/domain/entities/StoreItem';
 import { Reveal } from '@/components/motion/Reveal';
-import { SectionIntro } from './SectionIntro';
 import styles from './StoreSection.module.css';
 
-const ITEM_ICONS: Record<StoreItem['icon'], LucideIcon> = {
-  BookOpen,
-  Heart,
+const ACTION_TONE: Record<StoreActionTone, string> = {
+  gold: 'btn--gold',
+  primary: 'btn--primary',
+  outline: 'btn--outline',
 };
 
 /**
- * 06 — Tienda con causa: materiales para llevar al aula.
+ * 06 — Sostén la transformación (`#tienda`).
  *
- * Tres piezas pares: Cocoperro y El Cordón Amarillo, la Colección Libritos de
- * Esperanza y los peluches pedagógicos «Voces del Bosque».
- *
- * Ofrece navegación interactiva por categorías y una ventana de detalle/reseña
- * pedagógica para explorar cada libro en profundidad.
+ * La Ruta B sigue siendo la vía programática. Los tres materiales son
+ * complementarios y sus precios son referencias, no tarifas confirmadas.
+ * Cada consulta abre WhatsApp con el texto listo; no envía el mensaje.
  */
 export function StoreSection() {
-  const [activeCategory, setActiveCategory] = useState<StoreCategory>('todos');
-  const [selectedBook, setSelectedBook] = useState<StoreItem | null>(null);
-
-  const filteredItems =
-    activeCategory === 'todos'
-      ? STORE_ITEMS
-      : STORE_ITEMS.filter((item) => item.category === activeCategory);
-
-  // Cerrar modal al presionar Escape
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setSelectedBook(null);
-      }
-    };
-    if (selectedBook) {
-      document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [selectedBook]);
-
   return (
-    <section id="tienda" className="section" aria-labelledby="tienda-titulo">
-      {/* Ancla para enlaces previos a #programas para no romper navegación */}
-      <div id="programas" aria-hidden="true" style={{ position: 'relative', top: '-6rem' }} />
+    <section
+      id="tienda"
+      className={`section ${styles.root}`}
+      aria-labelledby="tienda-titulo"
+    >
+      <div id="programas" aria-hidden="true" className={styles.anchor} />
+      <div id="sosten" aria-hidden="true" className={styles.anchor} />
 
       <div className="shell">
-        <SectionIntro
-          step="06"
-          eyebrow="Tienda con Propósito & Publicaciones"
-          titleId="tienda-titulo"
-          title="Libros, Materiales y Piezas con Causa"
-          lede="Cada libro y cada peluche pedagógico financia directamente el acompañamiento en escuelas, la impresión de materiales didácticos y la preparación ante emergencias."
-        />
+        <header className={styles.header}>
+          <Reveal index={0}>
+            <p className="eyebrow">{STORE_INTRO.eyebrow}</p>
+          </Reveal>
+          <Reveal index={1}>
+            <h2 id="tienda-titulo" className={`h2 ${styles.title}`}>
+              {STORE_INTRO.titleLead}{' '}
+              <span className={styles.titleRest}>{STORE_INTRO.titleRest}</span>
+            </h2>
+          </Reveal>
+          <Reveal index={2}>
+            <p className={`lede ${styles.lede}`}>{STORE_INTRO.lede}</p>
+          </Reveal>
+        </header>
 
-        {/* ── Barra de Categorías / Filtros interactivos ── */}
-        <div className={styles.categoryBar} role="tablist" aria-label="Categorías de la tienda">
-          {STORE_CATEGORIES.map((cat) => {
-            const count =
-              cat.id === 'todos'
-                ? STORE_ITEMS.length
-                : STORE_ITEMS.filter((item) => item.category === cat.id).length;
-            const isActive = activeCategory === cat.id;
+        <div className={styles.mission}>
+          <div className={styles.support}>
+            <article className={styles.priority}>
+              <p className={styles.priorityMark}>{STORE_MISSION.priority.label}</p>
+              <h4 className={styles.priorityTitle}>{STORE_MISSION.priority.title}</h4>
+              <p className={styles.wayText}>{STORE_MISSION.priority.text}</p>
+              <p className={styles.priorityNote}>{STORE_MISSION.priority.note}</p>
+              <a href={STORE_MISSION.priority.href} className="link-arrow">
+                <span>{STORE_MISSION.priority.action}</span>
+                <ArrowRight size={16} aria-hidden="true" />
+              </a>
+            </article>
 
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                className={`${styles.categoryBtn} ${isActive ? styles.categoryBtnActive : ''}`}
-                onClick={() => setActiveCategory(cat.id)}
-              >
-                <span>{cat.label}</span>
-                <span className={styles.categoryBadge}>{count}</span>
-              </button>
-            );
-          })}
+            <ul className={styles.complements}>
+              {STORE_MISSION.complements.map((way) => (
+                <li key={way.id} className={styles.complement}>
+                  <h4 className={styles.complementTitle}>{way.title}</h4>
+                  <p className={styles.wayText}>{way.text}</p>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* ── Cuadrícula de Piezas y Libros ── */}
-        <div className={styles.items}>
-          {filteredItems.map((item, i) => {
-            const Icon = ITEM_ICONS[item.icon];
-            const isBook = item.category === 'libros';
-
-            return (
-              <Reveal as="article" key={item.id} index={i} className={styles.item}>
-                <div className={styles.itemHeader}>
-                  <span className={styles.itemIcon}>
-                    <Icon size={22} aria-hidden="true" />
-                  </span>
-                  <span
-                    className={`${styles.itemBadge} ${isBook ? styles.itemBadgeGold : ''}`}
-                  >
-                    {isBook ? 'Libro / Publicación' : 'Peluche'}
-                  </span>
-                </div>
-
-                {item.featuredImage && (
-                  <div className={styles.imageFrame}>
-                    <Image
-                      src={item.featuredImage}
-                      alt={item.name}
-                      fill
-                      sizes="(max-width: 680px) 100vw, (max-width: 1040px) 50vw, 380px"
-                      className={styles.itemImage}
-                      style={item.imagePosition ? { objectPosition: item.imagePosition } : undefined}
-                    />
-                  </div>
-                )}
-
-                <h3 className={`h3 ${styles.itemName}`}>{item.name}</h3>
-                <p className={styles.itemKind}>{item.kind}</p>
-                <p className={styles.itemStory}>{item.story}</p>
-
-                {item.hasSchoolProgram && item.schoolProgram && (
-                  <div className={styles.itemSchoolProgram}>
-                    <GraduationCap size={18} aria-hidden="true" className={styles.itemSchoolProgramIcon} />
-                    <p className={styles.itemSchoolProgramText}>{item.schoolProgram}</p>
-                  </div>
-                )}
-
-                <p className={styles.itemFunds}>
-                  <span className={styles.fundsLabel}>Financia</span>
-                  {item.funds}
-                </p>
-
-                <div className={styles.actionsRow}>
-                  {isBook && item.bookDetail && (
-                    <button
-                      type="button"
-                      className={styles.btnReview}
-                      onClick={() => setSelectedBook(item)}
-                    >
-                      <Sparkles size={16} aria-hidden="true" />
-                      <span>Ver reseña y detalles pedagógicos</span>
-                    </button>
-                  )}
-
-                  <a
-                    href={
-                      item.bookDetail?.externalUrl
-                        ? item.bookDetail.externalUrl
-                        : STORE_WHATSAPP_URL
-                    }
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--sm btn--gold"
-                  >
-                    <span>
-                      {item.bookDetail?.externalUrl ? 'Adquirir en Amazon' : 'Consultar por WhatsApp'}
-                    </span>
-                    <ArrowUpRight size={15} aria-hidden="true" />
-                  </a>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-
-        <Reveal className={styles.storeCta}>
+        <aside className={styles.arrival} aria-labelledby="desde-ruta-b-titulo">
+          <div>
+            <h3 id="desde-ruta-b-titulo" className={styles.blockTitle}>
+              {STORE_FROM_ROUTE_B.title}
+            </h3>
+            <p className={styles.arrivalText}>{STORE_FROM_ROUTE_B.text}</p>
+          </div>
           <a
-            href={STORE_WHATSAPP_URL}
+            href={STORE_FROM_ROUTE_B.href}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn--lg btn--gold"
+            className={`btn btn--lg btn--gold ${styles.arrivalAction}`}
           >
-            <MessageCircle size={18} aria-hidden="true" />
-            <span>Consultar catálogo completo por WhatsApp</span>
+            <span>{STORE_FROM_ROUTE_B.action}</span>
             <ArrowUpRight size={16} aria-hidden="true" />
           </a>
-          <p className={styles.storeNote}>
-            Atención directa con el equipo de la fundación para pedidos institucionales,
-            envío de ejemplares a escuelas o donaciones con causa.
-          </p>
-        </Reveal>
+        </aside>
+
+        <ul className={styles.catalog}>
+          {STORE_OFFERS.map((offer) => (
+            <li key={offer.id} className={styles.cardItem}>
+              <article id={`pieza-${offer.id}`} className={styles.card}>
+                <figure className={styles.figure}>
+                  <div className={styles.visual}>
+                    <Image
+                      src={offer.image}
+                      alt={offer.imageAlt}
+                      fill
+                      sizes="(max-width: 739px) 100vw, (max-width: 1179px) 50vw, 380px"
+                      className={styles.visualImage}
+                    />
+                  </div>
+                </figure>
+
+                <div className={styles.cardBody}>
+                  <div className={styles.identity}>
+                    <p className={styles.category}>{offer.categoryLabel}</p>
+                    <p className={styles.descriptor}>{offer.descriptor}</p>
+                    <p className={styles.kind}>{offer.kind}</p>
+                    <h3 className={styles.productName}>{offer.name}</h3>
+                  </div>
+
+                  <p className={styles.description}>{offer.description}</p>
+                  <p className={styles.useful}>
+                    <span className={styles.usefulLabel}>Útil para: </span>
+                    {offer.usefulFor}
+                  </p>
+
+                  <div className={styles.foot}>
+                    <p className={styles.price}>
+                      <span className={styles.priceAmount}>{offer.priceAmount}</span>
+                      <span> · precio de referencia</span>
+                    </p>
+                    <div className={styles.actions}>
+                      {offer.actions.map((action) => (
+                        <a
+                          key={action.label}
+                          href={action.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`btn ${styles.action} ${ACTION_TONE[action.tone]}`}
+                        >
+                          <span className={styles.actionLabel}>{action.label}</span>
+                          <ArrowUpRight size={16} aria-hidden="true" />
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
+
+        <hr className="hairline" />
 
         <Reveal className={styles.press}>
           <div className={styles.pressItem}>
@@ -235,110 +181,6 @@ export function StoreSection() {
           </div>
         </Reveal>
       </div>
-
-      {/* ── Modal Interactivo de Reseña y Detalles de Libro ── */}
-      {selectedBook && selectedBook.bookDetail && (
-        <div
-          className={styles.modalBackdrop}
-          onClick={() => setSelectedBook(null)}
-          role="presentation"
-        >
-          <div
-            className={styles.modalContent}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="modal-book-title"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              type="button"
-              className={styles.modalCloseBtn}
-              onClick={() => setSelectedBook(null)}
-              aria-label="Cerrar detalles del libro"
-            >
-              <X size={20} aria-hidden="true" />
-            </button>
-
-            <div className={styles.modalGrid}>
-              <div className={styles.modalCoverFrame}>
-                <Image
-                  src={selectedBook.bookDetail.image}
-                  alt={`Portada de ${selectedBook.name}`}
-                  fill
-                  sizes="180px"
-                  className={styles.modalCoverImage}
-                />
-              </div>
-
-              <div>
-                <header className={styles.modalHeader}>
-                  <p className={styles.modalAuthor}>{selectedBook.bookDetail.author}</p>
-                  <h3 id="modal-book-title" className={styles.modalTitle}>
-                    {selectedBook.name}
-                  </h3>
-                  <p className={styles.modalSynopsis}>{selectedBook.bookDetail.synopsis}</p>
-                </header>
-
-                <div className={styles.modalMetaPills}>
-                  {selectedBook.bookDetail.targetAge && (
-                    <span className={styles.metaPill}>
-                      Dirigido a: {selectedBook.bookDetail.targetAge}
-                    </span>
-                  )}
-                  {selectedBook.bookDetail.format && (
-                    <span className={styles.metaPill}>
-                      Formato: {selectedBook.bookDetail.format}
-                    </span>
-                  )}
-                </div>
-
-                <p className={styles.modalSectionTitle}>Reseña Pedagógica & Enfoque</p>
-                <p className={styles.modalReviewText}>{selectedBook.bookDetail.review}</p>
-
-                <p className={styles.modalSectionTitle}>Aspectos Clave para el Aula</p>
-                <ul className={styles.modalHighlightsList}>
-                  {selectedBook.bookDetail.highlights.map((point) => (
-                    <li key={point} className={styles.modalHighlightItem}>
-                      {point}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className={styles.modalFunds}>
-                  <p className={styles.modalFundsLabel}>Destino Social de la Adquisición</p>
-                  <p className={styles.modalFundsText}>{selectedBook.funds}</p>
-                </div>
-
-                <div className={styles.modalActions}>
-                  {selectedBook.bookDetail.externalUrl && (
-                    <a
-                      href={selectedBook.bookDetail.externalUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn btn--lg btn--gold"
-                    >
-                      <span>Adquirir en Amazon</span>
-                      <ArrowUpRight size={18} aria-hidden="true" />
-                    </a>
-                  )}
-
-                  <a
-                    href={`https://wa.me/573102528967?text=${encodeURIComponent(
-                      `Hola, quisiera solicitar información y ejemplares del libro "${selectedBook.name}".`,
-                    )}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn--lg btn--primary"
-                  >
-                    <MessageCircle size={18} aria-hidden="true" />
-                    <span>Solicitar ejemplares por WhatsApp</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }

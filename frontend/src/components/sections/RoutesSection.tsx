@@ -1,127 +1,190 @@
 'use client';
 
 import React from 'react';
-import { ArrowDown, ArrowRight, ArrowUpRight, Check, ShieldAlert } from 'lucide-react';
+import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
 import {
-  CONTRIBUTE_LINK,
+  ENTRY_PATHS,
+  KALEO_STEP,
+  PRACTICE,
+  ROUTE_A,
+  ROUTE_B,
   ROUTES_INTRO,
-  SCHOOL_ROUTES,
+  type EntryPath,
   type RouteAction,
 } from '@/domain/entities/Route';
-import { selectParticipationRole } from '@/lib/participation';
 import { Reveal } from '@/components/motion/Reveal';
-import { SectionIntro } from './SectionIntro';
 import styles from './RoutesSection.module.css';
 
 /**
- * 01 — Elige tu ruta.
+ * Sección 1, inmediatamente después del hero.
  *
- * La auto-segmentación del recorrido: la persona responde «¿qué necesito hoy?»
- * y la página deja de hablarle a todos para hablarle a ella.
- *
- * Esta sección DECIDE, no detalla. El índice completo de instrumentos de cada
- * ruta vive en Herramientas, justo debajo; el enlace principal de cada panel
- * abre ese desplegable por su ancla (`#ruta-process`, `#ruta-emergency`).
- * Repetir acá los ocho instrumentos convertiría la decisión en una lectura.
+ * Tres niveles en el mismo bloque: elegir el camino, entender la Ruta B y la
+ * Ruta A, y dar el siguiente paso. Las tarjetas no son enlaces: solo lo es
+ * su botón.
  */
 export function RoutesSection() {
   return (
-    <section id="rutas" className="section" aria-labelledby="rutas-titulo">
+    <section id="rutas" className={`section ${styles.homePathways}`} aria-labelledby="rutas-titulo">
       <div className="shell">
-        <SectionIntro
-          step="01"
-          eyebrow={ROUTES_INTRO.eyebrow}
-          titleId="rutas-titulo"
-          title={ROUTES_INTRO.title}
-          lede={ROUTES_INTRO.lede}
-        />
+        <header className={styles.intro}>
+          <Reveal index={0}>
+            <p className="eyebrow">{ROUTES_INTRO.eyebrow}</p>
+          </Reveal>
+          <Reveal index={1}>
+            <h2 id="rutas-titulo" className={`h2 ${styles.title}`}>
+              {ROUTES_INTRO.title}
+            </h2>
+          </Reveal>
+          <Reveal index={2}>
+            <p className={`lede ${styles.lede}`}>{ROUTES_INTRO.lede}</p>
+          </Reveal>
+          <Reveal index={3}>
+            <p className={styles.cue}>{ROUTES_INTRO.cue}</p>
+          </Reveal>
+        </header>
 
-        {/* Pares: mismo tamaño y misma altura táctil. Se distinguen por tono. */}
-        <div className={styles.routes}>
-          {SCHOOL_ROUTES.map((route, i) => (
+        <div className={styles.stage}>
+          {ENTRY_PATHS.map((path, index) => (
             <Reveal
               as="article"
-              key={route.id}
-              index={i}
-              className={`${styles.route} ${route.id === 'process' ? styles.routeLead : ''}`}
+              key={path.id}
+              index={index}
+              className={`${styles.path} ${styles[path.id]}`}
             >
-              <p className={styles.kicker}>
-                <span className={styles.code}>{route.code}</span>
-                {route.kicker}
-              </p>
-              <h3 className={`h3 ${styles.title}`}>{route.title}</h3>
-              <p className={styles.summary}>{route.summary}</p>
-
-              <ul className={styles.highlights}>
-                {route.highlights.map((item) => (
-                  <li key={item} className={styles.highlight}>
-                    <Check size={16} aria-hidden="true" className={styles.check} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              {route.safetyNote && (
-                <p className={styles.safety}>
-                  <ShieldAlert size={16} aria-hidden="true" className={styles.safetyIcon} />
-                  <span>{route.safetyNote}</span>
-                </p>
-              )}
-
+              <p className={styles.kicker}>{path.label}</p>
+              <h3 className={`h3 ${styles.pathTitle}`}>{path.title}</h3>
+              <p className={styles.summary}>{path.summary}</p>
               <div className={styles.actions}>
-                <a
-                  href={route.primary.href}
-                  className={`btn btn--lg btn--block ${
-                    route.id === 'process' ? 'btn--primary' : 'btn--outline'
-                  }`}
-                >
-                  <span>{route.primary.label}</span>
-                  <ArrowDown size={18} aria-hidden="true" />
-                </a>
-                <SecondaryLink action={route.secondary} />
+                <InPageLink action={path.primary} tone={path.id} />
               </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal className={styles.contribute}>
-          <p>
-            {CONTRIBUTE_LINK.lead}{' '}
-            <a href={CONTRIBUTE_LINK.href} className="link-arrow link-arrow--gold">
-              <span>{CONTRIBUTE_LINK.label}</span>
-              <ArrowRight size={16} aria-hidden="true" />
+        <article id={ROUTE_B.id} className={styles.routeB} aria-labelledby="ruta-b-titulo">
+          <div className={styles.routeLayout}>
+            <div>
+              <p className={styles.kicker}>{ROUTE_B.label}</p>
+              <h3 id="ruta-b-titulo" className={`h3 ${styles.blockTitle}`}>
+                {ROUTE_B.title}
+              </h3>
+              <p className={styles.blockSummary}>{ROUTE_B.summary}</p>
+            </div>
+            <ul className={styles.points}>
+              {ROUTE_B.points.map((point) => (
+                <li key={point} className={styles.point}>
+                  <Check size={16} aria-hidden="true" className={styles.check} />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.practice}>
+            <p className={styles.kicker}>{PRACTICE.label}</p>
+            <h3 className={`h3 ${styles.blockTitle}`}>{PRACTICE.title}</h3>
+            <p className={styles.blockSummary}>{PRACTICE.summary}</p>
+            <ol className={styles.steps}>
+              {PRACTICE.steps.map((step, index) => (
+                <li key={step} className={styles.step}>
+                  <span className={styles.stepIndex} aria-hidden="true">
+                    {index + 1}
+                  </span>
+                  <span>{step}</span>
+                </li>
+              ))}
+            </ol>
+            <div className={styles.practiceActions}>
+              <a href={PRACTICE.primary.href} className="btn btn--lg btn--primary">
+                <span>{PRACTICE.primary.label}</span>
+                <ArrowDown size={18} aria-hidden="true" />
+              </a>
+              <a
+                href={PRACTICE.program.href}
+                className="link-arrow"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>{PRACTICE.program.label}</span>
+                <ArrowUpRight size={16} aria-hidden="true" />
+                <span className="sr-only">, se abre en una pestaña nueva</span>
+              </a>
+            </div>
+            <p className={styles.note}>{PRACTICE.note}</p>
+          </div>
+        </article>
+
+        <article id={ROUTE_A.id} className={styles.routeA} aria-labelledby="ruta-a-titulo">
+          <div className={styles.routeLayout}>
+            <div>
+              <p className={`${styles.kicker} ${styles.kickerLive}`}>
+                <LiveDot />
+                {ROUTE_A.label}
+              </p>
+              <h3 id="ruta-a-titulo" className={`h3 ${styles.blockTitle}`}>
+                {ROUTE_A.title}
+              </h3>
+              <p className={styles.blockSummary}>{ROUTE_A.summary}</p>
+            </div>
+            <ul className={styles.points}>
+              {ROUTE_A.points.map((point) => (
+                <li key={point} className={styles.point}>
+                  <Check size={16} aria-hidden="true" className={styles.check} />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className={styles.kaleo} aria-labelledby="kaleo-paso-titulo">
+            <p className={styles.kicker}>{KALEO_STEP.label}</p>
+            <h4 id="kaleo-paso-titulo" className={styles.kaleoTitle}>
+              {KALEO_STEP.title}
+            </h4>
+            <p className={styles.blockSummary}>{KALEO_STEP.summary}</p>
+            <div className={styles.practiceActions}>
+              <ExternalLink action={KALEO_STEP.primary} />
+            </div>
+            <p className={styles.flow}>{KALEO_STEP.flow}</p>
+            <p className={styles.safety}>{KALEO_STEP.safety}</p>
+            <a href={KALEO_STEP.secondary.href} className="link-arrow">
+              <span>{KALEO_STEP.secondary.label}</span>
+              <ArrowDown size={16} aria-hidden="true" />
             </a>
-          </p>
-        </Reveal>
+          </div>
+        </article>
       </div>
     </section>
   );
 }
 
-function SecondaryLink({ action }: { action: RouteAction }) {
-  if (action.external) {
-    return (
-      <a
-        href={action.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="link-arrow"
-      >
-        <span>{action.label}</span>
-        <ArrowUpRight size={16} aria-hidden="true" />
-      </a>
-    );
-  }
-
-  // Conversar sobre la Ruta B es, en la práctica, registrarse como escuela.
+function InPageLink({ action, tone }: { action: RouteAction; tone: EntryPath['id'] }) {
   return (
-    <a
-      href={action.href}
-      className="link-arrow"
-      onClick={() => selectParticipationRole('escuelas')}
-    >
+    <a href={action.href} className={buttonClass(tone)}>
+      {tone === 'emergency' && <LiveDot />}
       <span>{action.label}</span>
-      <ArrowRight size={16} aria-hidden="true" />
+      <ArrowDown size={18} aria-hidden="true" />
     </a>
   );
+}
+
+function ExternalLink({ action }: { action: RouteAction }) {
+  return (
+    <a href={action.href} className="btn btn--lg btn--primary" target="_blank" rel="noopener noreferrer">
+      <span>{action.label}</span>
+      <ArrowUpRight size={18} aria-hidden="true" />
+      <span className="sr-only">, se abre en una pestaña nueva</span>
+    </a>
+  );
+}
+
+/** Señal de la Ruta A. El texto ya nombra la ruta; el punto solo la marca. */
+function LiveDot() {
+  return <span className={styles.pulse} aria-hidden="true" />;
+}
+
+function buttonClass(id: EntryPath['id']): string {
+  if (id === 'process') return 'btn btn--lg btn--gold';
+  if (id === 'emergency') return 'btn btn--lg btn--primary';
+  return 'btn btn--lg btn--outline';
 }

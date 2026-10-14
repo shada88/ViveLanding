@@ -1,38 +1,38 @@
 .hero {
   position: relative;
   isolation: isolate;
-  /* El header es sticky y flota encima: el hero arranca DEBAJO de él sumando
-     su alto al padding superior, no empujando el contenido con un margen. */
-  padding-block: clamp(6rem, 3rem + 9vw, 10rem) clamp(4rem, 2rem + 6vw, 7rem);
-  /* Alto suficiente para que la escena de fondo se lea como escena y no como
-     una franja. La línea con `vh` NO es redundante: si el navegador no conoce
-     `svh`, toda la declaración que lo use es inválida y el hero colapsaría a
-     su relleno. La segunda pisa a la primera solo donde se entiende. */
-  min-height: min(96vh, 940px);
-  min-height: min(96svh, 940px);
+  overflow: hidden;
+  text-align: left;
   display: flex;
   align-items: center;
-  overflow: hidden;
+  min-height: min(92vh, 980px);
+  min-height: min(92svh, 980px);
+  padding-block: clamp(7.25rem, 5.5rem + 4vw, 9rem) clamp(3.25rem, 2rem + 3vw, 5rem);
+  background: var(--color-background);
 }
 
-/*
- * Apilado del hero. Las tres capas de fondo —video, red y luz— comparten
- * `z-index: 0` y se ordenan por su posición en el DOM, que es determinista:
- * video, después red, después luz. Darle a cada una un `z-index` propio desde
- * acá sería una apuesta al orden en que el empaquetador concatena los módulos
- * CSS, porque todos los selectores en juego son de una sola clase y pesan
- * exactamente lo mismo. El único que declara capa es el contenido.
- */
-
-/* La red se atenúa sobre el video: dos texturas a plena intensidad compiten
-   entre sí y ninguna de las dos se lee. */
-.net {
-  opacity: 0.6;
+/* La red vive en el cielo de la izquierda. Se apaga antes del tercio
+   derecho: ahí están el perro y la paloma, y una estrella encima de ellos
+   los ensucia. */
+.hero .net {
+  opacity: 0.62;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 26%,
+    rgba(0, 0, 0, 0.4) 38%,
+    transparent 50%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    #000 0%,
+    #000 26%,
+    rgba(0, 0, 0, 0.4) 38%,
+    transparent 50%
+  );
 }
 
 .glow {
-  /* Acompaña a la luz cálida que ya trae la escena por la esquina superior
-     derecha, en vez de inventar una fuente de luz que la contradiga. */
   width: min(560px, 70vw);
   height: min(560px, 70vw);
   top: -12%;
@@ -42,207 +42,240 @@
 .inner {
   position: relative;
   z-index: 2;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
 }
 
-/*
- * El texto vive en el tercio izquierdo, que es donde el video es azul plano.
- * El tope de ancho no es decorativo: si la columna creciera, el titular
- * invadiría la casilla 3 y taparía a la paloma.
- */
 .copy {
-  /*
-   * 38rem, no 36: con 36 los dos CTA sumaban 575 px contra un contenedor de
-   * 576 y se partían en dos filas por un píxel. El tope sigue siendo holgado
-   * —a 1440 px la columna termina en ~728 px y la paloma empieza en ~1140—,
-   * así que el texto nunca invade la casilla 3.
-   */
-  max-width: min(38rem, 52%);
+  width: min(100%, 40rem);
+  text-align: left;
 }
 
 .title {
-  margin-bottom: 1.75rem;
-  text-wrap: balance;
-  /* Sombra larga y muy difusa: no se percibe como sombra, pero despega el
-     titular de la textura de lluvia en los pocos píxeles donde se tocan. */
-  text-shadow: 0 2px 28px rgba(4, 7, 14, 0.55);
+  margin: 0 0 1.35rem;
+  max-width: 16ch;
+  text-align: left;
+}
+
+/* Azul del sistema hacia el blanco de lectura. El recorte deja el texto
+   visible si el navegador no soporta background-clip. */
+.titleAccent {
+  background: linear-gradient(
+    105deg,
+    var(--color-primary) 0%,
+    var(--color-on-surface) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .titleAccent {
+    background: none;
+    color: var(--color-primary);
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 .lede {
-  margin-bottom: 2.5rem;
-  max-width: 34rem;
+  margin: 0 0 2rem;
+  max-width: 38rem;
+  text-align: left;
 }
 
 .actions {
-  margin-bottom: 0;
-}
-
-/*
- * Tercer CTA: acceso directo a la sección de herramientas.
- * El hero tiene fondo oscuro fijo. El azul de acción (#0047ab) tiene ratio
- * ~1.5:1 sobre ese fondo — ilegible. Se usa el azul del sistema en dark
- * (#9db8ff = --color-primary dark, ratio ~8:1) como color fijo porque el
- * hero es siempre una superficie oscura sin excepción de tema.
- */
-.btnSecondary {
-  /* #9db8ff = --color-primary (dark mode) — único valor legible sobre el
-     fondo oscuro del hero independientemente del tema del sistema operativo. */
-  color: #9db8ff !important;
-  border-color: #9db8ff !important;
-}
-
-.btnSecondary:hover,
-.btnSecondary:focus-visible {
-  background-color: rgba(157, 184, 255, 0.12) !important;
-}
-
-.emergencyHint {
   display: flex;
-  align-items: flex-start;
-  gap: 0.5rem;
-  max-width: 52ch;
-  margin-top: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.emergency {
+  max-width: 42rem;
+  margin: 1.15rem 0 0;
   font: var(--font-body-sm);
   color: var(--color-on-surface-variant);
-}
-
-.emergencyHint svg {
-  flex: none;
-  margin-top: 0.2rem;
-  color: var(--color-gold);
+  text-align: left;
 }
 
 .emergencyLink {
   color: var(--color-gold);
   font-weight: 600;
   text-decoration: underline;
-  text-underline-offset: 0.2em;
+  text-underline-offset: 0.18em;
 }
 
 .emergencyLink:hover {
   color: var(--color-gold-bright);
 }
 
-.audienceHint {
-  font: var(--font-caption);
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.55rem;
+  margin: 1.6rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chip {
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-full);
+  padding: 0.45rem 0.8rem;
   color: var(--color-on-surface-variant);
-  margin-top: 0.85rem;
-  letter-spacing: 0.015em;
-  opacity: 0.9;
+  font: var(--font-caption);
 }
 
-.proof {
+.bar {
+  width: 100%;
+  margin-top: 2.25rem;
+  padding: 0.35rem 1.15rem;
   display: grid;
-  gap: clamp(1.5rem, 1rem + 2vw, 3rem);
-  margin-top: clamp(3.5rem, 2rem + 5vw, 6rem);
-  padding-top: clamp(2rem, 1rem + 2vw, 3rem);
-  /* Un filete de pelo que se disuelve hacia los costados en vez de un
-     `border-top` sólido de borde a borde. */
-  border-top: 1px solid transparent;
-  border-image: linear-gradient(
-      90deg,
-      transparent,
-      var(--color-outline-variant) 25%,
-      var(--color-outline-variant) 75%,
-      transparent
-    )
-    1;
+  grid-template-columns: 1fr;
+  background: var(--color-surface-container);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-2);
+  text-align: left;
 }
 
-.proofItem {
+.item {
   min-width: 0;
+  padding: 0.95rem 0;
+  text-align: left;
+  border-top: 1px solid var(--color-outline-variant);
 }
 
-.scrollCue {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: var(--tap-min);
-  margin-top: clamp(2rem, 1rem + 2vw, 3rem);
-  font: var(--font-label-md);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-eyebrow);
-  color: var(--color-on-surface-muted);
-  transition: color var(--transition);
+.item:first-child {
+  border-top: 0;
 }
 
-.scrollCue svg {
-  animation: nudge 2.6s var(--ease-in-out-soft) infinite;
-}
-
-.scrollCue:hover {
+.value {
+  margin: 0;
+  font: 800 clamp(1.35rem, 1.1rem + 0.8vw, 1.75rem) / 1.1 var(--font-family);
+  letter-spacing: var(--tracking-tight);
   color: var(--color-gold);
 }
 
-@keyframes nudge {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(5px);
-  }
+.label {
+  margin: 0.3rem 0 0;
+  max-width: 22ch;
+  font: var(--font-caption);
+  color: var(--color-on-surface-variant);
 }
 
-@media (min-width: 900px) {
-  .proof {
-    grid-template-columns: repeat(3, 1fr);
-    /* La fila de datos tampoco cruza a la derecha: deja libre la franja donde
-       está el perro, que llega hasta abajo del encuadre. */
-    max-width: 62rem;
+.note {
+  margin: 0.85rem 0 0;
+  max-width: 46rem;
+  font: var(--font-caption);
+  color: var(--color-on-surface-muted);
+  text-align: left;
+}
+
+@media (max-width: 640px) {
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .actions :global(.btn) {
+    width: 100%;
   }
 }
 
 @media (max-width: 899px) {
   .hero {
+    display: block;
     min-height: auto;
-    /*
-     * En móvil el video deja de estar DETRÁS del texto y ocupa una banda
-     * propia arriba: en 390 px de ancho no queda columna libre, y un 16:9 de
-     * fondo solo puede terminar invisible o ilegible.
-     *
-     * Los dos valores están atados: la banda mide 46 svh y el texto arranca
-     * 3 rem antes de que termine, montándose sobre el desvanecido. Si se
-     * cambia uno hay que cambiar el otro, o aparece un vacío entre la escena
-     * y el titular. `svh` y no `vh`: con `vh` la barra del navegador móvil
-     * empuja la banda y se come el arranque del texto.
-     */
+    /* Banda propia arriba: en este ancho no queda columna libre para el perro
+       y la paloma. El texto arranca sobre el desvanecido de esa banda. */
     --backdrop-height: 46vh;
-    padding-block: calc(46vh - 3rem) clamp(3rem, 2rem + 6vw, 5rem);
+    padding-block: calc(46vh - 3rem) clamp(3rem, 2rem + 4vw, 4.5rem);
   }
 
-  /*
-   * Mejora donde `svh` existe. Va en un `@supports` y no como segunda
-   * declaración porque `--backdrop-height` es una propiedad personalizada:
-   * acepta CUALQUIER texto sin validarlo, así que un `46svh` no entendido no
-   * se descarta acá — se descarta más tarde, al resolver `height: var(...)`,
-   * y ahí la banda se queda sin alto. La consulta lo evita de raíz.
-   */
   @supports (height: 1svh) {
     .hero {
       --backdrop-height: 46svh;
-      padding-block: calc(46svh - 3rem) clamp(3rem, 2rem + 6vw, 5rem);
+      padding-block: calc(46svh - 3rem) clamp(3rem, 2rem + 4vw, 4.5rem);
     }
   }
 
   .copy {
-    max-width: none;
+    width: 100%;
   }
 
-  /* La red se apaga sobre la banda: ahí el video ya es la textura, y dos
-     texturas superpuestas en una franja chica se vuelven ruido. */
-  .net {
-    opacity: 0.35;
-  }
-
-  .proof {
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+  /* En el móvil la escena es la banda de arriba. Las estrellas empiezan
+     debajo, donde ya no hay personajes. */
+  .hero .net {
+    opacity: 0.4;
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 34%,
+      #000 46%,
+      #000 86%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      180deg,
+      transparent 0%,
+      transparent 34%,
+      #000 46%,
+      #000 86%,
+      transparent 100%
+    );
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .scrollCue svg {
-    animation: none;
+@media (min-width: 720px) {
+  .bar {
+    grid-template-columns: 1fr 1fr;
+    padding: 1.15rem 1.5rem 0.35rem;
+  }
+
+  .item {
+    border-top: 0;
+    padding: 0.35rem 1.25rem 1rem 0;
+  }
+
+  .item:nth-child(n + 3) {
+    border-top: 1px solid var(--color-outline-variant);
+    padding-top: 1rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .copy {
+    max-width: min(40rem, 52%);
+  }
+
+  /* La barra no cruza al tercio derecho: ahí están el perro y la paloma. */
+  .bar,
+  .note {
+    width: min(68%, 62rem);
+  }
+
+  .bar {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+    padding: 1.35rem 1.75rem;
+  }
+
+  .item,
+  .item:nth-child(n + 3) {
+    border-top: 0;
+    padding: 0 1.35rem;
+    border-left: 1px solid var(--color-outline-variant);
+  }
+
+  .item:first-child {
+    border-left: 0;
+    padding-left: 0;
   }
 }

@@ -26,7 +26,7 @@ export interface MethodStep {
 
 export const METHOD_INTRO = {
   eyebrow: 'El método',
-  title: 'El joven no es el beneficiario. Es el protagonista.',
+  title: 'Niños y jóvenes no son beneficiarios. Son protagonistas.',
   lede: 'Cómo el proceso pedagógico convierte los desafíos del territorio en proyectos reales con impacto escolar. Recorre los cuatro pasos.',
 } as const;
 

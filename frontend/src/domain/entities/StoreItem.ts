@@ -45,8 +45,167 @@ export const STORE_WHATSAPP_URL = `https://wa.me/${STORE_PHONE}?text=${encodeURI
   STORE_MESSAGE,
 )}`;
 
-export const COCOPERRO_AMAZON_URL =
-  'https://www.amazon.com/dp/B0FFBGQ9FF#detailBullets_feature_div';
+/** Enlace de compra de Cocoperro. Sin fragmento: es el destino que se abre al consultar. */
+export const COCOPERRO_AMAZON_URL = 'https://www.amazon.com/dp/B0FFBGQ9FF';
+
+/**
+ * Abre el chat de WhatsApp con el texto listo para revisar.
+ * No envía el mensaje: la persona lo confirma en WhatsApp.
+ */
+export function storeInquiryUrl(message: string): string {
+  return `https://wa.me/${STORE_PHONE}?text=${encodeURIComponent(message)}`;
+}
+
+const CONFIRM_BEFORE_BUY =
+  'Antes de comprar, necesito confirmar precio vigente, moneda, disponibilidad, envío, formato y condiciones.';
+
+export const STORE_ROUTE_B_INQUIRY_URL = storeInquiryUrl(
+  `Hola, soy docente o compro para una institución y vengo desde la Ruta B. Quiero una cotización de materiales complementarios. ${CONFIRM_BEFORE_BUY}`,
+);
+
+export const STORE_INTRO = {
+  eyebrow: 'Sostén la transformación',
+  titleLead: 'Materiales para aprender.',
+  titleRest: 'Recursos para transformar.',
+  lede:
+    'Empieza por el desafío de aprendizaje de tu escuela, conoce la Ruta B y elige después el recurso que pueda enriquecer esa experiencia. Cada material es complementario: su pertinencia depende de la edad, el contexto y el propósito pedagógico.',
+} as const;
+
+export const STORE_MISSION = {
+  priority: {
+    id: 'ruta-b',
+    label: 'Vía prioritaria',
+    title: 'Ruta B',
+    text: 'Proceso prioritario de transformación escolar.',
+    note: 'Los materiales de esta sección son complementarios a ese proceso.',
+    href: '#ruta-b',
+    action: 'Ver la Ruta B',
+  },
+  complements: [
+    {
+      id: 'alianzas',
+      title: 'Alianzas',
+      text: 'Recursos, capacidades y cooperación según cada acuerdo.',
+    },
+    {
+      id: 'publicaciones',
+      title: 'Publicaciones y tienda',
+      text: 'Ingresos potencialmente complementarios, sin promesas no verificadas.',
+    },
+    {
+      id: 'banco-vivo',
+      title: 'Banco Vivo',
+      text: 'Intercambio de experiencias y tiempo profesional voluntario.',
+    },
+  ],
+} as const;
+
+export const STORE_FROM_ROUTE_B = {
+  title: '¿Vienes desde la Ruta B?',
+  text:
+    '¿Eres docente o compras para una institución? Compara el propósito de cada recurso, consulta disponibilidad y costos finales antes de comprar, o solicita una cotización institucional. La pertinencia pedagógica depende de tu contexto y de las características de cada material.',
+  action: 'Solicitar cotización institucional',
+  href: STORE_ROUTE_B_INQUIRY_URL,
+} as const;
+
+export type StoreActionTone = 'gold' | 'primary' | 'outline';
+
+export interface StoreOfferAction {
+  label: string;
+  href: string;
+  tone: StoreActionTone;
+}
+
+export interface StoreOffer {
+  id: string;
+  categoryLabel: string;
+  descriptor: string;
+  kind: string;
+  name: string;
+  description: string;
+  usefulFor: string;
+  /** Importe de referencia, sin presentarlo como precio vigente. */
+  priceAmount: string;
+  image: string;
+  imageAlt: string;
+  actions: StoreOfferAction[];
+}
+
+export const STORE_OFFERS: StoreOffer[] = [
+  {
+    id: 'cocoperro',
+    categoryLabel: 'Recurso socioemocional',
+    descriptor: 'Historias para conversar y crecer',
+    kind: 'Cuento Ilustrado & Socioemocional',
+    name: 'Las Aventuras de Cocoperro',
+    description:
+      'Cuento ilustrado para abrir conversaciones sobre pérdida, miedo y resiliencia. Úsalo como punto de partida para actividades socioemocionales adaptadas a la edad y al contexto del grupo.',
+    usefulFor:
+      'conversaciones guiadas sobre emociones y resiliencia, adaptadas al grupo.',
+    priceAmount: 'US$ 27,32',
+    image: '/recursos/cocoperro-lluvia-noche.jpg',
+    imageAlt: 'Cocoperro, el perro del cuento, bajo la lluvia de noche.',
+    actions: [
+      {
+        label: 'Comprar en Amazon',
+        href: COCOPERRO_AMAZON_URL,
+        tone: 'primary',
+      },
+      {
+        label: 'Cotizar para mi institución',
+        href: storeInquiryUrl(
+          `Hola, quiero cotizar para mi institución «Las Aventuras de Cocoperro». ${CONFIRM_BEFORE_BUY}`,
+        ),
+        tone: 'outline',
+      },
+    ],
+  },
+  {
+    id: 'libritos-esperanza',
+    categoryLabel: 'Colección pedagógica',
+    descriptor: 'Riesgo, clima y aprendizaje',
+    kind: 'Colección de 2 Libros',
+    name: 'Libritos de Esperanza',
+    description:
+      'Colección de cuentos para conversar sobre gestión del riesgo y acción climática, y conectar esas historias con preguntas y proyectos de aula.',
+    usefulFor: 'iniciar proyectos de aula sobre riesgos, clima y acciones de cuidado.',
+    priceAmount: 'US$ 38,99',
+    image: '/recursos/libritos de esperanza.jpg',
+    imageAlt: 'Composición referencial de los libritos sobre una mesa.',
+    actions: [
+      {
+        label: 'Consultar compra y disponibilidad',
+        href: storeInquiryUrl(
+          `Hola, quiero consultar compra y disponibilidad de «Colección Libritos de Esperanza». ${CONFIRM_BEFORE_BUY}`,
+        ),
+        tone: 'gold',
+      },
+    ],
+  },
+  {
+    id: 'peluches-voces',
+    categoryLabel: 'Material para dinámicas',
+    descriptor: 'Personajes para activar conversaciones',
+    kind: 'Edición Artesanal',
+    name: 'Peluches "Voces del Bosque"',
+    description:
+      'Siete personajes en felpa vinculados a desafíos ambientales del Rally; pueden apoyar dinámicas narrativas y actividades de sensibilización.',
+    usefulFor:
+      'dinámicas narrativas y conversaciones sobre biodiversidad y cuidado del territorio.',
+    priceAmount: 'US$ 21,99 / unidad',
+    image: '/recursos/peluches-voces-del-bosque.jpg',
+    imageAlt: 'Siete aves de felpa de Voces del Bosque, agrupadas sobre fondo negro.',
+    actions: [
+      {
+        label: 'Consultar catálogo y disponibilidad',
+        href: storeInquiryUrl(
+          `Hola, quiero consultar catálogo y disponibilidad de «Peluches Voces del Bosque». ${CONFIRM_BEFORE_BUY}`,
+        ),
+        tone: 'gold',
+      },
+    ],
+  },
+];
 
 export const STORE_CATEGORIES: { id: StoreCategory; label: string; count?: number }[] = [
   { id: 'todos', label: 'Todo el catálogo' },
@@ -64,7 +223,7 @@ export const STORE_ITEMS: StoreItem[] = [
       'La historia de un perro sensible y valiente que acompaña a niñas, niños, familias y docentes a poner en palabras el dolor, el miedo, la pérdida y el renacer del afecto. Una obra imprescindible para aulas y hogares.',
     funds: 'Financia la entrega de ejemplares físicos y guías didácticas a escuelas rurales sin biblioteca.',
     icon: 'BookOpen',
-    featuredImage: '/Video/Cocoperro_staring_closely_20260922164931.jpeg',
+    featuredImage: '/recursos/cocoperro-lluvia-noche.jpg',
     hasSchoolProgram: true,
     schoolProgram:
       'Cuenta con un programa pedagógico estructurado para impactar a las escuelas y formar a las nuevas generaciones en resiliencia socioemocional, elaboración del duelo y empatía comunitaria.',
@@ -82,7 +241,7 @@ export const STORE_ITEMS: StoreItem[] = [
       targetAge: 'Educación inicial y primaria (6 a 12 años) y lectura compartida en familia',
       format: 'Tapa blanda / Edición ilustrada a color con guía pedagógica',
       externalUrl: COCOPERRO_AMAZON_URL,
-      image: '/Video/Cocoperro_staring_closely_20260922164931.jpeg',
+      image: '/recursos/cocoperro-lluvia-noche.jpg',
     },
   },
   {
@@ -123,6 +282,6 @@ export const STORE_ITEMS: StoreItem[] = [
       'Las siete aves emblemáticas confeccionadas como compañeros de aprendizaje socioemocional y resiliencia para las aulas. Cada peluche encarna una lección de gestión del riesgo y cuidado territorial.',
     funds: 'Financia kits de emergencia escolar y material pedagógico para escuelas vulnerables.',
     icon: 'Heart',
-    featuredImage: '/img Pajaros/felpa/catalogo.jpeg',
+    featuredImage: '/recursos/peluches-voces-del-bosque.jpg',
   },
 ];

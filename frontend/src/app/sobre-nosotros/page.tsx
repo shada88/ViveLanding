@@ -193,7 +193,7 @@ export default function AboutPage() {
                 <span>Unirse a la red</span>
                 <ArrowRight size={18} aria-hidden="true" />
               </Link>
-              <Link href="/#ruta-process" className="btn btn--lg btn--outline">
+              <Link href="/#ruta-b" className="btn btn--lg btn--outline">
                 <span>Iniciar la Ruta B</span>
               </Link>
             </Reveal>

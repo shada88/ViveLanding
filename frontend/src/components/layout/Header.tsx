@@ -18,8 +18,8 @@ import styles from './Header.module.css';
  */
 const NAV = [
   { href: '/#rutas', label: 'Rutas' },
-  { href: '/#rally', label: 'Rally 2028' },
   { href: '/#kaleo', label: 'Kaleo' },
+  { href: '/#rally', label: 'Rally 2028' },
   { href: '/#tienda', label: 'Tienda' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
 ] as const;
@@ -28,8 +28,8 @@ const NAV = [
 const NAV_MOBILE = [
   { href: '/#rutas', label: '01 · Elige tu ruta' },
   { href: '/#metodo', label: '02 · El método' },
-  { href: '/#rally', label: '03 · Rally 2028 y Voces del Bosque' },
-  { href: '/#kaleo', label: '04 · Kaleo y Banco Vivo' },
+  { href: '/#kaleo', label: '03 · Kaleo y Banco Vivo' },
+  { href: '/#rally', label: '04 · Rally 2028' },
   { href: '/#alianzas', label: '05 · Alianzas' },
   { href: '/#tienda', label: '06 · Tienda con causa' },
   { href: '/#declaracion', label: '07 · Quiénes somos' },

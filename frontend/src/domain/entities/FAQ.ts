@@ -18,6 +18,7 @@ export interface FAQItem {
 export const FAQ_INTRO = {
   eyebrow: 'Antes de dar el siguiente paso',
   title: 'Preguntas frecuentes',
+  lede: 'Niñas, niños y jóvenes lideran las soluciones de su escuela y su territorio. Estas respuestas precisan qué acompaña ese liderazgo y qué no promete la fundación.',
 } as const;
 
 export const FAQ_ITEMS: FAQItem[] = [
@@ -52,9 +53,3 @@ export const FAQ_ITEMS: FAQItem[] = [
       'El formulario de registro guarda solo los datos que completas y el equipo los usa únicamente para responderte sobre el interés que elegiste. Si el registro no se guarda, la página te lo dice: nunca muestra «recibido» sin que haya llegado.',
   },
 ];
-
-/** Nota de protección de menores. No se pliega dentro de un desplegable: se lee siempre. */
-export const CHILD_SAFETY_NOTE = {
-  title: 'Protección de niñas, niños y adolescentes',
-  body: 'No envíes nombres, fotografías, datos de salud, ubicación precisa ni otra información sensible de menores a través de los formularios. Ante peligro inmediato, contacta a los servicios oficiales de emergencia de tu territorio.',
-} as const;

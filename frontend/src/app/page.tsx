@@ -3,7 +3,6 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { HeroStory } from '@/components/sections/HeroStory';
 import { RoutesSection } from '@/components/sections/RoutesSection';
-import { CrisisToolsSection } from '@/components/sections/CrisisToolsSection';
 import { MethodSection } from '@/components/sections/MethodSection';
 import { TerritorySection } from '@/components/sections/TerritorySection';
 import { KaleoBancoVivoSection } from '@/components/sections/KaleoBancoVivoSection';
@@ -23,12 +22,12 @@ import { FAQSection } from '@/components/sections/FAQSection';
  * `/sobre-nosotros`; acá quedan cápsulas de confianza con un puente visible.
  *
  *   00  Hero                     ¿De qué se trata y qué me ofrecen?
- *   01  Rutas + Herramientas     ¿Por dónde empiezo según mi situación?
+ *   01  Rutas                    ¿Por dónde empiezo según mi situación?
  *   02  El método                ¿Cómo funciona en la práctica en el aula?
- *   03  Rally 2028 + Voces       ¿Cuál es la convocatoria continental?
- *   04  Kaleo y Banco Vivo       ¿Cómo nos cuidamos entre escuelas?
+ *   03  Kaleo y Banco Vivo       ¿Cómo nos cuidamos entre escuelas?
+ *   04  Rally 2028               ¿Cuál es la convocatoria continental?
  *   05  Alianzas                 ¿Mi organización cómo encaja acá?
- *   06  Tienda con causa         ¿Qué materiales puedo llevar al aula ya?
+ *   06  Sostén / tienda          ¿Qué material complementa el desafío, con precio de referencia?
  *   07  Cápsula institucional    ¿Quién está detrás de todo esto?
  *   08  ¿Cómo puedo ser parte?   ¡Me interesa! ¿Cómo me sumo?  ← clímax
  *   09  Preguntas y seguridad    ¿Qué pasa con mis datos y la seguridad?
@@ -41,10 +40,9 @@ export default function HomePage() {
       <main id="contenido">
         <HeroStory />
         <RoutesSection />
-        <CrisisToolsSection />
         <MethodSection />
-        <TerritorySection />
         <KaleoBancoVivoSection />
+        <TerritorySection />
         <AlliancesSection />
         <StoreSection />
         <DeclarationSection />

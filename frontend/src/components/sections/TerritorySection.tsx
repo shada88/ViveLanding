@@ -10,7 +10,6 @@ import {
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
-import { ForestVoicesSection } from './ForestVoicesSection';
 import styles from './TerritorySection.module.css';
 
 interface CategoryItem {
@@ -31,7 +30,7 @@ const CATEGORIES: CategoryItem[] = [
   },
   {
     icon: AppWindow,
-    title: 'Aplicaciones tecnológicas con tecnologías emergentes',
+    title: 'Aplicaciones tecnológicas de vanguardia',
   },
 ];
 
@@ -47,7 +46,7 @@ const CATEGORIES: CategoryItem[] = [
 const RALLY_BASES_URL: string | null = null;
 
 /**
- * 03 — Rally Continental 2028 + Las Voces del Bosque.
+ * 04 — Rally Continental 2028.
  *
  * El mapa NO es un dato geográfico: es el argumento de la sección. Un problema
  * que una escuela de Costa Rica resolvió sirve en Chile, y esa transferencia
@@ -56,15 +55,9 @@ const RALLY_BASES_URL: string | null = null;
  * El Rally Continental vive acá y no en Programas porque es la forma concreta
  * que toma esa conexión entre territorios. Separarlos dejaría al mapa sin
  * consecuencia y al Rally sin escala.
- *
- * Las Voces del Bosque cierran el acto: las siete aves son las embajadoras de
- * los retos del Rally, así que van pegadas a la convocatoria y no en otro
- * capítulo del recorrido. Se montan como banda propia (`ForestVoicesSection`)
- * porque su fondo oscuro y su patrón de pestañas son independientes del mapa.
  */
 export function TerritorySection() {
   return (
-    <>
       <section id="rally" className="section" aria-labelledby="territorio-titulo">
         <div className="shell">
           <div className={styles.layout}>
@@ -72,7 +65,7 @@ export function TerritorySection() {
               <header className={styles.intro}>
                 <Reveal index={0}>
                   <p className="eyebrow">
-                    <span className={styles.step}>03</span>
+                    <span className={styles.step}>04</span>
                     Convocatoria Continental
                   </p>
                 </Reveal>
@@ -151,8 +144,5 @@ export function TerritorySection() {
           </div>
         </div>
       </section>
-
-      <ForestVoicesSection />
-    </>
   );
 }

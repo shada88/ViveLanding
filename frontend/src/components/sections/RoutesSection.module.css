@@ -1,87 +1,223 @@
-/* ══ Las dos rutas ══════════════════════════════════════════════════════ */
+/* ══ Sección 1 · elegir el camino y entender las dos rutas ══════════════ */
 
-.routes {
-  display: grid;
-  gap: 1.25rem;
+.homePathways {
+  text-align: left;
 }
 
-/*
- * Cada ruta es un panel de filete, no una tarjeta con sombra: la jerarquía la
- * dan el aire y la tipografía. La Ruta B lleva el riel dorado porque es la vía
- * prioritaria —el dorado marca lo que vale—, pero NO es más grande.
- */
-.route {
+.intro {
+  max-width: 44rem;
+  margin-bottom: clamp(1.75rem, 1rem + 2vw, 2.75rem);
+  text-align: left;
+}
+
+.title {
+  margin: 0 0 1.15rem;
+  text-align: left;
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0;
+  text-align: left;
+}
+
+.cue {
+  max-width: 58ch;
+  margin: 1.15rem 0 0;
+  font: var(--font-body-md);
+  color: var(--color-on-surface);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+/* ── Tres caminos, una sola pieza ─────────────────────────────────────── */
+
+.stage {
+  display: grid;
+  text-align: left;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-low);
+  overflow: hidden;
+}
+
+.path {
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   min-width: 0;
-  padding: clamp(1.5rem, 1rem + 2vw, 2.5rem);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-lg);
-  background: transparent;
-  transition: border-color var(--transition);
+  padding: clamp(1.35rem, 1rem + 1.2vw, 1.85rem);
+  text-align: left;
 }
 
-.route:hover {
-  border-color: var(--color-outline);
+.path + .path {
+  border-top: 1px solid var(--color-outline-variant);
 }
 
-.routeLead {
-  border-color: var(--color-gold-border);
+.process {
+  background: linear-gradient(180deg, var(--glow-gold), transparent 55%);
   box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
+.emergency {
+  background: linear-gradient(180deg, var(--glow-blue), transparent 62%);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.alliance {
+  box-shadow: inset 3px 0 0 var(--color-outline);
+}
+
 .kicker {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem 0.75rem;
-  margin: 0 0 1rem;
+  margin: 0 0 0.75rem;
   font: var(--font-caption);
   letter-spacing: var(--tracking-eyebrow);
   text-transform: uppercase;
   color: var(--color-on-surface-muted);
+  text-align: left;
 }
 
-.code {
-  padding: 0.25rem 0.7rem;
-  border-radius: var(--radius-full);
-  border: 1px solid var(--color-outline-variant);
-  color: var(--color-on-surface);
-}
-
-.routeLead .code {
-  border-color: var(--color-gold-border);
+.process .kicker,
+.routeB .kicker {
   color: var(--color-gold);
 }
 
-.title {
-  margin: 0 0 0.75rem;
+.emergency .kicker,
+.routeA > .routeLayout .kicker {
+  color: var(--color-primary);
+}
+
+.kickerLive {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.pulse {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: var(--radius-full);
+  background: currentColor;
+}
+
+.pulse::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: currentColor;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pulse::after {
+    animation: route-a-pulse 1.8s var(--ease-in-out-soft) infinite;
+  }
+}
+
+@keyframes route-a-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+.pathTitle {
+  margin: 0 0 0.7rem;
+  max-width: 16ch;
   color: var(--color-on-surface);
+  text-align: left;
   text-wrap: balance;
+}
+
+.alliance .pathTitle {
+  max-width: 14ch;
 }
 
 .summary {
   margin: 0;
-  max-width: 52ch;
+  max-width: 36ch;
   font: var(--font-body-md);
   color: var(--color-on-surface-variant);
+  text-align: left;
   text-wrap: pretty;
 }
 
-.highlights {
-  display: grid;
-  gap: 0.6rem;
-  margin: 1.5rem 0 0;
-  padding: 1.25rem 0 0;
-  list-style: none;
-  border-top: 1px solid var(--color-outline-variant);
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+  margin-top: auto;
+  padding-top: 1.4rem;
 }
 
-.highlight {
+/* ── Ruta B ───────────────────────────────────────────────────────────── */
+
+.routeB,
+.routeA {
+  margin-top: clamp(2.75rem, 1.8rem + 2.5vw, 4.5rem);
+  padding: clamp(1.4rem, 1rem + 1.4vw, 2.2rem);
+  border-radius: var(--radius-xl);
+  text-align: left;
+  scroll-margin-top: 6rem;
+}
+
+.routeB {
+  background: linear-gradient(180deg, var(--glow-gold), transparent 34%), var(--color-surface-low);
+  box-shadow: inset 3px 0 0 var(--color-gold);
+}
+
+.routeA {
+  background: linear-gradient(180deg, var(--glow-blue), transparent 28%), var(--color-surface-low);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.routeLayout {
+  display: grid;
+  gap: 1.35rem 2.5rem;
+  align-items: start;
+}
+
+.blockTitle {
+  margin: 0 0 0.75rem;
+  max-width: 22ch;
+  color: var(--color-on-surface);
+  text-align: left;
+  text-wrap: balance;
+}
+
+.blockSummary {
+  margin: 0;
+  max-width: 62ch;
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.points {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
   display: flex;
+  align-items: flex-start;
   gap: 0.65rem;
   font: var(--font-body-sm);
   color: var(--color-on-surface-variant);
+  text-align: left;
 }
 
 .check {
@@ -90,55 +226,156 @@
   color: var(--color-primary);
 }
 
-.routeLead .check {
+.routeB .check {
   color: var(--color-gold);
 }
 
-.safety {
-  display: flex;
-  gap: 0.6rem;
+/* ── De la propuesta a la práctica ────────────────────────────────────── */
+
+.practice {
+  margin-top: clamp(1.6rem, 1rem + 1.5vw, 2.25rem);
+  padding-top: clamp(1.4rem, 1rem + 1.2vw, 2rem);
+  border-top: 1px solid var(--color-outline-variant);
+  text-align: left;
+}
+
+.steps {
+  display: grid;
+  gap: 0.85rem;
   margin: 1.25rem 0 0;
-  font: var(--font-caption);
-  color: var(--color-on-surface-muted);
-  text-wrap: pretty;
+  padding: 0;
+  list-style: none;
 }
 
-.safetyIcon {
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7rem;
+  min-width: 0;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface);
+  text-align: left;
+}
+
+.stepIndex {
   flex: none;
-  margin-top: 0.1rem;
-  color: var(--color-on-surface-variant);
+  display: grid;
+  place-items: center;
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold-border);
+  color: var(--color-gold);
+  font: var(--font-caption);
 }
 
-/* Las acciones bajan al pie del panel: así los dos botones quedan a la misma
-   altura aunque una ruta tenga más texto que la otra. */
-.actions {
+.practiceActions {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem;
-  margin-top: auto;
-  padding-top: 1.75rem;
+  gap: 0.85rem;
+  margin-top: 1.35rem;
 }
 
-/* ══ Tercera puerta ═════════════════════════════════════════════════════ */
-
-.contribute {
-  margin-top: clamp(1.75rem, 1rem + 2vw, 2.75rem);
-  font: var(--font-body-md);
-  color: var(--color-on-surface-variant);
+.note,
+.flow {
+  margin: 0.9rem 0 0;
+  max-width: 62ch;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-muted);
+  text-align: left;
 }
 
-.contribute p {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0 0.5rem;
-  margin: 0;
+/* ── Kaleo, dentro de la Ruta A ───────────────────────────────────────── */
+
+.kaleo {
+  margin-top: clamp(1.6rem, 1rem + 1.5vw, 2.25rem);
+  padding: clamp(1.2rem, 0.8rem + 1vw, 1.6rem);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-lg);
+  background: var(--color-background);
+  text-align: left;
 }
 
-@media (min-width: 900px) {
-  .routes {
+.kaleoTitle {
+  margin: 0 0 0.7rem;
+  max-width: 20ch;
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+  text-align: left;
+  text-wrap: balance;
+}
+
+.safety {
+  margin: 1rem 0 1.1rem;
+  max-width: 68ch;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-outline-variant);
+  font: var(--font-body-sm);
+  color: var(--color-on-surface);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+@media (max-width: 759px) {
+  .actions :global(.btn),
+  .practiceActions :global(.btn) {
+    width: 100%;
+  }
+}
+
+@media (min-width: 760px) {
+  .stage {
     grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
+  }
+
+  .process {
+    grid-column: 1 / -1;
+  }
+
+  .path + .path {
+    border-top: 0;
+  }
+
+  .emergency,
+  .alliance {
+    border-top: 1px solid var(--color-outline-variant);
+  }
+
+  .alliance {
+    border-left: 1px solid var(--color-outline-variant);
+  }
+
+  .actions {
+    align-items: flex-start;
+  }
+
+  .steps {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (min-width: 980px) {
+  .stage {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process {
+    grid-column: auto;
+  }
+
+  .emergency,
+  .alliance {
+    border-top: 0;
+    border-left: 1px solid var(--color-outline-variant);
+  }
+
+  .routeLayout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  }
+
+  .steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
