@@ -37,7 +37,7 @@ function optionFor(interest: LeadInterest): InterestOption {
 }
 
 /**
- * 08 — ¿Cómo puedo ser parte? El clímax del embudo.
+ * 07 — ¿Cómo puedo ser parte? El clímax del embudo.
  *
  * UN formulario con selector de interés, conectado a `/api/leads`. Lo que
  * cambia al elegir interés es mínimo —rótulos, qué campo es obligatorio, la
@@ -150,7 +150,7 @@ export function ParticipateSection() {
     <section id="participar" className="section section--sunken" aria-labelledby="participar-titulo">
       <div className="shell">
         <SectionIntro
-          step="08"
+          step="07"
           eyebrow={PARTICIPATE_INTRO.eyebrow}
           titleId="participar-titulo"
           title={PARTICIPATE_INTRO.title}

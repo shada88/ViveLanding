@@ -59,10 +59,6 @@ export function storeInquiryUrl(message: string): string {
 const CONFIRM_BEFORE_BUY =
   'Antes de comprar, necesito confirmar precio vigente, moneda, disponibilidad, envío, formato y condiciones.';
 
-export const STORE_ROUTE_B_INQUIRY_URL = storeInquiryUrl(
-  `Hola, soy docente o compro para una institución y vengo desde la Ruta B. Quiero una cotización de materiales complementarios. ${CONFIRM_BEFORE_BUY}`,
-);
-
 export const STORE_INTRO = {
   eyebrow: 'Sostén la transformación',
   titleLead: 'Materiales para aprender.',
@@ -98,14 +94,6 @@ export const STORE_MISSION = {
       text: 'Intercambio de experiencias y tiempo profesional voluntario.',
     },
   ],
-} as const;
-
-export const STORE_FROM_ROUTE_B = {
-  title: '¿Vienes desde la Ruta B?',
-  text:
-    '¿Eres docente o compras para una institución? Compara el propósito de cada recurso, consulta disponibilidad y costos finales antes de comprar, o solicita una cotización institucional. La pertinencia pedagógica depende de tu contexto y de las características de cada material.',
-  action: 'Solicitar cotización institucional',
-  href: STORE_ROUTE_B_INQUIRY_URL,
 } as const;
 
 export type StoreActionTone = 'gold' | 'primary' | 'outline';

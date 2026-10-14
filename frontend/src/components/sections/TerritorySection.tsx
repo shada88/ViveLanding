@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import {
   AppWindow,
   ArrowRight,
@@ -9,7 +10,7 @@ import {
 } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
-import { AmericasNetwork } from '@/components/visuals/AmericasNetwork';
+import { TERRITORY_NODES } from '@/domain/entities/Territory';
 import styles from './TerritorySection.module.css';
 
 interface CategoryItem {
@@ -46,11 +47,13 @@ const CATEGORIES: CategoryItem[] = [
 const RALLY_BASES_URL: string | null = null;
 
 /**
- * 04 — Rally Continental 2028.
+ * 03 — Rally Continental 2028.
  *
  * El mapa NO es un dato geográfico: es el argumento de la sección. Un problema
  * que una escuela de Costa Rica resolvió sirve en Chile, y esa transferencia
- * es lo único que las líneas entre nodos representan.
+ * es lo que el continente representa. La pieza visible es la ilustración
+ * entregada: el continente con el perro y las aves. Los países siguen en
+ * texto para quien no ve la imagen.
  *
  * El Rally Continental vive acá y no en Programas porque es la forma concreta
  * que toma esa conexión entre territorios. Separarlos dejaría al mapa sin
@@ -65,7 +68,7 @@ export function TerritorySection() {
               <header className={styles.intro}>
                 <Reveal index={0}>
                   <p className="eyebrow">
-                    <span className={styles.step}>04</span>
+                    <span className={styles.step}>03</span>
                     Convocatoria Continental
                   </p>
                 </Reveal>
@@ -91,7 +94,7 @@ export function TerritorySection() {
 
                 <Reveal index={3}>
                   <p className={`lede ${styles.rallyBody}`}>
-                    La convocatoria insignia de la Vivesperanza convierte el aula en un laboratorio
+                    La convocatoria insignia de Vivesperanza convierte el aula en un laboratorio
                     de desarrollo sostenible y gestión del riesgo de desastres, desarrollando
                     procesos de innovación y protección territorial apoyados con tecnologías
                     emergentes. Abierta a todo plantel del continente, público o privado. Una
@@ -139,7 +142,21 @@ export function TerritorySection() {
             </div>
 
             <Reveal className={styles.map}>
-              <AmericasNetwork />
+              <div className={styles.mapStage}>
+                <Image
+                  src="/recursos/rally-mapa-brillo.png"
+                  alt="Mapa de las Américas con un perro y varias aves"
+                  width={810}
+                  height={1358}
+                  sizes="(min-width: 980px) 540px, 22rem"
+                  quality={92}
+                  className={styles.mapImage}
+                />
+                <p className="sr-only">
+                  Territorios conectados por la red de la fundación:{' '}
+                  {TERRITORY_NODES.map((node) => node.label).join(', ')}.
+                </p>
+              </div>
             </Reveal>
           </div>
         </div>

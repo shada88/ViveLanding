@@ -12,7 +12,7 @@ import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import styles from './DeclarationSection.module.css';
 
 /**
- * 07 — Cápsula de la Declaración Vivesperanza.
+ * 06 — Cápsula de la Declaración Vivesperanza.
  *
  * La landing NO es un repositorio de estatutos. Acá queda lo que sostiene la
  * confianza en diez segundos —la síntesis, el índice de los seis principios y
@@ -41,7 +41,7 @@ export function DeclarationSection() {
           <div className={styles.copy}>
             <Reveal index={0}>
               <p className="eyebrow eyebrow--ink">
-                <span className={styles.step}>07</span>
+                <span className={styles.step}>06</span>
                 Documento fundacional
               </p>
             </Reveal>

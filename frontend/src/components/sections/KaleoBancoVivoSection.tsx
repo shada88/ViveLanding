@@ -26,7 +26,7 @@ const PILLAR_ICONS: Record<KaleoPillar['iconName'], LucideIcon> = {
 };
 
 /**
- * 03 — Kaleo y Banco Vivo: la red de apoyo mutuo.
+ * 02 — Kaleo y Banco Vivo: la red de apoyo mutuo.
  *
  * Dos productos, UNA pregunta: «¿cómo nos cuidamos entre escuelas?». Quien
  * llega puede estar de cualquiera de los dos lados —tiene algo para dar o
@@ -60,7 +60,7 @@ export function KaleoBancoVivoSection() {
         <header className={styles.head}>
           <Reveal index={0}>
             <p className="eyebrow eyebrow--ink">
-              <span className={styles.step}>03</span>
+              <span className={styles.step}>02</span>
               Compartir · Conectar · Acompañar
             </p>
           </Reveal>

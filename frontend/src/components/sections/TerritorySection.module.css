@@ -89,6 +89,17 @@
   position: relative;
 }
 
+.mapStage {
+  max-width: 540px;
+  margin-inline: auto;
+}
+
+.mapImage {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
 @media (min-width: 980px) {
   .layout {
     grid-template-columns: 1.1fr 0.9fr;

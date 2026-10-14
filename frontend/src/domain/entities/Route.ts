@@ -52,19 +52,45 @@ export const ENTRY_PATHS: EntryPath[] = [
   {
     id: 'alliance',
     label: 'Para contribuir',
-    title: 'Alianzas y Banco Vivo',
+    title: 'Colaboraciones',
     summary:
       'Comparte experiencia, ofrece tiempo profesional o explora una colaboración institucional.',
-    primary: { label: 'Ver formas de colaborar', href: '#alianzas' },
+    primary: { label: 'Ver formas de colaborar', href: '#colaboraciones' },
   },
 ];
+
+/** La antigua sección 2, dentro de la sección 1. */
+export const COLLABORATION = {
+  id: 'colaboraciones',
+  label: 'Colaboraciones',
+  title: 'Una red para compartir lo que ayuda y encontrar apoyo cuando hace falta',
+  summary:
+    'Si llegaste desde la Ruta A, este es el siguiente paso. Kaleo ayuda a explorar opciones de acompañamiento y conexión con recursos disponibles; Banco Vivo completa la red con experiencias escolares y tiempo profesional voluntario.',
+  contributeLabel: '1 · Quiero contribuir',
+  orientLabel: '2 · Necesito orientación',
+  gainsLabel: 'Beneficios para tu escuela',
+  shareLabel: 'Compartir una experiencia o mi tiempo',
+  legalLabel: 'Documento legal del testimonio',
+  requestLabel: 'Solicitar orientación y acompañamiento',
+  platformLabel: 'Acceder a la plataforma Kaleo',
+  alliancesLabel: 'Explorar una colaboración institucional',
+  contributeBody: {
+    schools:
+      'comparte una experiencia útil al enfrentar una emergencia escolar para que otras escuelas puedan aprender.',
+    professionals: 'ofrece tiempo y conocimiento para acompañar a comunidades educativas.',
+  },
+  orientBody:
+    '¿Tu escuela o comunidad enfrenta una emergencia o un desastre? Solicita orientación para identificar posibles pasos y conectar con capacidades o recursos disponibles según el contexto.',
+  kaleoLimit:
+    'Kaleo facilita orientación y conexión según la cobertura y los recursos disponibles: no sustituye los servicios oficiales de emergencia, salud o protección. Si existe peligro inmediato, contacta a los servicios de emergencia de tu territorio.',
+} as const;
 
 export const ROUTE_B = {
   id: 'ruta-b',
   label: 'Ruta B · Transformación continua',
   title: 'Convierte el aprendizaje en soluciones para tu territorio',
   summary:
-    'Un proceso para que niñas, niños y jóvenes investiguen desafíos reales, diseñen soluciones y lideren proyectos que mejoren su escuela y su territorio. La malla curricular conecta el aprendizaje con la resiliencia, la innovación y la acción local.',
+    'Un proceso para que niñas, niños y jóvenes investiguen desafíos reales, diseñen soluciones y lideren proyectos que mejoren su escuela y su territorio.',
   points: [
     'Aprendizaje conectado con desafíos reales del territorio.',
     'Liderazgo juvenil, investigación y creación de soluciones.',
@@ -120,6 +146,6 @@ export const KALEO_STEP = {
   },
   flow: 'Ruta A: identificar la necesidad · Kaleo: solicitar orientación',
   safety:
-    'Seguridad primero: esta ruta no es un servicio de respuesta inmediata y no garantiza disponibilidad de apoyo. No ingreses datos sensibles de menores. Ante peligro inmediato, contacta los servicios oficiales de emergencia y sigue las instrucciones de las autoridades; estos recursos no sustituyen la evaluación de profesionales competentes.',
+    'Seguridad primero: no ingreses datos sensibles de menores. Ante peligro inmediato, contacta los servicios oficiales de emergencia y sigue las instrucciones de las autoridades; estos recursos no sustituyen la evaluación de profesionales competentes.',
   secondary: { label: 'Conocer cómo funciona Kaleo', href: '#kaleo' },
 } as const;

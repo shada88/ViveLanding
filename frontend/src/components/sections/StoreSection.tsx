@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import { ArrowRight, ArrowUpRight, Mic, Newspaper } from 'lucide-react';
 import {
-  STORE_FROM_ROUTE_B,
   STORE_INTRO,
   STORE_MISSION,
   STORE_OFFERS,
@@ -18,7 +17,7 @@ const ACTION_TONE: Record<StoreActionTone, string> = {
 };
 
 /**
- * 06 — Sostén la transformación (`#tienda`).
+ * 05 — Sostén la transformación (`#tienda`).
  *
  * La Ruta B sigue siendo la vía programática. Los tres materiales son
  * complementarios y sus precios son referencias, no tarifas confirmadas.
@@ -73,24 +72,6 @@ export function StoreSection() {
             </ul>
           </div>
         </div>
-
-        <aside className={styles.arrival} aria-labelledby="desde-ruta-b-titulo">
-          <div>
-            <h3 id="desde-ruta-b-titulo" className={styles.blockTitle}>
-              {STORE_FROM_ROUTE_B.title}
-            </h3>
-            <p className={styles.arrivalText}>{STORE_FROM_ROUTE_B.text}</p>
-          </div>
-          <a
-            href={STORE_FROM_ROUTE_B.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`btn btn--lg btn--gold ${styles.arrivalAction}`}
-          >
-            <span>{STORE_FROM_ROUTE_B.action}</span>
-            <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
-        </aside>
 
         <ul className={styles.catalog}>
           {STORE_OFFERS.map((offer) => (

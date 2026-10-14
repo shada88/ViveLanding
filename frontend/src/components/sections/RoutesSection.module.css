@@ -83,7 +83,7 @@
 }
 
 .emergency .kicker,
-.routeA > .routeLayout .kicker {
+.routeA .disclosureSummary .kicker {
   color: var(--color-primary);
 }
 
@@ -159,12 +159,20 @@
   padding-top: 1.4rem;
 }
 
-/* ── Ruta B ───────────────────────────────────────────────────────────── */
+/* ── Las dos rutas, como una presentación ─────────────────────────────── */
+
+.presentation {
+  display: grid;
+  gap: clamp(1.5rem, 1rem + 1.5vw, 2.25rem);
+  margin-top: clamp(2.75rem, 1.8rem + 2.5vw, 4.5rem);
+}
 
 .routeB,
 .routeA {
-  margin-top: clamp(2.75rem, 1.8rem + 2.5vw, 4.5rem);
-  padding: clamp(1.4rem, 1rem + 1.4vw, 2.2rem);
+  --route-pad: clamp(1.4rem, 1rem + 1.4vw, 2.2rem);
+  margin-top: 0;
+  padding: 0;
+  border: 1px solid var(--color-outline-variant);
   border-radius: var(--radius-xl);
   text-align: left;
   scroll-margin-top: 6rem;
@@ -180,10 +188,248 @@
   box-shadow: inset 3px 0 0 var(--color-primary);
 }
 
-.routeLayout {
+.routeB:hover,
+.routeB:focus-within,
+.routeB:has(.disclosure[open]) {
+  border-color: var(--color-gold);
+}
+
+.routeA:hover,
+.routeA:focus-within,
+.routeA:has(.disclosure[open]) {
+  border-color: var(--color-primary);
+}
+
+.collaboration {
+  --route-pad: clamp(1.4rem, 1rem + 1.4vw, 2.2rem);
+  margin-top: 0;
+  padding: 0;
+  border: 1px solid var(--color-outline-variant);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface-low);
+  box-shadow: inset 3px 0 0 var(--color-outline);
+  text-align: left;
+  scroll-margin-top: 6rem;
+}
+
+.collaboration:hover,
+.collaboration:focus-within,
+.collaboration:has(.disclosure[open]) {
+  border-color: var(--color-outline);
+}
+
+.collaboration .disclosureSummary .kicker {
+  color: var(--color-on-surface);
+}
+
+.collaboration .disclosureSummary .blockTitle {
+  max-width: 34ch;
+}
+
+.collaboration .chevron {
+  color: var(--color-on-surface);
+}
+
+.anchorAlias {
+  position: relative;
+  top: -6rem;
+  height: 0;
+}
+
+/* El cuadro cerrado muestra título, resumen y el dibujo. El detalle vive en el panel. */
+.disclosureSummary {
   display: grid;
-  gap: 1.35rem 2.5rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas:
+    'copy chevron'
+    'sketch sketch';
   align-items: start;
+  column-gap: 0.75rem;
+  row-gap: 0.85rem;
+  margin: 0;
+  padding: var(--route-pad);
+  list-style: none;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+}
+
+.disclosureSummary::-webkit-details-marker {
+  display: none;
+}
+
+.disclosureSummary::marker {
+  content: '';
+}
+
+.disclosureSummary:focus-visible {
+  outline-offset: 3px;
+  border-radius: var(--radius-xl);
+}
+
+.summaryCopy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  grid-area: copy;
+  min-width: 0;
+}
+
+.summaryCopy .blockSummary {
+  display: block;
+}
+
+.chevron {
+  grid-area: chevron;
+  margin-top: 0.2rem;
+  color: var(--color-on-surface-muted);
+}
+
+.routeB .chevron {
+  color: var(--color-gold);
+}
+
+.routeA .chevron {
+  color: var(--color-primary);
+}
+
+.disclosure[open] .chevron {
+  transform: rotate(180deg);
+}
+
+.disclosure[open] .disclosureSummary {
+  padding-bottom: 0.35rem;
+}
+
+.disclosureBody {
+  padding: 0.85rem var(--route-pad) var(--route-pad);
+}
+
+.sketch {
+  display: block;
+  grid-area: sketch;
+  margin: 0;
+}
+
+.sketchImage {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(100%, 16rem);
+  max-height: 9rem;
+  object-fit: contain;
+  object-position: left center;
+}
+
+.routeB .sketchImage {
+  max-width: 8.5rem;
+  max-height: 10.5rem;
+}
+
+.routeA .sketchImage {
+  max-width: min(100%, 18rem);
+  max-height: 8.25rem;
+}
+
+.collaboration .sketchImage {
+  max-width: 9rem;
+  max-height: 9rem;
+}
+
+.ways {
+  display: grid;
+}
+
+.way + .way {
+  margin-top: clamp(1.5rem, 1rem + 1.2vw, 2rem);
+  padding-top: clamp(1.5rem, 1rem + 1.2vw, 2rem);
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.bancoMark {
+  width: min(100%, 20rem);
+  height: auto;
+  margin: 0 0 1rem;
+}
+
+.kaleoRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+}
+
+.by {
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-surface-muted);
+}
+
+.wayBody {
+  margin: 0;
+  max-width: 62ch;
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.wayBody strong {
+  color: var(--color-on-surface);
+  font-weight: 600;
+}
+
+.wayLabel {
+  margin: 1.25rem 0 0;
+  font: var(--font-label-md);
+  color: var(--color-on-surface);
+  text-align: left;
+}
+
+.gainList,
+.pillarList {
+  margin: 0.85rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.gain + .gain,
+.pillarItem + .pillarItem {
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--color-outline-variant);
+}
+
+.gainLabel,
+.pillarTitle {
+  display: block;
+  margin: 0;
+  font: var(--font-label-md);
+  color: var(--color-on-surface);
+  text-align: left;
+}
+
+.gainBody,
+.pillarBody {
+  display: block;
+  margin: 0.25rem 0 0;
+  font: var(--font-body-sm);
+  color: var(--color-on-surface-variant);
+  text-align: left;
+  text-wrap: pretty;
+}
+
+.collabClose {
+  margin-top: clamp(1.5rem, 1rem + 1.2vw, 2rem);
+  padding-top: clamp(1.25rem, 0.8rem + 1vw, 1.6rem);
+  border-top: 1px solid var(--color-outline-variant);
 }
 
 .blockTitle {
@@ -203,21 +449,151 @@
   text-wrap: pretty;
 }
 
+.beat {
+  min-width: 0;
+}
+
+.deckBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.deckStatus {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  margin: 0;
+  font: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-on-surface-muted);
+}
+
+.routeB .deckStatus {
+  color: var(--color-gold);
+}
+
+.routeA .deckStatus {
+  color: var(--color-primary);
+}
+
+.deckNodes {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-right: 0.75rem;
+}
+
+.deckNodes::before {
+  content: '';
+  position: absolute;
+  left: 0.15rem;
+  right: 0.15rem;
+  top: 50%;
+  height: 1px;
+  background: var(--color-outline-variant);
+}
+
+.deckNode,
+.deckNodeOn {
+  position: relative;
+  z-index: 1;
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: var(--radius-full);
+  background: var(--color-surface-low);
+  box-shadow: inset 0 0 0 1.5px var(--color-outline);
+}
+
+.routeB .deckNodeOn {
+  background: var(--color-gold);
+  box-shadow: none;
+}
+
+.routeA .deckNodeOn {
+  background: var(--color-primary);
+  box-shadow: none;
+}
+
+.deckNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.deckBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: var(--tap-min);
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-on-surface);
+  font: var(--font-label-md);
+  cursor: pointer;
+}
+
+.routeB .deckBtn:hover {
+  border-color: var(--color-gold);
+}
+
+.routeA .deckBtn:hover {
+  border-color: var(--color-primary);
+}
+
 .points {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.35rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.point {
+.point,
+.step {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.pointBtn,
+.stepBtn {
   display: flex;
   align-items: flex-start;
-  gap: 0.65rem;
-  font: var(--font-body-sm);
+  gap: 0.7rem;
+  width: 100%;
+  min-height: var(--tap-min);
+  padding: 0.65rem 0.75rem;
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
   color: var(--color-on-surface-variant);
+  font: var(--font-body-sm);
   text-align: left;
+  cursor: pointer;
+}
+
+.pointBtn:hover,
+.stepBtn:hover {
+  color: var(--color-on-surface);
+}
+
+.pointBtn[aria-current='true'] {
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.routeB .pointBtn[aria-current='true'] {
+  box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
 .check {
@@ -239,34 +615,61 @@
   text-align: left;
 }
 
+.practice .beat {
+  margin-top: 1.15rem;
+}
+
+.stepsWrap {
+  position: relative;
+}
+
+.stepTrack,
+.stepFill {
+  display: none;
+}
+
 .steps {
+  position: relative;
   display: grid;
-  gap: 0.85rem;
-  margin: 1.25rem 0 0;
+  gap: 0.35rem;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 
-.step {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.7rem;
-  min-width: 0;
-  font: var(--font-body-sm);
+.stepBtn:focus-visible {
+  outline: none;
+}
+
+.stepBtn:focus-visible .stepIndex {
+  box-shadow: var(--ring-focus);
+}
+
+.stepBtn[aria-current='step'] {
+  background: var(--color-surface-container);
   color: var(--color-on-surface);
-  text-align: left;
+  box-shadow: inset 3px 0 0 var(--color-gold);
 }
 
 .stepIndex {
+  position: relative;
+  z-index: 1;
   flex: none;
   display: grid;
   place-items: center;
   width: 1.6rem;
   height: 1.6rem;
   border-radius: var(--radius-full);
-  border: 1px solid var(--color-gold-border);
+  border: 1px solid var(--color-outline);
+  background: var(--color-surface-low);
   color: var(--color-gold);
   font: var(--font-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.stepBtn[aria-current='step'] .stepIndex {
+  border-color: var(--color-gold);
+  background: var(--color-gold-soft);
 }
 
 .practiceActions {
@@ -356,6 +759,49 @@
   }
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .routeB,
+  .routeA,
+  .collaboration,
+  .pointBtn,
+  .stepBtn,
+  .stepIndex,
+  .deckBtn,
+  .deckNode,
+  .deckNodeOn {
+    transition:
+      border-color var(--transition),
+      background-color var(--transition),
+      color var(--transition),
+      box-shadow var(--transition),
+      transform var(--transition-soft);
+  }
+
+  .chevron {
+    transition: transform var(--transition);
+  }
+
+  .stepFill {
+    transition: width var(--transition-soft);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .routeB,
+  .routeA,
+  .collaboration,
+  .pointBtn,
+  .stepBtn,
+  .stepIndex,
+  .deckBtn,
+  .deckNode,
+  .deckNodeOn,
+  .stepFill,
+  .chevron {
+    transition: none;
+  }
+}
+
 @media (min-width: 980px) {
   .stage {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -371,11 +817,87 @@
     border-left: 1px solid var(--color-outline-variant);
   }
 
-  .routeLayout {
-    grid-template-columns: minmax(0, 1.15fr) minmax(16rem, 0.85fr);
+  .disclosureSummary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    grid-template-areas: 'copy sketch chevron';
+    align-items: center;
+    column-gap: clamp(1rem, 0.6rem + 1vw, 1.75rem);
+    row-gap: 0;
+  }
+
+  .sketch {
+    align-self: center;
+  }
+
+  .chevron {
+    align-self: start;
+  }
+
+  .collaboration .sketchImage {
+    max-width: 11.5rem;
+    max-height: 11rem;
+  }
+
+  .ways {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+
+  .ways > .way:first-child {
+    padding-right: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+  }
+
+  .way + .way {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: 0;
+    padding-left: clamp(1.5rem, 1rem + 1.5vw, 2.5rem);
+    border-left: 1px solid var(--color-outline-variant);
   }
 
   .steps {
     grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .stepBtn {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0.35rem 0.85rem;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .stepBtn[aria-current='step'] {
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .stepLabel {
+    align-self: stretch;
+    min-width: 0;
+    text-align: left;
+    text-wrap: pretty;
+  }
+
+  /* Centros de la primera y la última columna, con el hueco de 0.75rem. */
+  .stepTrack {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: calc(0.35rem + 0.8rem);
+    left: calc((100% - 2.25rem) / 8);
+    right: calc((100% - 2.25rem) / 8);
+    height: 1px;
+    background: var(--color-outline-variant);
+    pointer-events: none;
+    transform: translateY(-50%);
+  }
+
+  .stepFill {
+    display: block;
+    height: 100%;
+    background: var(--color-gold);
   }
 }

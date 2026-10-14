@@ -13,7 +13,7 @@ import { SectionIntro } from './SectionIntro';
 import styles from './AlliancesSection.module.css';
 
 /**
- * 05 — Alianzas. «¿Mi organización cómo encaja acá?»
+ * 04 — Alianzas. «¿Mi organización cómo encaja acá?»
  *
  * Un acordeón y no cuatro tarjetas: la persona busca SU sector, no compara los
  * cuatro. Abierto de a uno, cada sector se lee completo sin competir con los
@@ -33,7 +33,7 @@ export function AlliancesSection() {
         <div className={styles.layout}>
           <SectionIntro
             className={styles.intro}
-            step="05"
+            step="04"
             eyebrow={ALLIANCES_INTRO.eyebrow}
             titleId="alianzas-titulo"
             title={ALLIANCES_INTRO.title}

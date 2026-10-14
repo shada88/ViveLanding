@@ -10,7 +10,7 @@ import { Reveal } from '@/components/motion/Reveal';
 import styles from './OriginAndCommitteeSection.module.css';
 
 /**
- * 07 — Cápsula de confianza: quién está detrás.
+ * 06 — Cápsula de confianza: quién está detrás.
  *
  * Una BARRA de respaldo, no cuatro tarjetas biográficas. Quien está a punto de
  * registrarse necesita saber que hay una institución real —nombre legal, NIT,

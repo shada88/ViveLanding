@@ -6,7 +6,7 @@ import { SectionIntro } from './SectionIntro';
 import styles from './FAQSection.module.css';
 
 /**
- * 09 — Preguntas frecuentes.
+ * 08 — Preguntas frecuentes.
  *
  * `details`/`summary` nativos: teclado, lector de pantalla y búsqueda del
  * navegador (Ctrl+F abre el desplegable que contiene la coincidencia) vienen
@@ -21,7 +21,7 @@ export function FAQSection() {
     >
       <div className="shell">
         <SectionIntro
-          step="09"
+          step="08"
           eyebrow={FAQ_INTRO.eyebrow}
           titleId="preguntas-titulo"
           title={FAQ_INTRO.title}

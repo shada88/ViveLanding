@@ -18,7 +18,7 @@ import styles from './Header.module.css';
  */
 const NAV = [
   { href: '/#rutas', label: 'Rutas' },
-  { href: '/#kaleo', label: 'Kaleo' },
+  { href: '/#colaboraciones', label: 'Colaboraciones' },
   { href: '/#rally', label: 'Rally 2028' },
   { href: '/#tienda', label: 'Tienda' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
@@ -27,14 +27,14 @@ const NAV = [
 /** Menú móvil: el recorrido completo, en el orden de los actos de la landing. */
 const NAV_MOBILE = [
   { href: '/#rutas', label: '01 · Elige tu ruta' },
+  { href: '/#colaboraciones', label: 'Colaboraciones' },
   { href: '/#metodo', label: '02 · El método' },
-  { href: '/#kaleo', label: '03 · Kaleo y Banco Vivo' },
-  { href: '/#rally', label: '04 · Rally 2028' },
-  { href: '/#alianzas', label: '05 · Alianzas' },
-  { href: '/#tienda', label: '06 · Tienda con causa' },
-  { href: '/#declaracion', label: '07 · Quiénes somos' },
-  { href: '/#participar', label: '08 · Unirse a la red' },
-  { href: '/#preguntas', label: '09 · Preguntas frecuentes' },
+  { href: '/#rally', label: '03 · Rally 2028' },
+  { href: '/#alianzas', label: '04 · Alianzas' },
+  { href: '/#tienda', label: '05 · Tienda con causa' },
+  { href: '/#declaracion', label: '06 · Quiénes somos' },
+  { href: '/#participar', label: '07 · Unirse a la red' },
+  { href: '/#preguntas', label: '08 · Preguntas frecuentes' },
   { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
 ] as const;
 

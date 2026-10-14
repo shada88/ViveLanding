@@ -30,13 +30,6 @@
   margin-bottom: clamp(2.5rem, 2rem + 2vw, 4rem);
 }
 
-.blockTitle {
-  font: var(--font-h3);
-  color: var(--color-on-surface);
-  margin-bottom: 1rem;
-}
-
-.arrivalText,
 .wayText,
 .description,
 .useful {
@@ -102,30 +95,6 @@
 
 .wayText {
   max-width: 42ch;
-}
-
-.arrival {
-  display: grid;
-  gap: 1.25rem;
-  max-width: 52rem;
-  margin-bottom: clamp(1.75rem, 1.25rem + 1.5vw, 2.5rem);
-  padding: clamp(1.35rem, 1rem + 1vw, 2rem);
-  border: 1px solid var(--color-outline-variant);
-  border-radius: var(--radius-lg);
-  background: var(--color-surface-low);
-}
-
-.arrivalText {
-  max-width: 62ch;
-}
-
-.arrivalAction {
-  justify-self: start;
-  width: 100%;
-  max-width: 28rem;
-  white-space: normal;
-  text-align: center;
-  height: auto;
 }
 
 .catalog {
