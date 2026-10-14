@@ -8,7 +8,6 @@ import { TerritorySection } from '@/components/sections/TerritorySection';
 import { AlliancesSection } from '@/components/sections/AlliancesSection';
 import { StoreSection } from '@/components/sections/StoreSection';
 import { DeclarationSection } from '@/components/sections/DeclarationSection';
-import { OriginAndCommitteeSection } from '@/components/sections/OriginAndCommitteeSection';
 import { ParticipateSection } from '@/components/sections/ParticipateSection';
 import { FAQSection } from '@/components/sections/FAQSection';
 
@@ -27,7 +26,7 @@ import { FAQSection } from '@/components/sections/FAQSection';
  *   03  Rally 2028               ¿Cuál es la convocatoria continental?
  *   04  Alianzas                 ¿Mi organización cómo encaja acá?
  *   05  Sostén / tienda          ¿Qué material complementa el desafío, con precio de referencia?
- *   06  Cápsula institucional    ¿Quién está detrás de todo esto?
+ *   06  Declaración              ¿Cuál es el documento que sostiene la misión?
  *   07  ¿Cómo puedo ser parte?   ¡Me interesa! ¿Cómo me sumo?  ← clímax
  *   08  Preguntas y seguridad    ¿Qué pasa con mis datos y la seguridad?
  */
@@ -44,7 +43,6 @@ export default function HomePage() {
         <AlliancesSection />
         <StoreSection />
         <DeclarationSection />
-        <OriginAndCommitteeSection />
         <ParticipateSection />
         <FAQSection />
       </main>

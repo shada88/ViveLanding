@@ -188,11 +188,11 @@ export function RoutesSection() {
                   <span className={styles.blockSummary}>{ROUTE_A.summary}</span>
                 </span>
                 <RouteSketch
-                  src="/recursos/ruta-a-perro-paloma.png"
-                  width={1109}
-                  height={602}
+                  src="/recursos/ruta-a-perro-salto.png"
+                  width={1190}
+                  height={841}
                   sizes="288px"
-                  alt="Perro recostado junto a una paloma"
+                  alt="Perro saltando junto a una paloma"
                 />
                 <ChevronDown size={22} aria-hidden="true" className={styles.chevron} />
               </summary>

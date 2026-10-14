@@ -73,9 +73,9 @@ export function KaleoBancoVivoSection() {
 
           <Reveal index={2}>
             <p className={`lede lede--ink ${styles.lede}`}>
-              Si llegaste desde la Ruta A, este es el siguiente paso. Kaleo ayuda a explorar
-              opciones de acompañamiento y conexión con recursos disponibles; Banco Vivo
-              completa la red con experiencias escolares y tiempo profesional voluntario.
+              Aquí Kaleo te ayuda a explorar opciones de acompañamiento y conexión con
+              recursos disponibles; Banco Vivo completa la red con experiencias escolares en
+              emergencias y tiempo profesional voluntario.
             </p>
           </Reveal>
         </header>

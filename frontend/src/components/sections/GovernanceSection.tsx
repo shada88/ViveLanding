@@ -11,8 +11,8 @@ import styles from './GovernanceSection.module.css';
 /**
  * Comité y Liderazgo completos — vive en `/sobre-nosotros#equipo`.
  *
- * En la landing queda una barra de respaldo (`OriginAndCommitteeSection`); las
- * biografías extensas viven acá, donde quien quiere leerlas vino a hacerlo.
+ * Las biografías extensas viven acá, donde quien quiere leerlas vino a hacerlo.
+ * La barra corta de la portada (`OriginAndCommitteeSection`) no está montada.
  *
  * Estructura clara de gobernanza, trayectoria e integrantes:
  * 1. Destacados y Liderazgo: Fernando Rafael García García (Fundador) y Rocío Galvis Guerrero.
