@@ -59,8 +59,26 @@
   text-align: left;
 }
 
+/* Azul del botón primario, blanco del título y dorado del botón de la Ruta B. */
 .titleAccent {
-  color: var(--color-primary);
+  background: linear-gradient(
+    100deg,
+    var(--color-primary) 0%,
+    var(--color-on-surface) 46%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+
+@supports not (background-clip: text) {
+  .titleAccent {
+    background: none;
+    color: var(--color-primary);
+    -webkit-text-fill-color: currentColor;
+  }
 }
 
 .lede {
