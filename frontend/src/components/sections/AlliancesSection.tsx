@@ -9,6 +9,7 @@ import {
 } from '@/domain/entities/Alliance';
 import { selectParticipationRole } from '@/lib/participation';
 import { Reveal } from '@/components/motion/Reveal';
+import { CompanionCarousel } from './CompanionCarousel';
 import { SectionIntro } from './SectionIntro';
 import styles from './AlliancesSection.module.css';
 
@@ -92,6 +93,8 @@ export function AlliancesSection() {
             <p className={styles.footnote}>{ALLIANCES_FOOTNOTE}</p>
           </Reveal>
         </div>
+
+        <CompanionCarousel />
       </div>
     </section>
   );

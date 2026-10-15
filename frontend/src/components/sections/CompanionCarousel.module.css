@@ -1,0 +1,147 @@
+.companions {
+  margin-top: clamp(2.75rem, 2rem + 2vw, 4.5rem);
+  min-width: 0;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.copy {
+  max-width: 64ch;
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font: var(--font-h3);
+  color: var(--color-on-surface);
+  text-wrap: balance;
+}
+
+.lede {
+  margin: 0.55rem 0 0;
+  font: var(--font-body-md);
+  color: var(--color-on-surface-variant);
+  text-wrap: pretty;
+}
+
+.controls {
+  display: flex;
+  flex: none;
+  gap: 0.5rem;
+}
+
+.control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-on-surface);
+  cursor: pointer;
+}
+
+.control:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.control:focus-visible,
+.track:focus-visible {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 3px;
+}
+
+.track {
+  --aliados-gap: 0.85rem;
+  display: flex;
+  gap: var(--aliados-gap);
+  margin: 0;
+  padding: 0.15rem;
+  list-style: none;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.item {
+  flex: 0 0 calc((100% - var(--aliados-gap)) / 2);
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.plate {
+  display: grid;
+  place-items: center;
+  height: 7.25rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-md);
+  background: var(--color-on-surface);
+  color: var(--color-surface);
+}
+
+:root:not([data-theme='dark']) .plate {
+  background: var(--color-surface);
+  color: var(--color-on-surface);
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 3.6rem;
+  object-fit: contain;
+}
+
+.pending {
+  margin: 0;
+  font: var(--font-caption);
+  font-weight: 600;
+  text-align: center;
+  text-wrap: balance;
+}
+
+@media (min-width: 760px) {
+  .track {
+    --aliados-gap: 1rem;
+  }
+
+  .item {
+    flex-basis: calc((100% - 2 * var(--aliados-gap)) / 3);
+  }
+}
+
+@media (min-width: 1100px) {
+  .track {
+    --aliados-gap: 1.15rem;
+  }
+
+  .item {
+    flex-basis: calc((100% - 5 * var(--aliados-gap)) / 6);
+  }
+
+  .logo {
+    max-height: 3.85rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    scroll-behavior: auto;
+  }
+}
