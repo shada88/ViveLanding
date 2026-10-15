@@ -24,8 +24,8 @@ export const COMPANION_ORGANIZATIONS: readonly CompanionOrganization[] = [
     id: 'oea',
     name: 'Organización de los Estados Americanos (OEA)',
     logo: '/recursos/aliados/oea.png',
-    width: 500,
-    height: 500,
+    width: 960,
+    height: 380,
   },
   {
     id: 'unesco',
@@ -63,10 +63,6 @@ export const COMPANION_ORGANIZATIONS: readonly CompanionOrganization[] = [
     height: 500,
   },
   {
-    id: 'comiunesco',
-    name: 'Comiunesco Perú',
-  },
-  {
     id: 'minedu',
     name: 'Ministerio de Educación del Perú',
     logo: '/recursos/aliados/minedu-peru.svg',
@@ -81,11 +77,10 @@ export const COMPANION_ORGANIZATIONS: readonly CompanionOrganization[] = [
     height: 377,
   },
   {
-    id: 'cndu',
-    name: 'Consejo Nacional de Discapacidad (CNDU), República Dominicana',
-  },
-  {
-    id: 'carta',
-    name: 'Carta de la Tierra',
+    id: 'minc-rd',
+    name: 'Ministerio de Cultura de la República Dominicana',
+    logo: '/recursos/aliados/minc-rd.png',
+    width: 406,
+    height: 281,
   },
 ];
