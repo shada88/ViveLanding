@@ -54,7 +54,8 @@
 .nav {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 0.3rem + 1.5vw, 2rem);
+  flex-wrap: nowrap;
+  gap: clamp(0.7rem, 0.15rem + 1.05vw, 1.45rem);
 }
 
 .link {
@@ -63,6 +64,7 @@
   font-weight: 500;
   color: var(--color-on-surface-variant);
   padding-block: 0.5rem;
+  white-space: nowrap;
   transition: color var(--transition);
 }
 
@@ -157,7 +159,7 @@
   color: var(--color-gold);
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .nav {
     display: none;
   }

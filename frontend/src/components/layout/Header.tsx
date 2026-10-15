@@ -7,10 +7,9 @@ import { BrandLogo } from './BrandLogo';
 import styles from './Header.module.css';
 
 /**
- * Navegación de escritorio: cinco destinos, una sola línea. Cada uno responde a
- * una intención distinta —empezar, convocatoria, apoyo, materiales, quiénes
- * somos—; agregar un sexto la parte en dos renglones y el header deja de ser
- * sobrio.
+ * Recorrido de la portada, en el orden en que aparece. Escritorio y menú móvil
+ * usan los mismos rótulos: Partnership abre Alianzas y Contacto abre el
+ * formulario de Participar.
  *
  * Los anclas llevan `/` delante para funcionar también desde
  * `/sobre-nosotros`: en la landing, `/#rutas` es la misma página y solo hace
@@ -18,24 +17,12 @@ import styles from './Header.module.css';
  */
 const NAV = [
   { href: '/#rutas', label: 'Rutas' },
-  { href: '/#colaboraciones', label: 'Colaboraciones' },
+  { href: '/#metodo', label: 'Método' },
   { href: '/#rally', label: 'Rally 2028' },
+  { href: '/#alianzas', label: 'Partnership' },
   { href: '/#tienda', label: 'Tienda' },
-  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
-] as const;
-
-/** Menú móvil: el recorrido completo, en el orden de los actos de la landing. */
-const NAV_MOBILE = [
-  { href: '/#rutas', label: '01 · Elige tu ruta' },
-  { href: '/#colaboraciones', label: 'Colaboraciones' },
-  { href: '/#metodo', label: '02 · El método' },
-  { href: '/#rally', label: '03 · Rally 2028' },
-  { href: '/#alianzas', label: '04 · Alianzas' },
-  { href: '/#tienda', label: '05 · Tienda con causa' },
-  { href: '/#declaracion', label: '06 · Quiénes somos' },
-  { href: '/#participar', label: '07 · Unirse a la red' },
-  { href: '/#preguntas', label: '08 · Preguntas frecuentes' },
-  { href: '/sobre-nosotros', label: 'Sobre Nosotros' },
+  { href: '/#declaracion', label: 'Declaración' },
+  { href: '/#participar', label: 'Contacto' },
 ] as const;
 
 export function Header() {
@@ -126,7 +113,7 @@ export function Header() {
       */}
       <div id="menu-movil" className={styles.panel} hidden={!open}>
         <nav className={styles.panelNav} aria-label="Navegación completa">
-          {NAV_MOBILE.map((item) => (
+          {NAV.map((item) => (
             <Link
               key={item.href}
               href={item.href}
