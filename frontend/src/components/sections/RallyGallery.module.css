@@ -1,0 +1,244 @@
+/*
+ * Archivo fotográfico del Rally, al pie de la parte 03. Sigue el tema de la
+ * superficie (claro u oscuro): sin contenedor con sombra, la jerarquía la dan
+ * el filete y el aire. Solo el popup es ink, porque tapa la página entera.
+ */
+.gallery {
+  margin-top: clamp(3rem, 2rem + 4vw, 5.5rem);
+  padding-top: clamp(2rem, 1.5rem + 2vw, 3rem);
+  border-top: 1px solid var(--color-gold-border);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.eyebrow {
+  font: var(--font-caption);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-surface-muted);
+  margin-bottom: 0.4rem;
+}
+
+.title {
+  font: 800 clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem) / 1.1 var(--font-family);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-on-surface);
+}
+
+.controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.control {
+  display: inline-grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-gold-border);
+  background: var(--color-surface-container);
+  color: var(--color-on-surface);
+  cursor: pointer;
+  transition:
+    border-color var(--transition),
+    color var(--transition),
+    transform var(--transition-fast);
+}
+
+.control:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.control:active {
+  transform: scale(0.94);
+}
+
+.control[aria-pressed='true'] {
+  color: var(--color-gold);
+}
+
+/* ── Riel ──────────────────────────────────────────────────────────────── */
+
+.track {
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0.5rem 0 1rem;
+  list-style: none;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  /* Las fotos entran y salen fundidas por los costados: el borde duro del
+     riel delataría una caja dentro de la banda. */
+  mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.slide {
+  flex: 0 0 auto;
+  width: min(78vw, 340px);
+  scroll-snap-align: start;
+}
+
+.thumb {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface-high);
+  cursor: zoom-in;
+}
+
+.thumb::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 0 1px var(--color-gold-border);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.thumb:hover::after,
+.thumb:focus-visible::after {
+  opacity: 1;
+}
+
+.thumbImage {
+  object-fit: cover;
+  transition: transform var(--transition-soft);
+}
+
+.thumb:hover .thumbImage {
+  transform: scale(1.04);
+}
+
+/* ── Popup ─────────────────────────────────────────────────────────────── */
+
+.lightbox {
+  width: 100vw;
+  max-width: 100vw;
+  height: 100dvh;
+  max-height: 100dvh;
+  margin: 0;
+  padding: clamp(3.5rem, 2rem + 4vw, 5rem) clamp(1rem, 0.5rem + 5vw, 6rem);
+  border: 0;
+  background: transparent;
+  color: var(--color-on-ink);
+}
+
+/* Dentro del popup los controles flotan sobre ink en ambos temas. */
+.lightbox .control {
+  background: var(--color-ink-raised);
+  color: var(--color-on-ink);
+}
+
+.lightbox .control:hover {
+  color: var(--color-gold-bright);
+}
+
+.lightbox::backdrop {
+  background: color-mix(in srgb, var(--color-ink) 92%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.lightbox[open] {
+  display: grid;
+  place-items: center;
+  animation: appear var(--transition) both;
+}
+
+.figure {
+  display: grid;
+  gap: 0.75rem;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  grid-template-rows: 1fr auto;
+  pointer-events: none;
+}
+
+.frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.fullImage {
+  object-fit: contain;
+  pointer-events: auto;
+}
+
+.caption {
+  font: var(--font-caption);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--color-on-ink-variant);
+  text-align: center;
+}
+
+.close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+}
+
+.nav {
+  position: fixed;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+.navPrev {
+  left: 1rem;
+}
+
+.navNext {
+  right: 1rem;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 599px) {
+  .nav {
+    top: auto;
+    bottom: 1rem;
+    translate: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .thumbImage,
+  .control {
+    transition: none;
+  }
+
+  .thumb:hover .thumbImage {
+    transform: none;
+  }
+
+  .lightbox[open] {
+    animation: none;
+  }
+}

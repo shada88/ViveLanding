@@ -25,6 +25,10 @@ const pairs = [
   // Nota de protección de menores (FAQ), sobre primary-soft.
   ['OSCURO  texto variante / primary-soft','#a9b7ce','#0b1930', 4.5],
   ['CLARO   texto variante / primary-soft','#43506b','#eaf0ff', 4.5],
+  // Panel de Kaleo en la Ruta A: ink en ambos temas, premisa en gold-bright.
+  ['CLARO   gold-bright / ink',            '#b08429','#04070e', 4.5],
+  ['OSCURO  gold-bright / ink',            '#f5d79a','#101c31', 4.5],
+  ['CLARO   on-ink-variant / ink',         '#a9b7ce','#04070e', 4.5],
 ];
 let fail=0;
 for (const [name,fg,bg,min] of pairs) {

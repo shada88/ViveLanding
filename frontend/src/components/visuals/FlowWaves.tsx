@@ -44,9 +44,9 @@ const NODES = [
 /**
  * Campo de ondas — el motivo visual propio de KALEO.
  *
- * Vive EXCLUSIVAMENTE dentro de la sección Kaleo y no aparece en ninguna otra
- * parte de la landing. Es una excepción deliberada a la regla de "cero ondas"
- * del sistema de Vive con Esperanza: dentro de su propia sección manda la
+ * Vive EXCLUSIVAMENTE en el panel de Kaleo de la Ruta A (`RoutesSection`) y no
+ * aparece en ninguna otra parte de la landing. Es una excepción deliberada a la
+ * regla de "cero ondas" del sistema de Vive con Esperanza: dentro de su panel manda la
  * identidad de Kaleo, donde la onda significa información que fluye,
  * comunicación y aprendizaje que se expande. Fuera de ahí, no significa nada
  * y queda prohibida.

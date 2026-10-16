@@ -18,6 +18,7 @@ import { BANCO_VIVO, BANCO_VIVO_GAINS } from '@/domain/entities/BancoVivo';
 import { KALEO_DATA } from '@/domain/entities/Kaleo';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { Reveal } from '@/components/motion/Reveal';
+import { FlowWaves } from '@/components/visuals/FlowWaves';
 import styles from './RoutesSection.module.css';
 
 type PanelId = 'ruta-b' | 'ruta-a' | 'colaboraciones';
@@ -26,15 +27,16 @@ const PANEL_FROM_HASH: Record<string, PanelId> = {
   '#ruta-b': 'ruta-b',
   '#ruta-a': 'ruta-a',
   '#colaboraciones': 'colaboraciones',
-  '#kaleo': 'colaboraciones',
+  '#kaleo': 'ruta-a',
   '#banco-vivo': 'colaboraciones',
 };
 
 /**
  * Sección 1, inmediatamente después del hero.
  *
- * Tres caminos y tres cuadros. Colaboraciones reúne lo que antes era la
- * sección Kaleo y Banco Vivo. Las tarjetas no son enlaces: solo lo es su botón.
+ * Tres caminos y tres cuadros. Kaleo vive dentro de la Ruta A como su
+ * siguiente paso; Colaboraciones queda para Banco Vivo y el puente a las
+ * alianzas. Las tarjetas no son enlaces: solo lo es su botón.
  *
  * Cada cuadro es un desplegable. El título permanece visible. El detalle se
  * abre con el cuadro o con el botón de arriba, para que un ancla no llegue a
@@ -205,21 +207,84 @@ export function RoutesSection() {
                   previousLabel="Anterior en la Ruta A"
                   nextLabel="Siguiente en la Ruta A"
                 />
-                <div className={styles.kaleo} aria-labelledby="kaleo-paso-titulo">
-                  <p className={styles.kicker}>{KALEO_STEP.label}</p>
-                  <h4 id="kaleo-paso-titulo" className={styles.kaleoTitle}>
-                    {KALEO_STEP.title}
-                  </h4>
-                  <p className={styles.blockSummary}>{KALEO_STEP.summary}</p>
-                  <div className={styles.practiceActions}>
-                    <ExternalLink action={KALEO_STEP.primary} />
+                {/*
+                  Kaleo con su identidad propia: panel ink y las ondas de
+                  `FlowWaves`, la excepción registrada en AGENTS.md. Fuera de
+                  este panel la onda sigue prohibida. El logotipo de Kaleo
+                  aparece UNA sola vez en la página, y es acá.
+                */}
+                <div
+                  id="kaleo"
+                  className={styles.kaleo}
+                  role="group"
+                  aria-labelledby="kaleo-paso-titulo"
+                >
+                  <FlowWaves className={styles.kaleoWaves} />
+
+                  <div className={styles.kaleoInner}>
+                    <div className={styles.kaleoMain}>
+                      <p className={styles.kicker}>{KALEO_STEP.label}</p>
+                      <div className={styles.kaleoRow}>
+                        <a
+                          href={KALEO_DATA.appUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.brandLink}
+                        >
+                          <BrandLogo brand="kaleo" height={44} tone="on-ink" />
+                          <span className="sr-only">, se abre en una pestaña nueva</span>
+                        </a>
+                        <span className={styles.by}>{KALEO_DATA.byText}</span>
+                      </div>
+                      <p className={styles.kaleoTagline}>{KALEO_DATA.tagline}</p>
+                      <h4 id="kaleo-paso-titulo" className={styles.kaleoTitle}>
+                        {KALEO_STEP.title}
+                      </h4>
+                      <p className={styles.blockSummary}>{KALEO_STEP.summary}</p>
+                      <div className={styles.practiceActions}>
+                        <a
+                          href={KALEO_STEP.request.href}
+                          className="btn btn--lg btn--primary"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span>{KALEO_STEP.request.label}</span>
+                          <ArrowUpRight size={18} aria-hidden="true" />
+                          <span className="sr-only">, se abre en una pestaña nueva</span>
+                        </a>
+                        <a
+                          href={KALEO_STEP.platform.href}
+                          className={styles.kaleoLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          <span>{KALEO_STEP.platform.label}</span>
+                          <ArrowUpRight size={16} aria-hidden="true" />
+                          <span className="sr-only">, se abre en una pestaña nueva</span>
+                        </a>
+                      </div>
+                    </div>
+
+                    <div className={styles.kaleoAside}>
+                      <p className={styles.kaleoPremise}>{KALEO_DATA.premise}</p>
+                      <ol className={styles.pillarList}>
+                        {KALEO_DATA.pillars.map((pillar) => (
+                          <li key={pillar.title} className={styles.pillarItem}>
+                            <span className={styles.pillarTitle}>
+                              {pillar.title} · {pillar.action}
+                            </span>
+                            <span className={styles.pillarBody}>{pillar.description}</span>
+                          </li>
+                        ))}
+                      </ol>
+                      <p className={styles.note}>{KALEO_DATA.coreValue}</p>
+                    </div>
                   </div>
-                  <p className={styles.flow}>{KALEO_STEP.flow}</p>
-                  <p className={styles.safety}>{KALEO_STEP.safety}</p>
-                  <a href={KALEO_STEP.secondary.href} className="link-arrow">
-                    <span>{KALEO_STEP.secondary.label}</span>
-                    <ArrowDown size={16} aria-hidden="true" />
-                  </a>
+
+                  <div className={styles.kaleoFoot}>
+                    <p className={styles.flow}>{KALEO_STEP.flow}</p>
+                    <p className={styles.safety}>{KALEO_STEP.safety}</p>
+                  </div>
                 </div>
               </div>
             </details>
@@ -230,7 +295,6 @@ export function RoutesSection() {
             className={styles.collaboration}
             aria-labelledby="colaboraciones-titulo"
           >
-            <div id="kaleo" className={styles.anchorAlias} />
             <div id="banco-vivo" className={styles.anchorAlias} />
             <details ref={collaborationRef} className={styles.disclosure}>
               <summary className={styles.disclosureSummary}>
@@ -251,8 +315,8 @@ export function RoutesSection() {
                 <ChevronDown size={22} aria-hidden="true" className={styles.chevron} />
               </summary>
               <div className={styles.disclosureBody}>
-                <div className={styles.ways}>
-                  <div className={styles.way}>
+                <div className={styles.banco}>
+                  <div className={styles.bancoIntro}>
                     <p className={styles.kicker}>{COLLABORATION.contributeLabel}</p>
                     <Image
                       src={BANCO_VIVO.logo}
@@ -265,15 +329,6 @@ export function RoutesSection() {
                       <strong>Directivos y docentes:</strong> {COLLABORATION.contributeBody.schools}{' '}
                       <strong>Profesionales:</strong> {COLLABORATION.contributeBody.professionals}
                     </p>
-                    <p className={styles.wayLabel}>{COLLABORATION.gainsLabel}</p>
-                    <ul className={styles.gainList}>
-                      {BANCO_VIVO_GAINS.map((gain) => (
-                        <li key={gain.label} className={styles.gain}>
-                          <p className={styles.gainLabel}>{gain.label}</p>
-                          <p className={styles.gainBody}>{gain.body}</p>
-                        </li>
-                      ))}
-                    </ul>
                     <div className={styles.practiceActions}>
                       <a
                         href={KALEO_DATA.paths.wantToHelp.url}
@@ -292,62 +347,27 @@ export function RoutesSection() {
                     </div>
                   </div>
 
-                  <div className={styles.way}>
-                    <p className={styles.kicker}>{COLLABORATION.orientLabel}</p>
-                    <div className={styles.kaleoRow}>
-                      <a
-                        href={KALEO_DATA.appUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={styles.brandLink}
-                      >
-                        <BrandLogo brand="kaleo" height={44} tone="on-ink" />
-                        <span className="sr-only">, se abre en una pestaña nueva</span>
-                      </a>
-                      <span className={styles.by}>{KALEO_DATA.byText}</span>
-                    </div>
-                    <p className={styles.wayBody}>{COLLABORATION.orientBody}</p>
-                    <ul className={styles.pillarList}>
-                      {KALEO_DATA.pillars.map((pillar) => (
-                        <li key={pillar.title} className={styles.pillarItem}>
-                          <span className={styles.pillarTitle}>{pillar.title}</span>
-                          <span className={styles.pillarBody}>{pillar.description}</span>
+                  <div className={styles.bancoGains}>
+                    <p className={styles.wayLabel}>{COLLABORATION.gainsLabel}</p>
+                    <ul className={styles.gainList}>
+                      {BANCO_VIVO_GAINS.map((gain) => (
+                        <li key={gain.label} className={styles.gain}>
+                          <p className={styles.gainLabel}>{gain.label}</p>
+                          <p className={styles.gainBody}>{gain.body}</p>
                         </li>
                       ))}
                     </ul>
-                    <div className={styles.practiceActions}>
-                      <a
-                        href={KALEO_DATA.paths.needHelp.url}
-                        className="btn btn--lg btn--primary"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span>{COLLABORATION.requestLabel}</span>
-                        <ArrowUpRight size={18} aria-hidden="true" />
-                        <span className="sr-only">, se abre en una pestaña nueva</span>
-                      </a>
-                      <a
-                        href={KALEO_DATA.appUrl}
-                        className="link-arrow"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <span>{COLLABORATION.platformLabel}</span>
-                        <ArrowUpRight size={16} aria-hidden="true" />
-                        <span className="sr-only">, se abre en una pestaña nueva</span>
-                      </a>
-                    </div>
                   </div>
                 </div>
 
                 <div className={styles.collabClose}>
-                  <p className={styles.note}>{KALEO_DATA.coreValue}</p>
-                  <p className={styles.safety}>
-                    {BANCO_VIVO.disclaimer} {COLLABORATION.kaleoLimit}
-                  </p>
-                  <a href="#alianzas" className="link-arrow">
+                  <p className={styles.safety}>{BANCO_VIVO.disclaimer}</p>
+                  <a
+                    href="#alianzas"
+                    className={`btn btn--lg btn--primary btn--block ${styles.alliancesCta}`}
+                  >
                     <span>{COLLABORATION.alliancesLabel}</span>
-                    <ArrowDown size={16} aria-hidden="true" />
+                    <ArrowDown size={18} aria-hidden="true" />
                   </a>
                 </div>
               </div>
@@ -555,16 +575,6 @@ function InPageLink({
       {tone === 'emergency' && <LiveDot />}
       <span>{action.label}</span>
       <ArrowDown size={18} aria-hidden="true" />
-    </a>
-  );
-}
-
-function ExternalLink({ action }: { action: RouteAction }) {
-  return (
-    <a href={action.href} className="btn btn--lg btn--primary" target="_blank" rel="noopener noreferrer">
-      <span>{action.label}</span>
-      <ArrowUpRight size={18} aria-hidden="true" />
-      <span className="sr-only">, se abre en una pestaña nueva</span>
     </a>
   );
 }
