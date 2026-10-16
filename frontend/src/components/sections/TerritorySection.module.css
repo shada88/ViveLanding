@@ -128,3 +128,23 @@
     position: static;
   }
 }
+
+/* ── Fondo: la red de partículas ─────────────────────────────────────────
+   La sección posiciona el lienzo y aísla su apilamiento; el contenido sube
+   un plano para que el texto quede siempre por encima de los nodos.
+   `overflow: clip` y NO `hidden`: `hidden` vuelve a la sección un contenedor
+   de scroll y el mapa, que es `sticky`, dejaría de pegarse. */
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+}
+
+.net {
+  opacity: 0.55;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+}

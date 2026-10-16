@@ -10,7 +10,9 @@ import {
 } from 'lucide-react';
 import { Reveal } from '@/components/motion/Reveal';
 import { BrandLogo } from '@/components/layout/BrandLogo';
+import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
 import { TERRITORY_NODES } from '@/domain/entities/Territory';
+import { RallyGallery } from './RallyGallery';
 import styles from './TerritorySection.module.css';
 
 interface CategoryItem {
@@ -61,8 +63,16 @@ const RALLY_BASES_URL: string | null = null;
  */
 export function TerritorySection() {
   return (
-      <section id="rally" className="section" aria-labelledby="territorio-titulo">
-        <div className="shell">
+      <section
+        id="rally"
+        className={`section ${styles.section}`}
+        aria-labelledby="territorio-titulo"
+      >
+        {/* La red de fondo es la misma que enlaza los territorios del mapa: acá
+            responde al puntero porque la sección invita a explorar. */}
+        <ParticleNetwork density="soft" className={styles.net} />
+
+        <div className={`shell ${styles.inner}`}>
           <div className={styles.layout}>
             <div className={styles.copy}>
               <header className={styles.intro}>
@@ -159,6 +169,8 @@ export function TerritorySection() {
               </div>
             </Reveal>
           </div>
+
+          <RallyGallery />
         </div>
       </section>
   );
