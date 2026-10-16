@@ -9,6 +9,8 @@
  * y Kaleo conservan los destinos que ya tenía la página.
  */
 
+import { KALEO_DATA } from './Kaleo';
+
 export interface RouteAction {
   label: string;
   href: string;
@@ -59,30 +61,27 @@ export const ENTRY_PATHS: EntryPath[] = [
   },
 ];
 
-/** La antigua sección 2, dentro de la sección 1. */
+/**
+ * La antigua sección 2, dentro de la sección 1. Kaleo ya no vive acá: es el
+ * siguiente paso de la Ruta A. Colaboraciones queda para Banco Vivo y para el
+ * puente hacia las alianzas institucionales.
+ */
 export const COLLABORATION = {
   id: 'colaboraciones',
   label: 'Colaboraciones',
   title: 'Una red para compartir lo que ayuda y encontrar apoyo cuando hace falta',
   summary:
-    'Aquí Kaleo te ayuda a explorar opciones de acompañamiento y conexión con recursos disponibles; Banco Vivo completa la red con experiencias escolares en emergencias y tiempo profesional voluntario.',
-  contributeLabel: '1 · Quiero contribuir',
-  orientLabel: '2 · Necesito orientación',
+    'Banco Vivo reúne experiencias escolares en emergencias y tiempo profesional voluntario para que otras escuelas puedan aprender y recibir acompañamiento.',
+  contributeLabel: 'Quiero contribuir',
   gainsLabel: 'Beneficios para tu escuela',
   shareLabel: 'Compartir una experiencia o mi tiempo',
   legalLabel: 'Documento legal del testimonio',
-  requestLabel: 'Solicitar orientación y acompañamiento',
-  platformLabel: 'Acceder a la plataforma Kaleo',
   alliancesLabel: 'Explorar una colaboración institucional',
   contributeBody: {
     schools:
       'comparte una experiencia útil al enfrentar una emergencia escolar para que otras escuelas puedan aprender.',
     professionals: 'ofrece tiempo y conocimiento para acompañar a comunidades educativas.',
   },
-  orientBody:
-    '¿Tu escuela o comunidad enfrenta una emergencia o un desastre? Solicita orientación para identificar posibles pasos y conectar con capacidades o recursos disponibles según el contexto.',
-  kaleoLimit:
-    'Kaleo facilita orientación y conexión según la cobertura y los recursos disponibles: no sustituye los servicios oficiales de emergencia, salud o protección. Si existe peligro inmediato, contacta a los servicios de emergencia de tu territorio.',
 } as const;
 
 export const ROUTE_B = {
@@ -134,18 +133,26 @@ export const ROUTE_A = {
   ],
 } as const;
 
+/**
+ * Kaleo dentro de la Ruta A: la información principal del producto y sus dos
+ * puertas, pedir orientación o entrar a la plataforma.
+ */
 export const KALEO_STEP = {
   label: 'Siguiente paso recomendado',
   title: '¿Necesitas orientación para tu comunidad?',
   summary:
     'Kaleo es el siguiente paso de orientación, no una línea de respuesta inmediata. Describe la necesidad general de tu comunidad educativa para explorar opciones de acompañamiento y posibles conexiones con capacidades o recursos disponibles, según la cobertura y el contexto. No incluyas nombres ni datos sensibles de menores.',
-  primary: {
-    label: 'Solicitar orientación en Kaleo',
+  request: {
+    label: 'Solicitar orientación y acompañamiento',
     href: 'https://kaleo-sage.vercel.app/inscripcion?via=ruta-a-emergencia',
+    external: true,
+  },
+  platform: {
+    label: 'Acceder a la plataforma Kaleo',
+    href: KALEO_DATA.appUrl,
     external: true,
   },
   flow: 'Ruta A: identificar la necesidad · Kaleo: solicitar orientación',
   safety:
-    'Seguridad primero: no ingreses datos sensibles de menores. Ante peligro inmediato, contacta los servicios oficiales de emergencia y sigue las instrucciones de las autoridades; estos recursos no sustituyen la evaluación de profesionales competentes.',
-  secondary: { label: 'Conocer cómo funciona Kaleo', href: '#kaleo' },
+    'Seguridad primero: no ingreses datos sensibles de menores. Kaleo facilita orientación y conexión según la cobertura y los recursos disponibles: no sustituye los servicios oficiales de emergencia, salud o protección. Ante peligro inmediato, contacta los servicios oficiales de emergencia de tu territorio y sigue las instrucciones de las autoridades.',
 } as const;
