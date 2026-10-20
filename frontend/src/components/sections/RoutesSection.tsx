@@ -2,20 +2,39 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { ArrowDown, ArrowLeft, ArrowRight, ArrowUpRight, Check, ChevronDown } from 'lucide-react';
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Check,
+  BellRing,
+  ChevronDown,
+  Download,
+  FileText,
+  HeartHandshake,
+  NotebookPen,
+  School,
+  ShieldCheck,
+  Siren,
+  Sprout,
+  type LucideIcon,
+} from 'lucide-react';
 import {
   COLLABORATION,
   ENTRY_PATHS,
   KALEO_STEP,
   PRACTICE,
   ROUTE_A,
+  ROUTE_A_RESOURCES,
   ROUTE_B,
   ROUTES_INTRO,
   type EntryPath,
   type RouteAction,
+  type RouteResource,
 } from '@/domain/entities/Route';
 import { BANCO_VIVO, BANCO_VIVO_GAINS } from '@/domain/entities/BancoVivo';
-import { KALEO_DATA } from '@/domain/entities/Kaleo';
+import { KALEO_DATA, type KaleoPillar } from '@/domain/entities/Kaleo';
 import { BrandLogo } from '@/components/layout/BrandLogo';
 import { Reveal } from '@/components/motion/Reveal';
 import { FlowWaves } from '@/components/visuals/FlowWaves';
@@ -199,14 +218,7 @@ export function RoutesSection() {
                 <ChevronDown size={22} aria-hidden="true" className={styles.chevron} />
               </summary>
               <div className={styles.disclosureBody}>
-                <BeatList
-                  id="ruta-a-puntos"
-                  items={ROUTE_A.points}
-                  mode="points"
-                  listLabel="Orientaciones de la Ruta A"
-                  previousLabel="Anterior en la Ruta A"
-                  nextLabel="Siguiente en la Ruta A"
-                />
+                <ResourceGallery resources={ROUTE_A_RESOURCES} />
                 {/*
                   Kaleo con su identidad propia: panel ink y las ondas de
                   `FlowWaves`, la excepción registrada en AGENTS.md. Fuera de
@@ -222,67 +234,72 @@ export function RoutesSection() {
                   <FlowWaves className={styles.kaleoWaves} />
 
                   <div className={styles.kaleoInner}>
-                    <div className={styles.kaleoMain}>
-                      <p className={styles.kicker}>{KALEO_STEP.label}</p>
-                      <div className={styles.kaleoRow}>
-                        <a
-                          href={KALEO_DATA.appUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={styles.brandLink}
-                        >
-                          <BrandLogo brand="kaleo" height={44} tone="on-ink" />
-                          <span className="sr-only">, se abre en una pestaña nueva</span>
-                        </a>
-                        <span className={styles.by}>{KALEO_DATA.byText}</span>
-                      </div>
-                      <p className={styles.kaleoTagline}>{KALEO_DATA.tagline}</p>
-                      <h4 id="kaleo-paso-titulo" className={styles.kaleoTitle}>
-                        {KALEO_STEP.title}
-                      </h4>
-                      <p className={styles.blockSummary}>{KALEO_STEP.summary}</p>
-                      <div className={styles.practiceActions}>
-                        <a
-                          href={KALEO_STEP.request.href}
-                          className="btn btn--lg btn--primary"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <span>{KALEO_STEP.request.label}</span>
-                          <ArrowUpRight size={18} aria-hidden="true" />
-                          <span className="sr-only">, se abre en una pestaña nueva</span>
-                        </a>
-                        <a
-                          href={KALEO_STEP.platform.href}
-                          className={styles.kaleoLink}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
-                          <span>{KALEO_STEP.platform.label}</span>
-                          <ArrowUpRight size={16} aria-hidden="true" />
-                          <span className="sr-only">, se abre en una pestaña nueva</span>
-                        </a>
-                      </div>
+                    <p className={styles.kicker}>{KALEO_STEP.label}</p>
+                    <div className={styles.kaleoRow}>
+                      <a
+                        href={KALEO_DATA.appUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={styles.brandLink}
+                      >
+                        <BrandLogo brand="kaleo" height={44} tone="on-ink" />
+                        <span className="sr-only">, se abre en una pestaña nueva</span>
+                      </a>
+                      <span className={styles.by}>{KALEO_DATA.byText}</span>
+                    </div>
+                    <p className={styles.kaleoTagline}>{KALEO_DATA.tagline}</p>
+                    <h4 id="kaleo-paso-titulo" className={styles.kaleoTitle}>
+                      {KALEO_STEP.title}
+                    </h4>
+                    <p className={styles.kaleoSummary}>{KALEO_STEP.summary}</p>
+                    <div className={styles.kaleoActions}>
+                      <a
+                        href={KALEO_STEP.request.href}
+                        className="btn btn--lg btn--primary"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>{KALEO_STEP.request.label}</span>
+                        <ArrowUpRight size={18} aria-hidden="true" />
+                        <span className="sr-only">, se abre en una pestaña nueva</span>
+                      </a>
+                      <a
+                        href={KALEO_STEP.platform.href}
+                        className={styles.kaleoLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <span>{KALEO_STEP.platform.label}</span>
+                        <ArrowUpRight size={16} aria-hidden="true" />
+                        <span className="sr-only">, se abre en una pestaña nueva</span>
+                      </a>
                     </div>
 
-                    <div className={styles.kaleoAside}>
-                      <p className={styles.kaleoPremise}>{KALEO_DATA.premise}</p>
-                      <ol className={styles.pillarList}>
-                        {KALEO_DATA.pillars.map((pillar) => (
-                          <li key={pillar.title} className={styles.pillarItem}>
-                            <span className={styles.pillarTitle}>
-                              {pillar.title} · {pillar.action}
-                            </span>
-                            <span className={styles.pillarBody}>{pillar.description}</span>
-                          </li>
-                        ))}
-                      </ol>
-                      <p className={styles.note}>{KALEO_DATA.coreValue}</p>
-                    </div>
-                  </div>
+                    {/* Apoyo, no paso: plegado para que lo principal respire. */}
+                    <details className={styles.kaleoMore}>
+                      <summary className={styles.kaleoMoreSummary}>
+                        <span>{KALEO_STEP.more}</span>
+                        <ChevronDown size={18} aria-hidden="true" className={styles.kaleoMoreChevron} />
+                      </summary>
+                      <div className={styles.kaleoMoreBody}>
+                        <p className={styles.kaleoPremise}>{KALEO_DATA.premise}</p>
+                        <ol className={styles.pillarList}>
+                          {KALEO_DATA.pillars.map((pillar) => {
+                            const Icon = PILLAR_ICONS[pillar.iconName];
+                            return (
+                              <li key={pillar.title} className={styles.pillarItem}>
+                                <Icon size={22} aria-hidden="true" className={styles.pillarIcon} />
+                                <span className={styles.pillarTitle}>{pillar.title}</span>
+                                <span className={styles.pillarAction}>{pillar.action}</span>
+                                <span className={styles.pillarBody}>{pillar.description}</span>
+                              </li>
+                            );
+                          })}
+                        </ol>
+                        <p className={styles.kaleoCore}>{KALEO_DATA.coreValue}</p>
+                      </div>
+                    </details>
 
-                  <div className={styles.kaleoFoot}>
-                    <p className={styles.flow}>{KALEO_STEP.flow}</p>
                     <p className={styles.safety}>{KALEO_STEP.safety}</p>
                   </div>
                 </div>
@@ -557,6 +574,201 @@ function BeatList({
       ) : (
         list
       )}
+    </div>
+  );
+}
+
+/** Imagen de cada herramienta. Vive en la UI: el dominio no conoce íconos. */
+const RESOURCE_ICONS: Record<string, LucideIcon> = {
+  'structural-evaluation': School,
+  'post-trauma-support': HeartHandshake,
+  'violence-and-suicide-protocol': BellRing,
+  'emergency-curricula': NotebookPen,
+};
+
+const PILLAR_ICONS: Record<KaleoPillar['iconName'], LucideIcon> = {
+  ShieldCheck,
+  Siren,
+  Sprout,
+};
+
+/** Distancia circular de `item` a `active`, en el rango [-n/2, n/2). */
+function offsetOf(item: number, active: number, total: number): number {
+  const half = Math.floor(total / 2);
+  return ((item - active + total + half) % total) - half;
+}
+
+const SWIPE_THRESHOLD = 40;
+
+/**
+ * Galería de herramientas de la Ruta A.
+ *
+ * Una tarjeta al centro y, a los lados, la que pasó y la que viene: se ve
+ * hacia dónde va el recorrido. Da la vuelta, así siempre hay vecinas.
+ * Todas las tarjetas comparten la misma celda de la grilla, por eso la altura
+ * es la de la más alta y no salta al cambiar.
+ *
+ * Solo la tarjeta central es interactiva para el teclado y el lector; las
+ * laterales se tocan para traerlas al centro.
+ */
+function ResourceGallery({ resources }: { resources: RouteResource[] }) {
+  const total = resources.length;
+  const [{ index, from }, setPosition] = useState({ index: 0, from: 0 });
+  const [live, setLive] = useState('');
+  const pointerStart = useRef<number | null>(null);
+  const swiped = useRef(false);
+
+  const go = (next: number) => {
+    const resolved = (next + total) % total;
+    setPosition((current) => ({ index: resolved, from: current.index }));
+    setLive(`${resolved + 1} de ${total}. ${resources[resolved].point}`);
+  };
+
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'ArrowRight') {
+      event.preventDefault();
+      go(index + 1);
+    } else if (event.key === 'ArrowLeft') {
+      event.preventDefault();
+      go(index - 1);
+    }
+  };
+
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    pointerStart.current = event.clientX;
+    swiped.current = false;
+  };
+
+  const onPointerUp = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (pointerStart.current === null) return;
+    const delta = event.clientX - pointerStart.current;
+    pointerStart.current = null;
+    if (Math.abs(delta) < SWIPE_THRESHOLD) return;
+    swiped.current = true;
+    go(delta < 0 ? index + 1 : index - 1);
+  };
+
+  return (
+    <div
+      className={styles.gallery}
+      role="region"
+      aria-roledescription="carrusel"
+      aria-label={ROUTE_A.galleryLabel}
+      onKeyDown={onKeyDown}
+    >
+      <div
+        className={styles.galleryViewport}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        onPointerCancel={() => {
+          pointerStart.current = null;
+        }}
+        onClickCapture={(event) => {
+          // Un deslizamiento no es un clic: ni abre el PDF ni elige tarjeta.
+          if (!swiped.current) return;
+          swiped.current = false;
+          event.preventDefault();
+          event.stopPropagation();
+        }}
+      >
+        <ul className={styles.galleryTrack}>
+          {resources.map((resource, itemIndex) => {
+            const offset = offsetOf(itemIndex, index, total);
+            const wasHidden = Math.abs(offsetOf(itemIndex, from, total)) > 1;
+            const isActive = offset === 0;
+            const Icon = RESOURCE_ICONS[resource.id] ?? FileText;
+            return (
+              <li
+                key={resource.id}
+                className={styles.slide}
+                data-offset={Math.max(-2, Math.min(2, offset))}
+                data-entering={wasHidden && Math.abs(offset) <= 1 ? 'true' : undefined}
+                aria-roledescription="diapositiva"
+                aria-label={`${itemIndex + 1} de ${total}`}
+                aria-hidden={isActive ? undefined : true}
+                onClick={() => {
+                  if (!isActive) go(itemIndex);
+                }}
+              >
+                <article className={styles.slideCard} aria-labelledby={`recurso-${resource.id}`}>
+                  <span className={styles.slideIcon} aria-hidden="true">
+                    <Icon size={28} strokeWidth={1.6} />
+                  </span>
+                  <h4 id={`recurso-${resource.id}`} className={styles.slideTitle}>
+                    {resource.point}
+                  </h4>
+                  <p className={styles.slideBody}>{resource.description}</p>
+                  <p className={styles.slideMeta}>
+                    <FileText size={14} aria-hidden="true" />
+                    <span>{resource.title}</span>
+                  </p>
+                  <p className={styles.slideMeta}>
+                    {resource.timeEstimate} · {resource.targetAudience}
+                  </p>
+                  <div className={styles.slideActions}>
+                    <a
+                      href={resource.downloadUrl}
+                      className="btn btn--primary"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      tabIndex={isActive ? undefined : -1}
+                    >
+                      <span>{ROUTE_A.openLabel}</span>
+                      <ArrowUpRight size={16} aria-hidden="true" />
+                      <span className="sr-only">: {resource.title}, se abre en una pestaña nueva</span>
+                    </a>
+                    <a
+                      href={resource.downloadUrl}
+                      className="link-arrow"
+                      download
+                      tabIndex={isActive ? undefined : -1}
+                    >
+                      <Download size={16} aria-hidden="true" />
+                      <span>{ROUTE_A.downloadLabel}</span>
+                      <span className="sr-only"> {resource.title} (PDF)</span>
+                    </a>
+                  </div>
+                </article>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+
+      <div className={styles.galleryNav}>
+        <button
+          type="button"
+          className={styles.deckBtn}
+          aria-label="Herramienta anterior"
+          onClick={() => go(index - 1)}
+        >
+          <ArrowLeft size={16} aria-hidden="true" />
+          <span>Anterior</span>
+        </button>
+        <p className={styles.deckStatus}>
+          <span className={styles.deckNodes} aria-hidden="true">
+            {resources.map((resource, itemIndex) => (
+              <span
+                key={resource.id}
+                className={itemIndex === index ? styles.deckNodeOn : styles.deckNode}
+              />
+            ))}
+          </span>
+          {index + 1} de {total}
+        </p>
+        <button
+          type="button"
+          className={styles.deckBtn}
+          aria-label="Herramienta siguiente"
+          onClick={() => go(index + 1)}
+        >
+          <span>Siguiente</span>
+          <ArrowRight size={16} aria-hidden="true" />
+        </button>
+      </div>
+      <p className="sr-only" aria-live="polite">
+        {live}
+      </p>
     </div>
   );
 }
