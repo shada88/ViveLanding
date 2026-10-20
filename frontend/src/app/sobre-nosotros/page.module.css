@@ -3,25 +3,27 @@
 .hero {
   isolation: isolate;
   overflow: hidden;
-  padding-block: clamp(3rem, 2rem + 4vw, 6rem) clamp(3rem, 2rem + 4vw, 5.5rem);
+  padding-block: clamp(3.5rem, 2rem + 5vw, 7rem) clamp(3.5rem, 2rem + 4.5vw, 6.5rem);
 }
 
+/* La red y la luz quedan de fondo: atenuadas y corridas hacia la derecha, lejos
+   del título, para que no compitan con él. */
 .net {
-  opacity: 0.45;
+  opacity: 0.22;
 }
 
 .glow {
-  width: min(620px, 80vw);
-  height: min(620px, 80vw);
-  top: -20%;
-  right: -10%;
-  opacity: 0.35;
+  width: min(520px, 70vw);
+  height: min(520px, 70vw);
+  top: -28%;
+  right: -16%;
+  opacity: 0.22;
 }
 
 .heroInner {
   position: relative;
   z-index: 1;
-  max-width: 60rem;
+  max-width: 64rem;
 }
 
 /* `flex` y no `inline-flex`: el eyebrow que sigue también es `inline-flex`, y
@@ -43,28 +45,38 @@
   color: var(--color-primary);
 }
 
+/* Dos frases, una por renglón en escritorio: como mucho tres en tablet. Un
+   punto menos que `--font-display` para que «Educación que transforma.» entre
+   entera en una línea. */
 .heroTitle {
-  margin: 1rem 0 1.25rem;
-  text-wrap: balance;
+  margin: 1.25rem 0 1.5rem;
+  font-size: clamp(2.25rem, 1.2rem + 4.3vw, 4.35rem);
+  line-height: 1.05;
+}
+
+.heroLine {
+  display: block;
 }
 
 .heroLede {
-  max-width: 52ch;
-  margin-bottom: 1.5rem;
+  max-width: 54ch;
+  margin: 0;
 }
 
 .legal {
-  margin: 0;
+  margin: clamp(1.75rem, 1.25rem + 1.2vw, 2.5rem) 0 0;
   font: var(--font-body-sm);
   color: var(--color-on-surface-muted);
 }
 
-.legal strong {
-  color: var(--color-gold);
-  font-weight: 600;
-}
+/* ══ 01 · Origen ════════════════════════════════════════════════════════
+   La foto vive en una forma orgánica, casi un círculo, que respira despacio:
+   cambia un poco de contorno y flota apenas. La proporción es más ancha que
+   alta para que entren la ciudad, el farol y el perro.
 
-/* ══ 01 · Origen ════════════════════════════════════════════════════════ */
+   El perro y la paloma están abajo a la derecha del cuadro, justo donde un
+   círculo perfecto los cortaría: esa esquina tiene el radio MÁS CHICO en
+   todos los fotogramas de la animación. */
 
 .origin {
   align-items: center;
@@ -73,6 +85,61 @@
 .originMedia,
 .originCopy {
   min-width: 0;
+}
+
+.originFrame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 5 / 4;
+  border-radius: 50% 50% 34% 50% / 52% 50% 36% 48%;
+  background: var(--color-ink);
+  box-shadow: var(--shadow-float);
+}
+
+.originImage {
+  object-fit: cover;
+  object-position: 92% 50%;
+}
+
+/* Luz de borde dorada: el acento como reflejo, no como relleno. */
+.originRim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 1px var(--color-gold-border);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .originFrame {
+    animation:
+      origin-morph 16s var(--ease-in-out-soft) infinite alternate,
+      origin-float 9s var(--ease-in-out-soft) infinite alternate;
+  }
+}
+
+@keyframes origin-morph {
+  0% {
+    border-radius: 50% 50% 34% 50% / 52% 50% 36% 48%;
+  }
+
+  50% {
+    border-radius: 55% 45% 38% 52% / 47% 54% 34% 53%;
+  }
+
+  100% {
+    border-radius: 46% 54% 32% 47% / 55% 46% 38% 50%;
+  }
+}
+
+@keyframes origin-float {
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(-0.5rem);
+  }
 }
 
 .step {
