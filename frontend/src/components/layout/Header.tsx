@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
 import { BrandLogo } from './BrandLogo';
 import styles from './Header.module.css';
 
@@ -24,6 +24,9 @@ const NAV = [
   { href: '/#declaracion', label: 'Declaración' },
   { href: '/#participar', label: 'Contacto' },
 ] as const;
+
+/** Herramienta externa para que la escuela ordene sus prioridades. */
+const PRIORITIES_URL = 'https://8fxbhfsdcz.zite.so';
 
 export function Header() {
   const [open, setOpen] = useState(false);
@@ -86,10 +89,16 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <Link href="/#participar" className={`btn btn--primary ${styles.cta}`}>
-            <span>Dona ahora</span>
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
+          <a
+            href={PRIORITIES_URL}
+            className={`btn btn--primary ${styles.cta}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span>Evalúa tus prioridades</span>
+            <ArrowUpRight size={16} aria-hidden="true" />
+            <span className="sr-only">, se abre en una pestaña nueva</span>
+          </a>
 
           <button
             ref={toggleRef}
