@@ -9,6 +9,7 @@
  * y Kaleo conservan los destinos que ya tenía la página.
  */
 
+import { CANONICAL_CRISIS_TOOLS, type CrisisTool } from './CrisisTool';
 import { KALEO_DATA } from './Kaleo';
 
 export interface RouteAction {
@@ -125,23 +126,48 @@ export const ROUTE_A = {
   title: 'Herramientas para actuar ante una emergencia escolar',
   summary:
     'Si tu comunidad educativa enfrenta una emergencia, empieza por los recursos de orientación disponibles. Prioriza la vida, sigue las indicaciones de las autoridades y activa los servicios oficiales cuando corresponda.',
-  points: [
-    'Orientaciones generales para identificar necesidades y riesgos.',
-    'Recursos de orientación socioemocional.',
-    'Materiales de prevención y preparación.',
-    'Recursos descargables para consulta.',
-  ],
+  galleryLabel: 'Herramientas de la Ruta A',
+  openLabel: 'Abrir el PDF',
+  downloadLabel: 'Descargar',
 } as const;
 
 /**
- * Kaleo dentro de la Ruta A: la información principal del producto y sus dos
- * puertas, pedir orientación o entrar a la plataforma.
+ * Una herramienta de la Ruta A con archivo publicado. `point` es la
+ * orientación que resuelve: es el titular de su tarjeta en la galería.
+ */
+export type RouteResource = CrisisTool & { downloadUrl: string; point: string };
+
+/**
+ * Las cuatro orientaciones de la Ruta A, cada una con su PDF. Si un id deja de
+ * existir o pierde su archivo, falla al cargar el módulo en vez de mostrar una
+ * tarjeta vacía.
+ */
+const ROUTE_A_TOOLS = [
+  { point: 'Orientaciones generales para identificar necesidades y riesgos', toolId: 'structural-evaluation' },
+  { point: 'Recursos de orientación socioemocional', toolId: 'post-trauma-support' },
+  { point: 'Materiales de prevención y preparación', toolId: 'violence-and-suicide-protocol' },
+  { point: 'Recursos descargables para consulta', toolId: 'emergency-curricula' },
+] as const;
+
+export const ROUTE_A_RESOURCES: RouteResource[] = ROUTE_A_TOOLS.map(({ point, toolId }) => {
+  const tool = CANONICAL_CRISIS_TOOLS.find((candidate) => candidate.id === toolId);
+  if (!tool?.downloadUrl) throw new Error(`Ruta A: la herramienta «${toolId}» no tiene PDF publicado.`);
+  return { ...tool, downloadUrl: tool.downloadUrl, point };
+});
+
+/**
+ * Kaleo dentro de la Ruta A. A la vista queda lo que hace falta para actuar:
+ * qué es, las dos puertas y el aviso de seguridad. El cómo funciona (premisa,
+ * pilares) va plegado en `more`: es apoyo, no un paso.
+ *
+ * Cada idea se dice UNA vez: los datos de menores y los servicios oficiales
+ * viven solo en `safety`; la cobertura, solo en `summary`.
  */
 export const KALEO_STEP = {
   label: 'Siguiente paso recomendado',
   title: '¿Necesitas orientación para tu comunidad?',
   summary:
-    'Kaleo es el siguiente paso de orientación, no una línea de respuesta inmediata. Describe la necesidad general de tu comunidad educativa para explorar opciones de acompañamiento y posibles conexiones con capacidades o recursos disponibles, según la cobertura y el contexto. No incluyas nombres ni datos sensibles de menores.',
+    'Describe la necesidad general de tu comunidad educativa y explora opciones de acompañamiento y conexiones con capacidades o recursos disponibles, según la cobertura y el contexto.',
   request: {
     label: 'Solicitar orientación y acompañamiento',
     href: 'https://kaleo-sage.vercel.app/inscripcion?via=ruta-a-emergencia',
@@ -152,7 +178,7 @@ export const KALEO_STEP = {
     href: KALEO_DATA.appUrl,
     external: true,
   },
-  flow: 'Ruta A: identificar la necesidad · Kaleo: solicitar orientación',
+  more: 'Cómo funciona Kaleo',
   safety:
-    'Seguridad primero: no ingreses datos sensibles de menores. Kaleo facilita orientación y conexión según la cobertura y los recursos disponibles: no sustituye los servicios oficiales de emergencia, salud o protección. Ante peligro inmediato, contacta los servicios oficiales de emergencia de tu territorio y sigue las instrucciones de las autoridades.',
+    'Seguridad primero: no ingreses nombres ni datos sensibles de menores. Kaleo no es una línea de respuesta inmediata ni sustituye los servicios oficiales de emergencia, salud o protección. Ante peligro inmediato, contacta los servicios oficiales de tu territorio y sigue las instrucciones de las autoridades.',
 } as const;
