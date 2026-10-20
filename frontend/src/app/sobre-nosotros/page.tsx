@@ -1,17 +1,17 @@
 import React from 'react';
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Reveal } from '@/components/motion/Reveal';
-import { AmbientVideo } from '@/components/visuals/AmbientVideo';
 import { ParticleNetwork } from '@/components/visuals/ParticleNetwork';
+import { INSTITUTIONAL_IDENTITY } from '@/domain/entities/Institutional';
 import { PurposeSection } from '@/components/sections/PurposeSection';
 import { EcosystemSection } from '@/components/sections/EcosystemSection';
 import { DeclarationFullSection } from '@/components/sections/DeclarationFullSection';
 import { GovernanceSection } from '@/components/sections/GovernanceSection';
-import { INSTITUTIONAL_IDENTITY } from '@/domain/entities/Institutional';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/sobre-nosotros' },
 };
 
-const ORIGIN_VIDEO = '/Video/Dove_and_dog_in_rain_20260921145005.mp4';
+const ORIGIN_IMAGE = '/recursos/origen-cocoperro-esperanza-lluvia.jpg';
 
 /**
  * La cadena que la red conecta. Es el motivo visual de todo el sitio dicho en
@@ -69,27 +69,36 @@ export default function AboutPage() {
 
             <p className="eyebrow">Sobre Nosotros</p>
             <h1 id="sobre-titulo" className={`display ${styles.heroTitle}`}>
-              Educación para el Desarrollo Sostenible (EDS) y Gestión del Riesgo (GRD){' '}
-              <span className="accent">en las Américas</span>
+              <span className={styles.heroLine}>Educación que transforma.</span>{' '}
+              <span className={`accent ${styles.heroLine}`}>Comunidades que avanzan.</span>
             </h1>
             <p className={`lede ${styles.heroLede}`}>
-              Convertimos escuelas en motores de desarrollo local. Esta es la historia, la tesis y
-              el compromiso que sostienen ese trabajo.
+              Conoce nuestra historia, la tesis que orienta nuestro trabajo y nuestro compromiso con
+              la Educación para el Desarrollo Sostenible (EDS) y la Gestión del Riesgo (GRD) en las
+              Américas.
             </p>
-            <p className={styles.legal}>
-              {INSTITUTIONAL_IDENTITY.legalName} · <strong>NIT {INSTITUTIONAL_IDENTITY.nit}</strong>
-            </p>
+            <p className={styles.legal}>{INSTITUTIONAL_IDENTITY.legalName}</p>
           </div>
         </section>
 
-        {/* ── 01 · Historia de origen ── */}
+        {/* ── 01 · Historia de origen ──
+            La foto vive en una forma orgánica que respira despacio. El recorte
+            guarda la ciudad, el farol y, abajo a la derecha, al perro con la
+            paloma: esa esquina es la menos redondeada para no cortarlos. */}
         <section id="origen" className="section" aria-labelledby="origen-titulo">
           <div className={`shell split split--lead ${styles.origin}`}>
             <Reveal className={styles.originMedia}>
-              <AmbientVideo
-                src={ORIGIN_VIDEO}
-                description="Una paloma blanca posada sobre la cabeza de un perro bajo la lluvia: Esperanza y Cocoperro."
-              />
+              <div className={styles.originFrame}>
+                <Image
+                  src={ORIGIN_IMAGE}
+                  alt="Una calle de ciudad bajo la lluvia. Junto a un farol encendido, un perro callejero sentado mira hacia arriba; una paloma blanca está posada sobre su cabeza."
+                  fill
+                  sizes="(min-width: 900px) 50vw, 100vw"
+                  quality={80}
+                  className={styles.originImage}
+                />
+                <span className={styles.originRim} aria-hidden="true" />
+              </div>
             </Reveal>
 
             <div className={styles.originCopy}>
@@ -106,15 +115,16 @@ export default function AboutPage() {
               </Reveal>
               <Reveal index={2}>
                 <p className={styles.prose}>
-                  Esperanza es una paloma blanca. Cocoperro es un perro. Los dos se encuentran bajo
-                  la lluvia, y esa escena —ella posada sobre su cabeza, los dos sosteniéndose en
-                  medio de la tormenta— es el origen de la fundación.
+                  Cocoperro es un perro callejero. Esperanza es una paloma blanca. Los dos se
+                  encuentran bajo la lluvia, y esa escena —ella posada sobre su cabeza, los dos
+                  sosteniéndose en medio de la tormenta— es el origen de la fundación.
                 </p>
               </Reveal>
               <Reveal index={3}>
                 <p className={styles.prose}>
                   De ahí nace el enfoque: niñas, niños y jóvenes no como receptores pasivos de la
-                  ayuda, sino como los primeros reconstructores del tejido comunitario.
+                  ayuda, sino como los primeros reconstructores del tejido comunitario para
+                  enfrentar los desafíos del presente y del futuro.
                 </p>
               </Reveal>
             </div>
